@@ -8,9 +8,9 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const Hero = () => {
+const HeroSection = () => {
   return (
-    <div id="hero" className="flex flex-col h-screen items-center justify-center">
+    <section id="hero" className="flex flex-col h-screen items-center justify-center">
       <div id="hero-content">
 
       </div>
@@ -20,11 +20,11 @@ const Hero = () => {
         <button>Action 1</button>
         <button>Action 2</button>
       </div>
-    </div>
+    </section>
   );
 }
 
-const Sponsors = () => {
+const SponsorsSection = () => {
   const sponsors = [
     { name: "sponsor 1", image: "https://via.placeholder.com/150" },
     { name: "sponsor 2", image: "https://via.placeholder.com/150" },
@@ -41,45 +41,45 @@ const Sponsors = () => {
   ];
 
   return (
-    <div id="sponsors">
+    <section id="sponsors">
       <div id="sponsors-content" className="flex flex-row justify-evenly overflow-x-scroll">
         {sponsors.map((sponsor, index) => (
             <img src={sponsor.image} alt={sponsor.name} key={index}/>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
-const Events = () => {
+const EventsSection = () => {
   return (
-    <div id="events">
+    <section id="events">
       <div id="events-content">
         <h1>Events</h1>
         <Link to="/event">Check out the upcoming events</Link>
       </div>
-    </div>
+    </section>
   );
 }
 
-const Newsletters = () => {
+const NewslettersSection = () => {
   return (
-    <div id="newsletters">
+    <section id="newsletters">
       <div id="newsletters-content">
         <h1>Newsletters</h1>
         <Link to="/newsletter">See our latest newsletters</Link>
       </div>
-    </div>
+    </section>
   );
 }
 
 export default function Index() {
   return (
     <>
-      <Hero/>
-      <Sponsors/>
-      <Events/>
-      <Newsletters/>
-    </>
+      <HeroSection/>
+      <SponsorsSection/>
+      <EventsSection/>
+      <NewslettersSection/>
+    </> 
   );
 }

@@ -2,8 +2,8 @@ import { Link } from "@remix-run/react";
 
 const Navbar = () => {
   return (
-    <nav>
-      <ul className="flex flex-row justify-between items-center">
+    <nav className="flex flex-row justify-between">
+      <ul className="flex flex-row">
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -15,6 +15,11 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/team">Team</Link>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <Link to="/discord">Join our discord</Link>
         </li>
       </ul>
     </nav>
