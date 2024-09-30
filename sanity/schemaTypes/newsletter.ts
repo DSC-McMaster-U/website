@@ -12,10 +12,10 @@ export const newsletterSchema = defineType({
       validation: Rule => Rule.max(100)
     }),
     defineField({
-      name: 'subtitle',
-      title: 'Subtitle',
-      type: 'string',
-      validation: Rule => Rule.max(150),
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      validation: Rule => Rule.required()
     }),
     defineField({
       name: 'slug',

@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { client } from "~/lib/sanity";
 import { Newsletter } from "~/types/types";
 
@@ -33,13 +33,21 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     return json(newsletter);
 };
 
+export const meta: MetaFunction = ({ data }) => {
+    const newsletter = data as Newsletter;
+    return [
+        { title: `${newsletter.title} | GDSC McMaster U` },
+        { name: "description", content: newsletter.description || "Newsletter" },
+    ];
+};
+
 const NewsletterDetailPage = () => {
     const newsletter = useLoaderData<Newsletter>(); // Get the newsletter data
 
     return (
         <div>
             <h1 className="text-2xl font-bold">{newsletter.title}</h1>
-            <h2 className="text-lg text-gray-600">{newsletter.subtitle}</h2>
+            <h2 className="text-lg text-gray-600">{newsletter.description}</h2>
             <p className="text-xs text-gray-400">{new Date(newsletter._updatedAt).toLocaleDateString()}</p>
             {/* Render the body of the newsletter */}
             

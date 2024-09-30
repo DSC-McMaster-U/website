@@ -1,4 +1,5 @@
-import { json, Link, useLoaderData } from "@remix-run/react";
+import { MetaFunction, json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import { client } from "~/lib/sanity";
 import { Newsletter } from "~/types/types";
 
@@ -15,6 +16,13 @@ export async function loader() {
 
     return json({ newsletters });
 } 
+
+export const meta: MetaFunction = () => {
+    return [
+        { title: "Newsletters | GDSC McMaster U" },
+        { name: "description", content: "Newsletters from GDSC McMaster U" },
+    ];
+};  
 
 const NewsletterPage = () => {
     const { newsletters } = useLoaderData<typeof loader>();

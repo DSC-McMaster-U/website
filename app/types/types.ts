@@ -26,7 +26,7 @@ export interface Newsletter {
   _id: string; // Unique identifier for the document
   _updatedAt: string; // Last updated date of the document in ISO format
   title: string; // Title of the newsletter
-  subtitle?: string; // Optional subtitle for the newsletter
+  description: string; // Description of the newsletter
   slug: {
     current: string; // Slug for the newsletter URL
   };

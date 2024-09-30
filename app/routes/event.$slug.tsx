@@ -1,7 +1,7 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { client } from "~/lib/sanity";
-import { event } from "~/types/types";
+import { Event } from "~/types/types";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const { slug } = params; // Extract the slug from the params
@@ -22,8 +22,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     return json(event);
 };
 
+export const meta: MetaFunction = ({ data }) => {
+    const event = data as Event;
+    return [
+        { title: `${event.title} | GDSC McMaster U` },
+        { name: "description", content: event.description || "Newsletter" },
+    ];
+};
+
 const EventDetailPage = () => {
-    const event = useLoaderData<event>(); // Get the event data
+    const event = useLoaderData<Event>(); // Get the event data
 
     return (
         <div>
