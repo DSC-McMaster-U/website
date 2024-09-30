@@ -9,8 +9,7 @@ Welcome to the GDSC McMaster U Website project repository! 👋
 - [Installation](#installation)
 - [Deployment](#deployment)
 - [Project Structure](#project-structure)
-- [Features](#features)
-- [License](#license)
+- [Contributors](#contributors)
 
 ## General Info
 This project aims to create a modern website for the McMaster chapter of Google Developer Student Club (GDSC). The website is designed to provide information about events, resources, and opportunities for students interested in technology and development.
