@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Set base styles for light and dark mode */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-white text-google-black dark:bg-google-black dark:text-white;
 }
