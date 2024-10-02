@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export const newsletterSchema = defineType({
   name: 'newsletter',
@@ -9,13 +9,13 @@ export const newsletterSchema = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: Rule => Rule.max(100)
+      validation: (Rule) => Rule.max(100),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -25,7 +25,7 @@ export const newsletterSchema = defineType({
         source: 'title',
         maxLength: 96,
       },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'body',
@@ -36,7 +36,7 @@ export const newsletterSchema = defineType({
         { type: 'image', options: { hotspot: true } },
         // You can add more content types as needed, like videos, code blocks, etc.
       ],
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
@@ -49,7 +49,7 @@ export const newsletterSchema = defineType({
       return {
         title: `${title} (${new Date(createdAt).toLocaleDateString()})`,
         subtitle,
-      }
+      };
     },
   },
-})
+});

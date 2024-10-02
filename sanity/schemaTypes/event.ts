@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export const eventSchema = defineType({
   name: 'event',
@@ -9,31 +9,31 @@ export const eventSchema = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: Rule => Rule.required().max(100)
+      validation: (Rule) => Rule.required().max(100),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'startTime',
       title: 'Start Time',
       type: 'datetime',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'endTime',
       title: 'End Time',
       type: 'datetime',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'location',
       title: 'Location',
       type: 'string',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -43,31 +43,31 @@ export const eventSchema = defineType({
         source: 'title',
         maxLength: 96,
       },
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'organizer',
       title: 'Organizer',
       type: 'string',
-      validation: Rule => Rule.required()
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'contactEmail',
       title: 'Contact Email',
       type: 'string',
-      validation: Rule => Rule.email()
+      validation: (Rule) => Rule.email(),
     }),
     defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
-      options: { hotspot: true }
+      options: { hotspot: true },
     }),
     defineField({
       name: 'registrationLink',
       title: 'Registration Link',
       type: 'url',
-      validation: Rule => Rule.uri({ allowRelative: true })
+      validation: (Rule) => Rule.uri({ allowRelative: true }),
     }),
   ],
   preview: {
@@ -79,8 +79,10 @@ export const eventSchema = defineType({
     prepare({ title, date, startTime }) {
       return {
         title: title,
-        subtitle: `${new Date(date).toLocaleDateString()} at ${new Date(startTime).toLocaleTimeString()}`,
-      }
+        subtitle: `${new Date(date).toLocaleDateString()} at ${new Date(
+          startTime
+        ).toLocaleTimeString()}`,
+      };
     },
   },
-})
+});

@@ -3,6 +3,7 @@
 Welcome to the GDSC McMaster U Website project repository! 👋
 
 ## Table of Contents
+
 - [General Info](#general-info)
 - [Technologies Used](#technologies-used)
 - [Contribution](#contribution)
@@ -12,9 +13,11 @@ Welcome to the GDSC McMaster U Website project repository! 👋
 - [Contributors](#contributors)
 
 ## General Info
+
 This project aims to create a modern website for the McMaster chapter of Google Developer Student Club (GDSC). The website is designed to provide information about events, resources, and opportunities for students interested in technology and development.
 
 ### Technologies Used
+
 Below is an overview of the key technologies utilized in this project. Familiarity with these technologies will be beneficial for making contributions:
 
 - **Remix**: A full-stack web framework that provides a seamless development experience.
@@ -26,14 +29,17 @@ Below is an overview of the key technologies utilized in this project. Familiari
 For more detailed information on each technology, be sure to check out their official documentation.
 
 ## Contribution
+
 Everyone in the GDSC McMaster U Chapter is encouraged to contribute to this project! Please take a moment to review our contribution guidelines.
 
 ### Contribution Practices
+
 To contribute to the project, follow these steps:
 
 1. **Create a Branch**: Branching can be done directly within Jira by creating a branch from your ticket. This is the easiest way to branch and ensure correct naming conventions. Ensure you branch off from the `main` branch based on your Jira ticket.
 
 2. **Naming the Branch**: Contribution should mainly be made through feature branches off of main. Name your branch using the prefix `feature/` followed by the auto-generated ticket name.
+
    ```
    feature/YOUR_TICKET_NAME
    ```
@@ -49,6 +55,7 @@ To contribute to the project, follow these steps:
 7. **Delete Branch**: After your changes have been merged, delete your feature branch to help keep our repository clean.
 
 ## Installation
+
 To run this project locally, follow these steps:
 
 1. **Clone the Repository**: Clone the repository to your local machine using the following command:
@@ -56,11 +63,13 @@ To run this project locally, follow these steps:
    git clone
    ```
 2. **Install Dependencies**: Navigate to the project directory and install the project dependencies using npm:
+
    ```bash
    npm install
    ```
 
 3. **Start the Development Server**: Run the following command to start the development server:
+
    ```bash
    npm run dev
    ```
@@ -68,14 +77,17 @@ To run this project locally, follow these steps:
 4. **Open in Browser**: Visit `http://localhost:5173` in your browser to view the project.
 
 ## Deployment
+
 This project is deployed using Firebase Hosting. To deploy the project, follow these steps:
 
 1. **Build the Project**: Use the following command to build the project for deployment:
+
    ```bash
    npm run build
    ```
 
 2. **Deploy to Firebase**: Deploy the project to Firebase Hosting with the following command:
+
    ```bash
    firebase deploy
    ```
@@ -83,6 +95,7 @@ This project is deployed using Firebase Hosting. To deploy the project, follow t
 3. **Open in Browser**: Visit the provided URL to view the live deployment of the project.
 
 ## Project Structure
+
 The project structure is organized as follows:
 
 ```bash
@@ -92,7 +105,7 @@ website
 │   └── index.html
 ├── app
 │   ├── lib
-│   │   ├── ...    
+│   │   ├── ...
 │   ├── components
 │   │   ├── ...
 │   ├── routes
@@ -116,4 +129,5 @@ website
 ```
 
 ## Contributors
+
 - [Aidan Froggatt](https://www.aidanfroggatt.com)

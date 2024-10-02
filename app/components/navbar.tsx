@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from '@remix-run/react';
 
 const Navbar = () => {
   return (
@@ -24,6 +24,6 @@ const Navbar = () => {
       </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;

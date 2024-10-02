@@ -20,7 +20,7 @@ export interface Event {
   }; // Optional image for the event
   registrationLink?: string; // Optional registration link for the event
 }
-  
+
 // Newsletter type
 export interface Newsletter {
   _id: string; // Unique identifier for the document
@@ -35,4 +35,3 @@ export interface Newsletter {
     [key: string]: unknown; // Additional properties depending on the type
   }>; // Body content of the newsletter, can include blocks and images
 }
-  
