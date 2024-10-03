@@ -2,13 +2,13 @@
 import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom', // For testing React components in a browser-like environment
+  preset: 'ts-jest', // Replace this line with the following:
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': 'babel-jest',
   },
+  testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
-    '\\.(css|scss)$': 'identity-obj-proxy', // To mock CSS imports
+    '\\.(css|scss)$': 'identity-obj-proxy',
   },
 };
 
