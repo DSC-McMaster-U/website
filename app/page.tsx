@@ -11,6 +11,7 @@ const HeroSection = () => {
       <p>
         Google Developer Student Club at McMaster University bridges the gap
         between theory and practice through solving real-world problems.
+        Testing TEsting 123
       </p>
       <div className="flex flex-row">
         <button>Action 1</button>
