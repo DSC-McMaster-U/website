@@ -1,7 +1,7 @@
-import { MetaFunction, json } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
-import { client } from '~/lib/sanity';
-import { Newsletter } from '~/types/types';
+import { MetaFunction, json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import { client } from "~/lib/sanity";
+import { Newsletter } from "~/types/types";
 
 export async function loader() {
   const newsletters = await client.fetch(
@@ -19,8 +19,8 @@ export async function loader() {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Newsletters | GDSC McMaster U' },
-    { name: 'description', content: 'Newsletters from GDSC McMaster U' },
+    { title: "Newsletters | GDSC McMaster U" },
+    { name: "description", content: "Newsletters from GDSC McMaster U" },
   ];
 };
 
@@ -38,7 +38,7 @@ const NewsletterPage = () => {
           >
             <Link to={`${newsletter.slug.current}`}>
               <h2 className="text-lg font-bold">{newsletter.title}</h2>
-              <p className="text-sm text-gray-600">{newsletter.subtitle}</p>
+              <p className="text-sm text-gray-600">{newsletter.description}</p>
               <p className="text-xs text-gray-400">
                 {new Date(newsletter._updatedAt).toLocaleDateString()}
               </p>

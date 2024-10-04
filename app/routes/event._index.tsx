@@ -1,7 +1,7 @@
-import { MetaFunction, json } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
-import { client } from '~/lib/sanity';
-import { Event } from '~/types/types';
+import { MetaFunction, json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import { client } from "~/lib/sanity";
+import { Event } from "~/types/types";
 
 export async function loader() {
   const events = await client.fetch(
@@ -16,8 +16,8 @@ export async function loader() {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Events | GDSC McMaster U' },
-    { name: 'description', content: 'Events hosted by GDSC McMaster U' },
+    { title: "Events | GDSC McMaster U" },
+    { name: "description", content: "Events hosted by GDSC McMaster U" },
   ];
 };
 

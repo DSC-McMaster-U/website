@@ -1,10 +1,10 @@
-import type { MetaFunction } from '@remix-run/node';
-import { Link } from '@remix-run/react';
+import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'GDSC McMaster U' },
-    { name: 'description', content: 'Welcome to Remix!' },
+    { title: "GDSC McMaster U" },
+    { name: "description", content: "Welcome to Remix!" },
   ];
 };
 
@@ -30,18 +30,18 @@ const HeroSection = () => {
 
 const SponsorsSection = () => {
   const sponsors = [
-    { name: 'sponsor 1', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 2', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 3', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 4', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 5', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 6', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 7', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 8', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 9', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 10', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 11', image: 'https://via.placeholder.com/150' },
-    { name: 'sponsor 12', image: 'https://via.placeholder.com/150' },
+    { name: "sponsor 1", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 2", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 3", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 4", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 5", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 6", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 7", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 8", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 9", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 10", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 11", image: "https://via.placeholder.com/150" },
+    { name: "sponsor 12", image: "https://via.placeholder.com/150" },
   ];
 
   return (

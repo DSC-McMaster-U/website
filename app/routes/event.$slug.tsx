@@ -1,7 +1,7 @@
-import { LoaderFunctionArgs, MetaFunction, json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { client } from '~/lib/sanity';
-import { Event } from '~/types/types';
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { client } from "~/lib/sanity";
+import { Event } from "~/types/types";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { slug } = params; // Extract the slug from the params
@@ -16,7 +16,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   );
 
   if (!event) {
-    throw new Response('Not Found', { status: 404 });
+    throw new Response("Not Found", { status: 404 });
   }
 
   return json(event);
@@ -26,7 +26,7 @@ export const meta: MetaFunction = ({ data }) => {
   const event = data as Event;
   return [
     { title: `${event.title} | GDSC McMaster U` },
-    { name: 'description', content: event.description || 'Newsletter' },
+    { name: "description", content: event.description || "Newsletter" },
   ];
 };
 

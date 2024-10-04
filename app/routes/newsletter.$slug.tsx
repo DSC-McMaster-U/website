@@ -1,7 +1,7 @@
-import { LoaderFunctionArgs, MetaFunction, json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { client } from '~/lib/sanity';
-import { Newsletter } from '~/types/types';
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { client } from "~/lib/sanity";
+import { Newsletter } from "~/types/types";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { slug } = params; // Extract the slug from the params
@@ -27,7 +27,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   );
 
   if (!newsletter) {
-    throw new Response('Not Found', { status: 404 });
+    throw new Response("Not Found", { status: 404 });
   }
 
   return json(newsletter);
@@ -37,7 +37,7 @@ export const meta: MetaFunction = ({ data }) => {
   const newsletter = data as Newsletter;
   return [
     { title: `${newsletter.title} | GDSC McMaster U` },
-    { name: 'description', content: newsletter.description || 'Newsletter' },
+    { name: "description", content: newsletter.description || "Newsletter" },
   ];
 };
 

@@ -1,14 +1,14 @@
-import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
-import { visionTool } from '@sanity/vision';
-import { schemaTypes } from './schemaTypes';
+import { defineConfig } from "sanity";
+import { structureTool } from "sanity/structure";
+import { visionTool } from "@sanity/vision";
+import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
-  name: 'default',
-  title: 'GDSC McMaster U',
+  name: "default",
+  title: "GDSC McMaster U",
 
-  projectId: 'ryafbpz8',
-  dataset: 'production',
+  projectId: "ryafbpz8",
+  dataset: "production",
 
   plugins: [structureTool(), visionTool()],
 

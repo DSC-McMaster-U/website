@@ -1,9 +1,9 @@
-import { MetaFunction } from '@remix-run/node';
+import { MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Team | GDSC McMaster U' },
-    { name: 'description', content: 'Our team here at GDSC McMaster U' },
+    { title: "Team | GDSC McMaster U" },
+    { name: "description", content: "Our team here at GDSC McMaster U" },
   ];
 };
 
