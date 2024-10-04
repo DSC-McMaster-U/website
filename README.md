@@ -24,6 +24,7 @@ Below is an overview of the key technologies utilized in this project. Familiari
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development, following Material Design principles.
 - **Sanity CMS**: A customizable content management system that allows for easy content updates.
 - **Firebase Hosting**: Fast and secure hosting for web applications.
+- **Jest**: Testing library.
 - **GitHub Actions**: CI/CD for automating workflows and deployments.
 
 For more detailed information on each technology, be sure to check out their official documentation.
@@ -48,11 +49,13 @@ To contribute to the project, follow these steps:
 
 4. **Push Changes**: Once you are ready, push your changes to the remote repository.
 
-5. **Create a Pull Request**: After pushing changes, create a pull request to merge your feature branch into `main`. Be sure to link your Jira ticket in the pull request description.
+5. **Test Changes**: Before you are ready to deliver your changes they must be tested. Write a suite of unit tests using Jest to ensure the correctness of your code.
 
-6. **Review and Merge**: Your pull request will be reviewed by a team member. Once approved, your changes will be merged into the `main` branch.
+6. **Create a Pull Request**: After pushing changes, create a pull request to merge your feature branch into `main`. Be sure to link your Jira ticket in the pull request description.
 
-7. **Delete Branch**: After your changes have been merged, delete your feature branch to help keep our repository clean.
+7. **Review and Merge**: Your pull request will be reviewed by a team member. Once approved, your changes will be merged into the `main` branch.
+
+8. **Delete Branch**: After your changes have been merged, delete your feature branch to help keep our repository clean.
 
 ## Installation
 
