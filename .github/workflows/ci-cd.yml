@@ -27,6 +27,14 @@ jobs:
         with:
           node-version: '20' # use the Node.js version suitable for your app
 
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
@@ -44,6 +52,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20' # use the Node.js version suitable for your app
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
@@ -63,10 +79,21 @@ jobs:
         with:
           node-version: '20' # use the Node.js version suitable for your app
 
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
       - name: Build
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
         run: npm run build
 
   deploy:
@@ -81,13 +108,22 @@ jobs:
         with:
           node-version: '20' # use the Node.js version suitable for your app
 
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
-      # - name: Deploy
-      #   run: |
-      #     # Add your deployment command here
-      #     # For example, if using Vercel:
-      #     npx vercel --prod
-      #   env:
-      #     VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Make sure to add your Vercel token in GitHub secrets
+      - name: Deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Make sure to add your Vercel token in GitHub secrets
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+        run: |
+          # Add your deployment command here
+          npx vercel --prod
