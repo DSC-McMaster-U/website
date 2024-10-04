@@ -1,4 +1,7 @@
-import { eventSchema } from "./event";
-import { newsletterSchema } from "./newsletter";
+import { type SchemaTypeDefinition } from 'sanity'
+import { eventSchema } from './event'
+import { newsletterSchema } from './newsletter'
 
-export const schemaTypes = [eventSchema, newsletterSchema];
+export const schema: { types: SchemaTypeDefinition[] } = {
+  types: [eventSchema, newsletterSchema],
+}

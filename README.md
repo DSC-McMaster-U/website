@@ -20,7 +20,7 @@ This project aims to create a modern website for the McMaster chapter of Google 
 
 Below is an overview of the key technologies utilized in this project. Familiarity with these technologies will be beneficial for making contributions:
 
-- **Remix**: A full-stack web framework that provides a seamless development experience.
+- **Next.JS**: A full-stack web framework that provides a seamless development experience.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development, following Material Design principles.
 - **Sanity CMS**: A customizable content management system that allows for easy content updates.
 - **Firebase Hosting**: Fast and secure hosting for web applications.
@@ -100,32 +100,45 @@ The project structure is organized as follows:
 
 ```bash
 website
-├── public
-│   ├── favicon.ico
-│   └── index.html
 ├── app
-│   ├── lib
+│   ├── __tests__
 │   │   ├── ...
 │   ├── components
 │   │   ├── ...
-│   ├── routes
+│   ├── events
 │   │   ├── ...
-│   ├── types
+│   ├── newsletters
 │   │   ├── ...
-│   ├── root.tsx
-│   ├── entry.client.tsx
-│   └── entry.server.tsx
-│   └── tailwind.css
-├── .eslintrc.cjs
-├── .firebaserc
+│   ├── studio
+│   │   ├── ...
+│   ├── global.css
+│   ├── icon.svg
+│   └── layout.tsx
+│   └── page.tsx
+├── sanity
+│   ├── lib
+│   │   ├── ...
+│   ├── schemaTypes
+│   │   ├── ...
+│   ├── env.ts
+│   └── structure.ts
+├── types
+│   └── sanity.ts
+├── .env.local
+├── .eslint.json
 ├── .gitignore
+├── jest.config.ts
+├── jest.setup.ts
+├── next-env.d.ts
+├── next.config.mjs
 ├── package-lock.json
 ├── package.json
-├── postcss.config.js
+├── postcss.config.mjs
 ├── README.md
+├── sanity.cli.ts
+├── sanity.config.ts
 ├── tailwind.config.ts
-├── tsconfig.json
-└── vite.config.ts
+└── tsconfig.json
 ```
 
 ## Contributors
