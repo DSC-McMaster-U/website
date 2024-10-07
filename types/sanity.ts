@@ -35,3 +35,18 @@ export interface Event {
       [key: string]: unknown; // Additional properties depending on the type
     }>; // Body content of the newsletter, can include blocks and images
   }
+
+  // Sponsor Schema Type
+export interface Sponsor {
+  _id: string;                // Unique identifier for the document
+  _type: 'sponsor';           // Document type
+  name: string;               // The name of the sponsor
+  logo: {
+    _type: 'image';           // Image type
+    asset: {
+      _ref: string;           // Reference to the image asset
+      _type: 'reference';     // Reference type
+    };
+  };  
+  website: string;            // The website of the sponsor
+}

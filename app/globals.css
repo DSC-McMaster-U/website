@@ -34,3 +34,11 @@ h6 {
 p {
   @apply text-base sm:text-lg lg:text-xl;
 }
+
+main {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+section {
+  @apply py-8 sm:py-12 lg:py-16;
+}
