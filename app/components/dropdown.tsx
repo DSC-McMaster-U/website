@@ -48,7 +48,7 @@ interface DropdownItemProps {
     description?: string;
 }
 
-export const DropdownLink: React.FC<DropdownItemProps> = ({ href, label, icon, description }) => {
+export const DropdownItem: React.FC<DropdownItemProps> = ({ href, label, icon, description }) => {
     return (
         <Link href={href} className="block whitespace-nowrap w-full text-google-grey hover:text-google-black dark:hover:text-white transition-colors duration-200">
             <div className="flex flex-row items-center gap-x-2">
