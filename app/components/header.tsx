@@ -14,7 +14,7 @@ interface DropdownMenuProps {
 	links: { href: string; label: string; description: string; icon: JSX.Element }[];
 }
   
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ name, links }) => (
+const DropdownMenu = ({ name, links }: DropdownMenuProps) => (
 	<Dropdown name={name}>
 		<ul className="flex flex-col gap-y-4">
 		{links.map((link, index) => (
@@ -31,7 +31,7 @@ interface AccordionMenuProps {
 	links: { href: string; label: string; icon: JSX.Element }[];
 }
   
-const AccordionMenu: React.FC<AccordionMenuProps> = ({ name, links }) => (
+const AccordionMenu = ({ name, links }: AccordionMenuProps) => (
 	<Accordion title={name}>
 		{links.map((link, index) => (
 		<AccordionItem key={index} href={link.href} label={link.label} icon={link.icon} />
@@ -92,11 +92,7 @@ const Header = () => {
       <div className="hidden lg:flex">
         <SocialMediaIcons />
       </div>
-
-      {/* Full-screen popup toggle */}
       <FiMenu onClick={() => setPopupOpen(true)} className="dark:text-white hover:text-google-grey transition-colors duration-200 cursor-pointer lg:hidden w-6 h-6" />
-
-      {/* Popup content */}
       {isPopupOpen && (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
           <div className="flex flex-col gap-y-8 bg-white dark:bg-google-black rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
