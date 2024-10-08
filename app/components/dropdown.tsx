@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({ name, children }) => {
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
                 onClick={handleToggle}
-                className="flex items-center gap-x-1 px-3 py-1 rounded-full hover:text-google-grey cursor-pointer transition-colors duration-200"
+                className="flex items-center gap-x-1 px-3 py-1 rounded-full group group-hover:text-google-grey cursor-pointer transition-colors duration-200"
             >
                 {name}
                 <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
