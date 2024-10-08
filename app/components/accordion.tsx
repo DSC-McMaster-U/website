@@ -21,7 +21,7 @@ export const AccordionItem = ({href, label, icon}: AccordionItemProps) => {
 }
 
 interface AccordionProps {
-	children: React.ReactNode,
+	children?: React.ReactNode,
 	title: string
 }
 
