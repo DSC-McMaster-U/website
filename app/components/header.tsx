@@ -68,77 +68,79 @@ const Header = () => {
 	];
 
   	return (
-		<header className="flex flex-row justify-between fixed z-50 bg-white dark:bg-google-black w-full p-4">
-			<div className="flex flex-row items-center h-full gap-x-8">
-				<Link href="/">
-					<Image src={Icon} alt="Icon" className="h-6 w-auto" />
-				</Link>
-				<nav className="lg:flex hidden flex-row text-base">
-					<ul className="flex flex-row items-center justify-start">
-						{navLinks.map((navLink, index) => (
-							<li key={index} className="relative cursor-default group text-google-black dark:text-white">
-								{navLink.links ? (
-									<DropdownMenu name={navLink.name} links={navLink.links} />
-								) : (
-									<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 px-3 hover:text-google-grey cursor-pointer">
-										{navLink.name}
-									</Link>
-								)}
-							</li>
-						))}
-					</ul>
-				</nav>
-			</div>
-		<div className="hidden lg:flex">
-			<SocialMediaIcons />
-		</div>
-		<button
-			tabIndex={0}
-			role="button"
-			aria-label="Close popup"
-			onClick={() => setPopupOpen(true)} 
-			className="dark:text-white hover:text-google-grey transition-colors duration-200 cursor-pointer lg:hidden" 
-		>
-			<FiMenu className="w-6 h-6"/>
-		</button>
-		{isPopupOpen && (
-			<div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
-				<div className="flex flex-col gap-y-8 bg-white dark:bg-google-black rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
-					<div className="flex justify-between items-center">
-						<Link href="/" onClick={() => setPopupOpen(false)}>
-							<Image src={Icon} alt="Icon" className="h-6 w-auto" />
-						</Link>	
-						<button
-							role="button"
-							aria-label="Close popup"
-							onClick={() => setPopupOpen(false)} 
-							className="cursor-pointer text-google-black dark:text-white hover:text-google-grey transition-colors duration-200" 
-						>
-							<FiX className="w-6 h-6"/>
-						</button>
-					</div>
-					<nav>
-						<ul className="flex flex-col">
+		<div className="flex justify-center fixed z-50 bg-white dark:bg-google-black w-full">
+			<header className="flex flex-row justify-between w-full">
+				<div className="flex flex-row items-center h-full gap-x-8">
+					<Link href="/">
+						<Image src={Icon} alt="Icon" className="h-6 w-auto" />
+					</Link>
+					<nav className="lg:flex hidden flex-row text-base">
+						<ul className="flex flex-row items-center justify-start">
 							{navLinks.map((navLink, index) => (
-								<li key={index} className="group">
+								<li key={index} className="relative cursor-default group text-google-black dark:text-white">
 									{navLink.links ? (
-										<AccordionMenu name={navLink.name} links={navLink.links} />
+										<DropdownMenu name={navLink.name} links={navLink.links} />
 									) : (
-									navLink.href && (
-										<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 hover:text-google-grey cursor-pointer">
+										<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 px-3 hover:text-google-grey cursor-pointer">
 											{navLink.name}
 										</Link>
-									)
 									)}
 								</li>
 							))}
 						</ul>
 					</nav>
-					<SocialMediaIcons />
 				</div>
+			<div className="hidden lg:flex">
+				<SocialMediaIcons />
 			</div>
-		)}
-		</header>
+			<button
+				tabIndex={0}
+				role="button"
+				aria-label="Close popup"
+				onClick={() => setPopupOpen(true)} 
+				className="dark:text-white hover:text-google-grey transition-colors duration-200 cursor-pointer lg:hidden" 
+			>
+				<FiMenu className="w-6 h-6"/>
+			</button>
+			{isPopupOpen && (
+				<div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+					<div className="flex flex-col gap-y-8 bg-white dark:bg-google-black rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
+						<div className="flex justify-between items-center">
+							<Link href="/" onClick={() => setPopupOpen(false)}>
+								<Image src={Icon} alt="Icon" className="h-6 w-auto" />
+							</Link>	
+							<button
+								role="button"
+								aria-label="Close popup"
+								onClick={() => setPopupOpen(false)} 
+								className="cursor-pointer text-google-black dark:text-white hover:text-google-grey transition-colors duration-200" 
+							>
+								<FiX className="w-6 h-6"/>
+							</button>
+						</div>
+						<nav>
+							<ul className="flex flex-col">
+								{navLinks.map((navLink, index) => (
+									<li key={index} className="group">
+										{navLink.links ? (
+											<AccordionMenu name={navLink.name} links={navLink.links} />
+										) : (
+										navLink.href && (
+											<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 hover:text-google-grey cursor-pointer">
+												{navLink.name}
+											</Link>
+										)
+										)}
+									</li>
+								))}
+							</ul>
+						</nav>
+						<SocialMediaIcons />
+					</div>
+				</div>
+			)}
+			</header>
+		</div>
   );
 };
 
