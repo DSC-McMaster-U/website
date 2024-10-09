@@ -42,3 +42,8 @@ main {
 section {
   @apply py-8 sm:py-12 lg:py-16;
 }
+
+header {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply py-4 sm:py-6 lg:py-8;
+}

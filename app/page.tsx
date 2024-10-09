@@ -6,43 +6,6 @@ import { urlFor } from "@/sanity/lib/image";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
 
-// Fetching data for the homepage sections
-async function fetchSponsors() {
-  return await client.fetch(
-    `*[_type == 'sponsor']{
-      _id,
-      name,
-      logo,
-      website,
-    }`
-  );
-}
-
-async function fetchLatestNewsletter() {
-  return await client.fetch(
-    `*[_type == "newsletter"] | order(_createdAt desc)[0]{
-      _id,
-      title,
-      slug,
-      description,
-      _createdAt
-    }`
-  );
-}
-
-async function fetchUpcomingEvent() {
-  return await client.fetch(
-    `*[_type == "event" && startTime > now()] | order(startTime asc)[0]{
-      _id,
-      title,
-      slug,
-      description,
-      startTime,
-      location,
-    }`
-  );
-}
-
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
     <div id="hero-content">
@@ -60,7 +23,14 @@ const HeroSection = () => (
 );
 
 const SponsorsSection = async () => {
-  const sponsors = await fetchSponsors();
+  const sponsors = await client.fetch(
+    `*[_type == 'sponsor']{
+      _id,
+      name,
+      logo,
+      website,
+    }`
+  );
 
   if (!sponsors.length) {
     return <p>No sponsors available</p>;
@@ -79,33 +49,17 @@ const SponsorsSection = async () => {
   );
 };
 
-const NewslettersSection = async () => {
-  const latestNewsletter = await fetchLatestNewsletter();
-
-  if (!latestNewsletter) {
-    return <p>No newsletters available</p>;
-  }
-
-  return (
-    <section id="newsletters">
-      <h2>Latest Newsletter</h2>
-      <div>
-        <h3>{latestNewsletter.title}</h3>
-        <p>{latestNewsletter.description}</p>
-        <p>Published on: {new Date(latestNewsletter._createdAt).toLocaleDateString()}</p>
-        <Link href={`/newsletters/${latestNewsletter.slug.current}`}>
-          <button>Read Latest Newsletter</button>
-        </Link>
-        <Link href="/newsletters">
-          <button>View All Newsletters</button>
-        </Link>
-      </div>
-    </section>
-  );
-};
-
 const EventsSection = async () => {
-  const upcomingEvent = await fetchUpcomingEvent();
+  const upcomingEvent = await client.fetch(
+    `*[_type == "event" && startTime > now()] | order(startTime asc)[0]{
+      _id,
+      title,
+      slug,
+      description,
+      startTime,
+      location,
+    }`
+  );
 
   if (!upcomingEvent) {
     return <p>No upcoming events available</p>;
@@ -132,7 +86,39 @@ const EventsSection = async () => {
   );
 };
 
-// Main page component using Server Components
+const NewslettersSection = async () => {
+  const latestNewsletter = await client.fetch(
+    `*[_type == "newsletter"] | order(_createdAt desc)[0]{
+      _id,
+      title,
+      slug,
+      description,
+      _createdAt
+    }`
+  );
+
+  if (!latestNewsletter) {
+    return <p>No newsletters available</p>;
+  }
+
+  return (
+    <section id="newsletters">
+      <h2>Latest Newsletter</h2>
+      <div>
+        <h3>{latestNewsletter.title}</h3>
+        <p>{latestNewsletter.description}</p>
+        <p>Published on: {new Date(latestNewsletter._createdAt).toLocaleDateString()}</p>
+        <Link href={`/newsletters/${latestNewsletter.slug.current}`}>
+          <button>Read Latest Newsletter</button>
+        </Link>
+        <Link href="/newsletters">
+          <button>View All Newsletters</button>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
 export default async function Index() {
   return (
     <>
@@ -140,8 +126,8 @@ export default async function Index() {
       <main>
         <HeroSection />
         <SponsorsSection />
-        <NewslettersSection />
         <EventsSection />
+        <NewslettersSection />
       </main>
       <Footer />
     </>
