@@ -42,15 +42,22 @@ const SponsorsSection = async () => {
     return <p>No sponsors available</p>;
   }
 
-  const sponsorImages = sponsors.map((sponsor: Sponsor) => ({
-    id: sponsor._id,
-    src: urlFor(sponsor.logo.asset).url(),
-    alt: sponsor.name,
-  }));
-
   return (
     <section id="sponsors" className="flex flex-col justify-center items-center w-full">
-      <Ticker items={sponsorImages} />
+      <Ticker>
+        {sponsors.map((sponsor: Sponsor) => (
+          <li key={sponsor._id}>
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32">
+                <Image 
+                    src={urlFor(sponsor.logo.asset).url()} 
+                    alt={`${sponsor.name} logo`} 
+                    fill 
+                    style={{ objectFit: "contain" }} 
+                />
+            </div>
+          </li>
+        ))}
+      </Ticker>
     </section>
   );
 };
