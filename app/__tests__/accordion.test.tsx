@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Accordion, { AccordionItem } from '@/app/components/accordion';
+import Accordion, { AccordionItem } from '@/app/components/Accordion';
 
 describe('Accordion', () => {
     it('renders with the correct title', () => {

@@ -18,6 +18,15 @@ export const eventSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "type",
+      title: "Type",
+      type: "string",
+      options: {
+        list: ["Workshop", "Conference", "Hackathon", "Meetup"],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "startTime",
       title: "Start Time",
       type: "datetime",
@@ -62,6 +71,7 @@ export const eventSchema = defineType({
       title: "Image",
       type: "image",
       options: { hotspot: true },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "registrationLink",

@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'hover-none': { raw: '(hover: none)' }, // custom media query for devices that don't have hover
+      },
       fontFamily: {
         sans: [
           '"Noto Sans"',
@@ -48,6 +51,11 @@ export default {
           to: { transform: 'translateX(-100%)' },
         },
       },
+    },
+  },
+  variants: {
+    extend: {
+      translate: ['group-hover', 'hover-none'],  // Extend translate variant to support hover-none
     },
   },
   darkMode: "media",
