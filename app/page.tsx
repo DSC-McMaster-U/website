@@ -6,7 +6,11 @@ import { urlFor } from "@/sanity/lib/image";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/footer";
 import { Event } from "@/types/sanity";
-import AnimatedEventCard from "@/app/components/AnimatedEventCard";
+import ImageCTACard from "@/app/components/ImageCTACard";
+import Image from "next/image";
+import Tag from "@/app/components/Tag";
+import { ChevronArrowSpan } from "@/app/components/ChevronArrow";
+import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
 
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
@@ -69,19 +73,51 @@ const EventsSection = async () => {
     return <p>No upcoming events available</p>;
   }
 
+  const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string } } = {
+    Workshop: { icon: <MdHandyman className="w-6 h-6 text-google-green dark:text-google-lightGreen" />, color: 'text-google-green dark:text-google-lightGreen' },
+    Conference: { icon: <MdForum className="w-6 h-6 text-google-blue dark:text-google-lightBlue" />, color: 'text-google-blue dark:text-google-lightBlue' },
+    Hackathon: { icon: <MdCode className="w-6 h-6 text-googleRed dark:text-google-lightRed" />, color: 'text-googleRed dark:text-google-lightRed' },
+    Meetup: { icon: <MdGroup className="w-6 h-6 text-google-yellow dark:text-google-lightYellow" />, color: 'text-google-yellow dark:text-google-lightYellow' },
+};
+
   return (
     <section id="events" className="flex flex-col gap-y-8">
       <h2>Upcoming Events</h2>
       <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
         { upcomingEvents.map((event: Event) => {
+          const { icon, color } = eventTypeStyles[event.type] || { icon: null, color: 'google-blue' };
           return (
-            <AnimatedEventCard 
+            <ImageCTACard
               key={event._id}
-              title={event.title}
-              description={event.description}
-              type={event.type}
-              image={event.image}
-              slug={event.slug}
+              Image={
+                <Image
+                    src={urlFor(event.image).url()}
+                    alt={event.image.asset.altText || event.title}
+                    fill
+                    className="object-cover transition-opacity rounded-md duration-300"
+                />
+              }
+              Content={
+                <>
+                  <Tag className="bg-google-lightGrey dark:bg-google-black">
+                    {icon}
+                    <span className="text-sm">{event.type}</span>
+                  </Tag><div className="transition-transform duration-300 ease-in-out">
+                    <h5>{event.title}</h5>
+                    <p className="text-google-grey dark:text-google-lightGrey">{event.description}</p>
+                  </div>
+                </>
+              }
+              CTA={
+                <Link
+                    href={`/events/${event.slug.current}`}  
+                    className={`${color} hover:text-google-black dark:hover:text-white text-lg flex items-center transition-colors duration-200 w-fit`}
+                >
+                    <ChevronArrowSpan>
+                        Learn more
+                    </ChevronArrowSpan>
+                </Link>
+              }
             />
           )
         })
