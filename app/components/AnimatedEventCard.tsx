@@ -22,11 +22,11 @@ interface AnimatedEventCardProps {
 }
 
 // Create a map for both icons and link colors
-const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string, hexColor: string } } = {
-    Workshop: { icon: <MdHandyman className="w-6 h-6 text-google-lightGreen" />, color: 'google-lightGreen', hexColor: "#CEEAD6" },
-    Conference: { icon: <MdForum className="w-6 h-6 text-google-lightBlue" />, color: 'google-lightBlue', hexColor: "#D2E3FC" },
-    Hackathon: { icon: <MdCode className="w-6 h-6 text-google-lightRed" />, color: 'google-lightRed', hexColor: "#FAD2CF" },
-    Meetup: { icon: <MdGroup className="w-6 h-6 text-google-lightYellow" />, color: 'google-lightYellow', hexColor: "#FEEFC3" },
+const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string } } = {
+    Workshop: { icon: <MdHandyman className="w-6 h-6 text-google-green dark:text-google-lightGreen" />, color: 'text-google-green dark:text-google-lightGreen' },
+    Conference: { icon: <MdForum className="w-6 h-6 text-google-blue dark:text-google-lightBlue" />, color: 'text-google-blue dark:text-google-lightBlue' },
+    Hackathon: { icon: <MdCode className="w-6 h-6 text-googleRed dark:text-google-lightRed" />, color: 'text-googleRed dark:text-google-lightRed' },
+    Meetup: { icon: <MdGroup className="w-6 h-6 text-google-yellow dark:text-google-lightYellow" />, color: 'text-google-yellow dark:text-google-lightYellow' },
 };
 
 const AnimatedEventCard = ({
@@ -40,7 +40,7 @@ const AnimatedEventCard = ({
     const { icon, color } = eventTypeStyles[type] || { icon: null, color: 'google-blue' };
 
     return (
-        <div className="relative group w-full h-[32rem] bg-google-grey bg-opacity-10 border border-google-black rounded-md overflow-hidden shadow-lg p-1">
+        <div className="relative group w-full h-[32rem] bg-white dark:bg-google-grey dark:bg-opacity-10 rounded-md overflow-hidden shadow-lg p-1">
             
             {/* Graphic Section */}
             <div className="relative h-72 overflow-hidden rounded-md transition-all duration-200 ease-in-out hover-none:h-64 group-hover:h-64 bg-google-black">
@@ -54,13 +54,13 @@ const AnimatedEventCard = ({
 
             {/* Content Section */}
             <div className="p-4 flex flex-col gap-y-2">
-                <Tag className="bg-google-black">
+                <Tag className="bg-google-lightGrey dark:bg-google-black">
                     {icon}
                     <span className="text-sm">{type}</span>
                 </Tag>
                 <div className="transition-transform duration-300 ease-in-out">
                     <h5>{title}</h5>
-                    <p className="text-google-lightGrey">{description}</p>
+                    <p className="text-google-grey dark:text-google-lightGrey">{description}</p>
                 </div>
             </div>
 
@@ -68,7 +68,7 @@ const AnimatedEventCard = ({
             <div className="absolute bottom-0 left-0 w-full p-4 transition-transform duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0 hover-none:translate-y-0">
                 <Link
                     href={`/events/${slug.current}`}  
-                    className={`text-${color} hover:text-white text-lg flex items-center transition-colors duration-200 w-fit`}
+                    className={`${color} hover:text-google-black dark:hover:text-white text-lg flex items-center transition-colors duration-200 w-fit`}
                 >
                     <ChevronArrowSpan>
                         Learn more

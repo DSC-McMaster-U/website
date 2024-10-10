@@ -68,7 +68,7 @@ const Header = () => {
 	];
 
   	return (
-		<div className="flex justify-center fixed z-50 bg-white dark:bg-google-black w-full">
+		<div className="flex justify-center fixed z-50 bg-google-lightGrey dark:bg-google-black w-full">
 			<header className="flex flex-row justify-between w-full">
 				<div className="flex flex-row items-center h-full gap-x-8">
 					<Link href="/">
@@ -104,7 +104,7 @@ const Header = () => {
 			</button>
 			{isPopupOpen && (
 				<div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
-					<div className="flex flex-col gap-y-8 bg-white dark:bg-google-black rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
+					<div className="flex flex-col gap-y-8 bg-google-lightGrey dark:bg-google-black rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
 						<div className="flex justify-between items-center">
 							<Link href="/" onClick={() => setPopupOpen(false)}>
 								<Image src={Icon} alt="Icon" className="h-6 w-auto" />
