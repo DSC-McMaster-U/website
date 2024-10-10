@@ -4,6 +4,7 @@ export interface Event {
     _updatedAt: string; // Last updated date of the document in ISO format
     title: string; // Title of the event
     description: string; // Description of the event
+    type: string; // Type of the event (e.g., 'Workshop', 'Talk', 'Conference')
     startTime: string; // Start time of the event in ISO format
     endTime: string; // End time of the event in ISO format
     location: string; // Location of the event
@@ -12,10 +13,11 @@ export interface Event {
     };
     organizer: string; // Organizer of the event
     contactEmail?: string; // Contact email for the event (optional)
-    image?: {
+    image: {
       asset: {
         _id: string; // ID of the image asset
         url: string; // URL of the image
+        altText: string; // Alt text for the image
       };
     }; // Optional image for the event
     registrationLink?: string; // Optional registration link for the event

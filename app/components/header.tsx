@@ -6,8 +6,8 @@ import Image from "next/image";
 import Icon from "@/app/icon.svg";
 import { FiMenu, FiX, FiCalendar, FiStar } from "react-icons/fi";
 import { socialMedia } from "@/app/constants/socialMedia";
-import Dropdown, { DropdownItem } from "@/app/components/dropdown";
-import Accordion, { AccordionItem } from "@/app/components/accordion";
+import Dropdown, { DropdownItem } from "@/app/components/Dropdown";
+import Accordion, { AccordionItem } from "@/app/components/Accordion";
 
 interface DropdownMenuProps {
 	name: string;

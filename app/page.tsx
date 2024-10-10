@@ -1,10 +1,12 @@
 import { client } from "@/sanity/lib/client";
 import { Sponsor } from "@/types/sanity";
 import Link from "next/link";
-import Ticker from "@/app/components/ticker";
+import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
-import Header from "@/app/components/header";
+import Header from "@/app/components/Header";
 import Footer from "@/app/components/footer";
+import { Event } from "@/types/sanity";
+import AnimatedEventCard from "@/app/components/AnimatedEventCard";
 
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
@@ -50,37 +52,40 @@ const SponsorsSection = async () => {
 };
 
 const EventsSection = async () => {
-  const upcomingEvent = await client.fetch(
-    `*[_type == "event" && startTime > now()] | order(startTime asc)[0]{
+  const upcomingEvents = await client.fetch(
+    `*[_type == "event" && startTime > now()] | order(startTime asc){
       _id,
       title,
+      image,
       slug,
       description,
+      type,
       startTime,
-      location,
+      location
     }`
   );
 
-  if (!upcomingEvent) {
+  if (!upcomingEvents) {
     return <p>No upcoming events available</p>;
   }
 
   return (
-    <section id="events">
-      <h2>Upcoming Event</h2>
-      <div>
-        <h3>{upcomingEvent.title}</h3>
-        <p>{upcomingEvent.description}</p>
-        <p>Location: {upcomingEvent.location}</p>
-        <p>
-          Date: {new Date(upcomingEvent.startTime).toLocaleDateString()} at {new Date(upcomingEvent.startTime).toLocaleTimeString()}
-        </p>
-        <Link href={`/events/${upcomingEvent.slug.current}`}>
-          <button>View Event</button>
-        </Link>
-        <Link href="/events">
-          <button>View All Events</button>
-        </Link>
+    <section id="events" className="flex flex-col">
+      <h2>Upcoming Events</h2>
+      <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
+        { upcomingEvents.map((event: Event) => {
+          return (
+            <AnimatedEventCard 
+              key={event._id}
+              title={event.title}
+              description={event.description}
+              type={event.type}
+              image={event.image}
+              slug={event.slug}
+            />
+          )
+        })
+        }
       </div>
     </section>
   );
