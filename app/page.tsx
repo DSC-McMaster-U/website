@@ -70,7 +70,7 @@ const EventsSection = async () => {
   }
 
   return (
-    <section id="events" className="flex flex-col">
+    <section id="events" className="flex flex-col gap-y-8">
       <h2>Upcoming Events</h2>
       <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
         { upcomingEvents.map((event: Event) => {

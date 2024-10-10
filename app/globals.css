@@ -12,7 +12,7 @@ h1 {
 }
 
 h2 {
-  @apply text-4xl sm:text-5xl lg:text-6xl font-bold pb-2 sm:pb-4 lg:pb-8;
+  @apply text-4xl sm:text-5xl lg:text-6xl font-bold;
 }
 
 h3 {
