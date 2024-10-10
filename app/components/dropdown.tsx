@@ -54,7 +54,7 @@ const Dropdown = ({ name, children }: DropdownProps) => {
             </button>
 
             {isDropdownOpen && (
-                <div className="drop-shadow absolute left-0 rounded-lg bg-white dark:bg-google-black">
+                <div className="drop-shadow absolute left-0 rounded-lg bg-google-lightGrey dark:bg-google-black">
                     {children}
                 </div>
             )}

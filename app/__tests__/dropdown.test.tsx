@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Dropdown, { DropdownItem } from '@/app/components/dropdown';
+import Dropdown, { DropdownItem } from '@/app/components/Dropdown';
 
 describe('Dropdown', () => {
     it('renders with the correct name', () => {
