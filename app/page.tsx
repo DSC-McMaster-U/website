@@ -153,15 +153,7 @@ const NewslettersSection = async () => {
     <section id="newsletters">
       <h2>Latest Newsletter</h2>
       <div>
-        <h3>{latestNewsletter.title}</h3>
-        <p>{latestNewsletter.description}</p>
-        <p>Published on: {new Date(latestNewsletter._createdAt).toLocaleDateString()}</p>
-        <Link href={`/newsletters/${latestNewsletter.slug.current}`}>
-          <button>Read Latest Newsletter</button>
-        </Link>
-        <Link href="/newsletters">
-          <button>View All Newsletters</button>
-        </Link>
+
       </div>
     </section>
   );
