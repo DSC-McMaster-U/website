@@ -12,6 +12,7 @@ import Tag from "@/app/components/Tag";
 import { ChevronArrowSpan } from "@/app/components/ChevronArrow";
 import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
 
+
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
     <div id="hero-content">
