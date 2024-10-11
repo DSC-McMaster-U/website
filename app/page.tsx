@@ -170,31 +170,14 @@ const NewslettersSection = async () => {
             </ChevronArrowSpan>
           </Link>
         </div>
-        <div id="carousel" className="relative w-full h-fit rounded-md shadow-lg bg-google-grey bg-opacity-10 pb-4">
-          <div id="carousel-cards"  className="flex flex-row items-center h-fit w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth no-scrollbar">
-            <GradientCard>
-              <h4>{latestNewsletter.title}</h4>
-              <p>{latestNewsletter.description}</p>
-              <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
-                <ChevronArrowButton className="bg-google-black text-lg">
-                  Read the full newsletter
-                </ChevronArrowButton>
-              </Link>
-            </GradientCard>
-            <GradientCard>
-              <h4>{latestNewsletter.title}</h4>
-              <p>{latestNewsletter.description}</p>
-              <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
-                <ChevronArrowButton className="bg-google-black text-lg">
-                  Read the full newsletter
-                </ChevronArrowButton>
-              </Link>
-            </GradientCard>
-          </div>
-          <div id="tabs" className="flex flex-row gap-x-1 justify-center items-center absolute w-fit h-fit bottom-4 left-1/2 translate-x-[50%]">
-            <div className="w-4 h-1 bg-white" />
-            <div className="w-4 h-1 bg-white" />
-          </div>
+        <div className="flex flex-shrink-0 snap-center flex-col gap-y-6 w-full h-fit p-4 bg-google-grey bg-opacity-10 shadow-lg rounded-md">
+          <h4>{latestNewsletter.title}</h4>
+          <p>{latestNewsletter.description}</p>
+          <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
+            <ChevronArrowButton className="bg-google-black text-lg">
+              Read the full story
+            </ChevronArrowButton>
+          </Link>
         </div>
       </div>
     </section>
