@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'hover-none': { raw: '(hover: none)' }, // custom media query for devices that don't have hover
+      },
       fontFamily: {
         sans: [
           '"Noto Sans"',
@@ -39,6 +42,20 @@ export default {
           black: "#202124",
         },
       },
+      animation: {
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
+      },
+    },
+  },
+  variants: {
+    extend: {
+      translate: ['group-hover', 'hover-none'],  // Extend translate variant to support hover-none
     },
   },
   darkMode: "media",

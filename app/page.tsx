@@ -1,14 +1,22 @@
+import { client } from "@/sanity/lib/client";
+import { Sponsor } from "@/types/sanity";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLinkedin, faGithub, faYoutube, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import Ticker from "@/app/components/Ticker";
+import { urlFor } from "@/sanity/lib/image";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import { Event } from "@/types/sanity";
+import ImageCTACard from "@/app/components/ImageCTACard";
+import Image from "next/image";
+import Tag from "@/app/components/Tag";
+import { ChevronArrowSpan } from "@/app/components/ChevronArrow";
+import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
 
-const HeroSection = () => {
-  return (
-    <section
-      id="hero"
-      className="flex flex-col h-screen items-center justify-center"
-    >
-      <div id="hero-content"></div>
+const HeroSection = () => (
+  <section id="hero" className="min-h-screen flex justify-center items-center text-center">
+    <div id="hero-content">
       <h1>Connect, Learn, and Develop</h1>
       <p>
         Google Developer Student Club at McMaster University bridges the gap
@@ -18,57 +26,144 @@ const HeroSection = () => {
         <button>Action 1</button>
         <button>Action 2</button>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
-const SponsorsSection = () => {
-  const sponsors = [
-    { name: "sponsor 1", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 2", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 3", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 4", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 5", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 6", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 7", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 8", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 9", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 10", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 11", image: "https://via.placeholder.com/150" },
-    { name: "sponsor 12", image: "https://via.placeholder.com/150" },
-  ];
+const SponsorsSection = async () => {
+  const sponsors = await client.fetch(
+    `*[_type == 'sponsor']{
+      _id,
+      name,
+      logo,
+      website,
+    }`
+  );
+
+  if (!sponsors.length) {
+    return <p>No sponsors available</p>;
+  }
 
   return (
-    <section id="sponsors">
-      <div
-        id="sponsors-content"
-        className="flex flex-row justify-evenly overflow-x-scroll"
-      >
-        {sponsors.map((sponsor, index) => (
-          <img src={sponsor.image} alt={sponsor.name} key={index} />
+    <section id="sponsors" className="flex flex-col justify-center items-center w-full">
+      <Ticker>
+        {sponsors.map((sponsor: Sponsor) => (
+          <li key={sponsor._id}>
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32">
+                <Image 
+                    src={urlFor(sponsor.logo.asset).url()} 
+                    alt={`${sponsor.name} logo`} 
+                    fill 
+                    style={{ objectFit: "contain" }} 
+                />
+            </div>
+          </li>
         ))}
-      </div>
+      </Ticker>
     </section>
   );
 };
 
-const EventsSection = () => {
+const EventsSection = async () => {
+  const upcomingEvents = await client.fetch(
+    `*[_type == "event" && startTime > now()] | order(startTime asc){
+      _id,
+      title,
+      image,
+      slug,
+      description,
+      type,
+      startTime,
+      location
+    }`
+  );
+
+  if (!upcomingEvents) {
+    return <p>No upcoming events available</p>;
+  }
+
+  const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string } } = {
+    Workshop: { icon: <MdHandyman className="w-6 h-6 text-google-green dark:text-google-lightGreen" />, color: 'text-google-green dark:text-google-lightGreen' },
+    Conference: { icon: <MdForum className="w-6 h-6 text-google-blue dark:text-google-lightBlue" />, color: 'text-google-blue dark:text-google-lightBlue' },
+    Hackathon: { icon: <MdCode className="w-6 h-6 text-googleRed dark:text-google-lightRed" />, color: 'text-googleRed dark:text-google-lightRed' },
+    Meetup: { icon: <MdGroup className="w-6 h-6 text-google-yellow dark:text-google-lightYellow" />, color: 'text-google-yellow dark:text-google-lightYellow' },
+};
+
   return (
-    <section id="events">
-      <div id="events-content">
-        <h1>Events</h1>
-        <Link href="/events">Check out the upcoming events</Link>
+    <section id="events" className="flex flex-col gap-y-8">
+      <h2>Upcoming Events</h2>
+      <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
+        { upcomingEvents.map((event: Event) => {
+          const { icon, color } = eventTypeStyles[event.type] || { icon: null, color: 'google-blue' };
+          return (
+            <ImageCTACard
+              key={event._id}
+              Image={
+                <Image
+                    src={urlFor(event.image).url()}
+                    alt={event.image.asset.altText || event.title}
+                    fill
+                    className="object-cover transition-opacity rounded-md duration-300"
+                />
+              }
+              Content={
+                <>
+                  <Tag className="bg-google-lightGrey dark:bg-google-black">
+                    {icon}
+                    <span className="text-sm">{event.type}</span>
+                  </Tag><div className="transition-transform duration-300 ease-in-out">
+                    <h5>{event.title}</h5>
+                    <p className="text-google-grey dark:text-google-lightGrey">{event.description}</p>
+                  </div>
+                </>
+              }
+              CTA={
+                <Link
+                    href={`/events/${event.slug.current}`}  
+                    className={`${color} hover:text-google-black dark:hover:text-white text-lg flex items-center transition-colors duration-200 w-fit`}
+                >
+                    <ChevronArrowSpan>
+                        Learn more
+                    </ChevronArrowSpan>
+                </Link>
+              }
+            />
+          )
+        })
+        }
       </div>
     </section>
   );
 };
 
-const NewslettersSection = () => {
+const NewslettersSection = async () => {
+  const latestNewsletter = await client.fetch(
+    `*[_type == "newsletter"] | order(_createdAt desc)[0]{
+      _id,
+      title,
+      slug,
+      description,
+      _createdAt
+    }`
+  );
+
+  if (!latestNewsletter) {
+    return <p>No newsletters available</p>;
+  }
+
   return (
     <section id="newsletters">
-      <div id="newsletters-content">
-        <h1>Newsletters</h1>
-        <Link href="/newsletters">See our latest newsletters</Link>
+      <h2>Latest Newsletter</h2>
+      <div>
+        <h3>{latestNewsletter.title}</h3>
+        <p>{latestNewsletter.description}</p>
+        <p>Published on: {new Date(latestNewsletter._createdAt).toLocaleDateString()}</p>
+        <Link href={`/newsletters/${latestNewsletter.slug.current}`}>
+          <button>Read Latest Newsletter</button>
+        </Link>
+        <Link href="/newsletters">
+          <button>View All Newsletters</button>
+        </Link>
       </div>
     </section>
   );
@@ -143,14 +238,13 @@ const Footer = () => {
 }
 
 
-export default function Index() {
+export default async function Index() {
   return (
     <>
       <HeroSection />
       <SponsorsSection />
       <EventsSection />
       <NewslettersSection />
-      <Footer />
     </>
   );
 }
