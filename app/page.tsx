@@ -4,7 +4,7 @@ import Link from "next/link";
 import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
 import Header from "@/app/components/Header";
-import Footer from "@/app/components/footer";
+import Footer from "@/app/components/Footer";
 import { Event } from "@/types/sanity";
 import ImageCTACard from "@/app/components/ImageCTACard";
 import Image from "next/image";
