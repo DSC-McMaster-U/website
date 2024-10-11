@@ -47,3 +47,15 @@ header {
   @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   @apply py-2 sm:py-4 lg:py-6;
 }
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}

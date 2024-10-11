@@ -9,8 +9,9 @@ import { Event } from "@/types/sanity";
 import ImageCTACard from "@/app/components/ImageCTACard";
 import Image from "next/image";
 import Tag from "@/app/components/Tag";
-import { ChevronArrowSpan } from "@/app/components/ChevronArrow";
+import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
 import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
+import GradientCard from "./components/GradientCard";
 
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
@@ -89,7 +90,7 @@ const EventsSection = async () => {
 
   return (
     <section id="events" className="flex flex-col gap-y-8">
-      <h2>Upcoming Events</h2>
+      <h2>Events</h2>
       <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
         { upcomingEvents.map((event: Event) => {
           const { icon, color } = eventTypeStyles[event.type] || { icon: null, color: 'google-blue' };
@@ -150,18 +151,51 @@ const NewslettersSection = async () => {
   }
 
   return (
-    <section id="newsletters">
-      <h2>Latest Newsletter</h2>
-      <div>
-        <h3>{latestNewsletter.title}</h3>
-        <p>{latestNewsletter.description}</p>
-        <p>Published on: {new Date(latestNewsletter._createdAt).toLocaleDateString()}</p>
-        <Link href={`/newsletters/${latestNewsletter.slug.current}`}>
-          <button>Read Latest Newsletter</button>
-        </Link>
-        <Link href="/newsletters">
-          <button>View All Newsletters</button>
-        </Link>
+    <section id="newsletters" className="flex flex-col gap-y-8">
+      <h2>Newsletters</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className="flex flex-col gap-y-6">
+          <p>
+            GDSC at McMaster University&apos;s newsletter is a monthly publication
+            that highlights the latest news and updates in the tech industry.
+          </p>
+          <p>
+            Read the latest newsletter to stay up-to-date with the latest trends
+            and developments in the tech industry. The newsletter is published
+            to our website and sent to subscribers via email.
+          </p>
+          <Link href="/newsletters">
+            <ChevronArrowSpan className="text-lg">
+              View all newsletters
+            </ChevronArrowSpan>
+          </Link>
+        </div>
+        <div id="carousel" className="relative w-full h-fit rounded-md shadow-lg bg-google-grey bg-opacity-10 pb-4">
+          <div id="carousel-cards"  className="flex flex-row items-center h-fit w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth no-scrollbar">
+            <GradientCard>
+              <h4>{latestNewsletter.title}</h4>
+              <p>{latestNewsletter.description}</p>
+              <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
+                <ChevronArrowButton className="bg-google-black text-lg">
+                  Read the full newsletter
+                </ChevronArrowButton>
+              </Link>
+            </GradientCard>
+            <GradientCard>
+              <h4>{latestNewsletter.title}</h4>
+              <p>{latestNewsletter.description}</p>
+              <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
+                <ChevronArrowButton className="bg-google-black text-lg">
+                  Read the full newsletter
+                </ChevronArrowButton>
+              </Link>
+            </GradientCard>
+          </div>
+          <div id="tabs" className="flex flex-row gap-x-1 justify-center items-center absolute w-fit h-fit bottom-4 left-1/2 translate-x-[50%]">
+            <div className="w-4 h-1 bg-white" />
+            <div className="w-4 h-1 bg-white" />
+          </div>
+        </div>
       </div>
     </section>
   );
