@@ -90,15 +90,14 @@ const TeamPage = () => {
   return (
     <>
       <Header />
-      <main className="pt-28 ">
-        <h2 className="text-center mb-8">Our Team @ GDSC McMaster U</h2>
+      <main className="pt-32">
+        <h3 className="text-center mb-8">Our Team @ GDSC McMaster U</h3>
 
         {teams.map((team, idx) => (
-          <section id={team.sectionId} key={idx} className="w-full">
+          <section id={team.sectionId} key={idx} className="px-8 sm:px-0 w-full">
             <h5 className="mb-6">{team.name}</h5>
 
-            {/* put into flex grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {team.members.map((member, _idx) => (
                 <div>
                   <MemberCard
