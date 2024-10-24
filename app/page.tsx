@@ -10,7 +10,7 @@ import ImageCTACard from "@/app/components/ImageCTACard";
 import Image from "next/image";
 import Tag from "@/app/components/Tag";
 import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
-import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
+import { MdHandyman, MdForum, MdCode, MdGroup, MdArticle, MdCalendarToday, MdLightbulb } from "react-icons/md";
 import newsletter from "@/assets/illustrations/newsletter.svg";
 
 const HeroSection = () => (
@@ -146,32 +146,43 @@ const NewslettersSection = async () => {
     }`
   );
 
+  const newsletterCount = await client.fetch(
+    `count(*[_type == "newsletter"])`
+  );
+
   if (!latestNewsletter) {
     return <p>No newsletters available</p>;
   }
 
   return (
-    <section id="newsletters" className="flex flex-col gap-y-8">
-      <h2>Newsletters</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col gap-y-6">
-          <div className="flex flex-col gap-y-2">
-            <h6>What?</h6>
-            <p>GDSC McMaster U presents a newsletter covering all things tech, from the latest frameworks, to news, and much more!</p>
+      <section id="newsletters" className="flex flex-col gap-y-8">
+        <h2>Newsletters</h2>
+        <div className="flex flex-col md:flex-row md:gap-x-8 md:gap-y-0 gap-y-8 md:items-center">
+          <h6 className="md:w-4/5 dark:text-google-lightGrey text-google-grey">Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</h6>
+          <div className="md:w-1/5 flex flex-col gap-y-2">
+            <h5>{newsletterCount}</h5>
+            <p className="text-sm"><span className="text-google-darkGrey dark:text-google-lightGrey">Monthly newsletters</span> available to read.</p>
           </div>
-          <div className="flex flex-col gap-y-2">
-            <h6>When?</h6>
-            <p>The newsletter is delivered once at the beginning of every month.</p>
-          </div>
-          <div className="flex flex-col gap-y-2">
-            <h6>Why?</h6>
-            <p>To keep you up-to-date with the latest and greatest in the industry!</p>
-          </div>
-          <Link href="/newsletters" className="w-fit">
-            <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
-              View all newsletters
-            </ChevronArrowSpan>
-          </Link>
+        </div>
+        <Link href="/newsletters" className="w-fit">
+          <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
+            <h6>View all newsletters</h6>
+          </ChevronArrowSpan>
+        </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="flex flex-col gap-y-6">
+            <div className="flex flex-col gap-y-2">
+              <h6 className="flex flex-row items-center gap-x-1"><MdArticle/>What?</h6>
+              <p>Newsletters covering the latest and greatest in all things tech!</p>
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <h6 className="flex flex-row items-center gap-x-1"><MdCalendarToday/>When?</h6>
+              <p>The newsletter is delivered once at the beginning of every month.</p>
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <h6 className="flex flex-row items-center gap-x-1"><MdLightbulb/>Why?</h6>
+              <p>To keep you up-to-date with the latest and greatest in the industry.</p>
+            </div>
         </div>
         <div className="relative flex flex-col w-full h-auto shadow-lg rounded-md overflow-hidden">
           {/* Image with gradient overlay */}
@@ -195,7 +206,7 @@ const NewslettersSection = async () => {
           <div className="bg-white dark:bg-google-darkGrey px-6 pb-8 flex flex-col gap-y-6">
             <p>{latestNewsletter.description}</p>
             <Link href={`newsletters/${latestNewsletter.slug.current}`} className="w-fit">
-              <ChevronArrowButton className="bg-google-black hover:bg-google-grey transition-colors duration-200 text-google-lightGrey dark:bg-google-lightGrey dark:text-black">
+              <ChevronArrowButton className="bg-google-darkGrey hover:bg-google-grey transition-colors duration-200 text-google-lightGrey dark:bg-google-lightGrey dark:text-black">
                 Read the newsletter
               </ChevronArrowButton>
             </Link>
