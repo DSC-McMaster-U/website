@@ -1,10 +1,21 @@
 import "@/styles/ChevronArrow.css";
 import "@/styles/ChevronArrow.css";
 
-export const ChevronArrowSpan = ({ children }: { children: React.ReactNode }) => {
+export const ChevronArrowButton = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+    return (
+        <button 
+            className={`${className} flex flex-row justify-between items-center button-arrow gap-x-1 px-4 py-1 rounded-full backdrop-blur`}
+        >
+            {children}
+            <ChevronArrow/>
+        </button>
+    );
+};
+
+export const ChevronArrowSpan = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     return (
         <span 
-            className={`flex flex-row justify-between items-center button-arrow text-neutral-light gap-x-1 rounded-full backdrop-blur`}
+            className={`${className} flex flex-row items-center button-arrow gap-x-1 rounded-full backdrop-blur`}
         >
             {children}
             <ChevronArrow/>

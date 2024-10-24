@@ -39,6 +39,7 @@ export default {
           lightGreen: "#CEEAD6",
           lightGrey: "#F1F3F4",
           grey: "#9AA0A6",
+          darkGrey: "#2C2E31",
           black: "#202124",
         },
       },
@@ -50,6 +51,9 @@ export default {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-100%)' },
         },
+      },
+      backgroundImage: {
+        'newsletter-card-gradient': '',
       },
     },
   },
