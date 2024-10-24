@@ -11,7 +11,7 @@ import Image from "next/image";
 import Tag from "@/app/components/Tag";
 import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
 import { MdHandyman, MdForum, MdCode, MdGroup } from "react-icons/md";
-import GradientCard from "./components/GradientCard";
+import newsletter from "@/assets/illustrations/newsletter.svg";
 
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
@@ -153,31 +153,53 @@ const NewslettersSection = async () => {
   return (
     <section id="newsletters" className="flex flex-col gap-y-8">
       <h2>Newsletters</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex flex-col gap-y-6">
-          <p>
-            GDSC at McMaster University&apos;s newsletter is a monthly publication
-            that highlights the latest news and updates in the tech industry.
-          </p>
-          <p>
-            Read the latest newsletter to stay up-to-date with the latest trends
-            and developments in the tech industry. The newsletter is published
-            to our website and sent to subscribers via email.
-          </p>
-          <Link href="/newsletters">
-            <ChevronArrowSpan className="text-lg">
+          <div className="flex flex-col gap-y-2">
+            <h6>What?</h6>
+            <p>GDSC McMaster U presents a newsletter covering all things tech, from the latest frameworks, to news, and much more!</p>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <h6>When?</h6>
+            <p>The newsletter is delivered once at the beginning of every month.</p>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <h6>Why?</h6>
+            <p>To keep you up-to-date with the latest and greatest in the industry!</p>
+          </div>
+          <Link href="/newsletters" className="w-fit">
+            <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
               View all newsletters
             </ChevronArrowSpan>
           </Link>
         </div>
-        <div className="flex flex-shrink-0 snap-center flex-col gap-y-6 w-full h-fit p-4 bg-google-grey bg-opacity-10 shadow-lg rounded-md">
-          <h4>{latestNewsletter.title}</h4>
-          <p>{latestNewsletter.description}</p>
-          <Link href={`/newsletters/${latestNewsletter.slug.current}`} className="w-fit">
-            <ChevronArrowButton className="bg-google-black text-lg">
-              Read the full story
-            </ChevronArrowButton>
-          </Link>
+        <div className="relative flex flex-col w-full h-auto shadow-lg rounded-md overflow-hidden">
+          {/* Image with gradient overlay */}
+          <div className="relative h-52">
+            <Image
+              src={newsletter}
+              alt="Newsletter illustration"
+              fill
+              className="object-cover object-top"
+            />
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-google-darkGrey to-transparent" />
+            {/* Title/logo centered */}
+            <div className="absolute inset-0 flex justify-center items-center">
+              <h4 className="text-center">
+                {latestNewsletter.title}
+              </h4>
+            </div>
+          </div>
+          {/* Content section */}
+          <div className="bg-white dark:bg-google-darkGrey px-6 pb-8 flex flex-col gap-y-6">
+            <p>{latestNewsletter.description}</p>
+            <Link href={`newsletters/${latestNewsletter.slug.current}`} className="w-fit">
+              <ChevronArrowButton className="bg-google-black hover:bg-google-grey transition-colors duration-200 text-google-lightGrey dark:bg-google-lightGrey dark:text-black">
+                Read the newsletter
+              </ChevronArrowButton>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
