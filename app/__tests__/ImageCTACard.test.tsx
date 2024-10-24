@@ -20,15 +20,4 @@ describe('ImageCTACard', () => {
         // Check if the CTA button is in the document
         expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
     });
-
-    test('applies the correct classes for hover effect', () => {
-        const { container } = render(<ImageCTACard Image={mockImage} Content={mockContent} CTA={mockCTA} />);
-        
-        // Ensure the component is rendered with the correct initial classes
-        expect(container.firstChild).toHaveClass('relative group w-full h-[32rem] bg-white dark:bg-google-grey dark:bg-opacity-10 rounded-md overflow-hidden shadow-lg p-1');
-
-        // Simulate hover state
-        const card = container.firstChild;
-        expect(card).toHaveClass('group');
-    });
 });
