@@ -13,6 +13,7 @@ import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronAr
 import { MdHandyman, MdForum, MdCode, MdGroup, MdArticle, MdCalendarToday, MdLightbulb } from "react-icons/md";
 import newsletter from "@/assets/illustrations/newsletter.svg";
 
+
 const HeroSection = () => (
   <section id="hero" className="min-h-screen flex justify-center items-center text-center">
     <div id="hero-content">
