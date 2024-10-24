@@ -167,7 +167,7 @@ const NewslettersSection = async () => {
         </div>
         <Link href="/newsletters" className="w-fit">
           <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
-            <h6>View all newsletters</h6>
+            <h6 className="hover:text-google-grey duration-200 transition-colors">View all newsletters</h6>
           </ChevronArrowSpan>
         </Link>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
