@@ -12,23 +12,46 @@ import Tag from "@/app/components/Tag";
 import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
 import { MdHandyman, MdForum, MdCode, MdGroup, MdArticle, MdCalendarToday, MdLightbulb } from "react-icons/md";
 import newsletter from "@/assets/illustrations/newsletter.svg";
+import hero from "@/assets/illustrations/hero.png";
+import { socialMedia } from "./constants/socialMedia";
 
+const HeroSection = () => {
+  const joinUsHref = socialMedia.find((media) => media.name === "Discord")?.href;
 
-const HeroSection = () => (
-  <section id="hero" className="min-h-screen flex justify-center items-center text-center">
-    <div id="hero-content">
-      <h1>Connect, Learn, and Develop</h1>
-      <p>
-        Google Developer Student Club at McMaster University bridges the gap
-        between theory and practice through solving real-world problems.
-      </p>
-      <div className="flex flex-row">
-        <button>Action 1</button>
-        <button>Action 2</button>
+  return (
+    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0 pt-20 md:pt-28 lg:pt-40 justify-center items-center">
+      <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
+        <h1>Google Developer Student Club</h1>
+        <h5>McMaster University</h5>
+        <p>
+          Google Developer Student Club at McMaster University bridges the gap
+          between theory and practice through solving real-world problems.
+        </p>
+        <div className="flex flex-row gap-x-4">
+          <Link href="/events">
+            <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
+              <span className="font-semibold">See our events</span>
+            </ChevronArrowButton>
+          </Link>
+          { joinUsHref && (
+            <Link href={joinUsHref} rel="norefferer" target="_blank">
+              <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
+                <span className="font-semibold">Join us</span>
+              </ChevronArrowButton>
+            </Link>
+          )}
+        </div>
       </div>
-    </div>
-  </section>
-);
+      <div className="md:w-1/3">
+        <Image 
+          src={hero}
+          alt="Roundtable" 
+          className="object-cover w-full h-full"
+        />
+      </div>
+    </section>
+  );
+};
 
 const SponsorsSection = async () => {
   const sponsors = await client.fetch(
@@ -167,7 +190,7 @@ const NewslettersSection = async () => {
         </div>
         <Link href="/newsletters" className="w-fit">
           <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
-            <h6>View all newsletters</h6>
+            <h6 className="hover:text-google-grey duration-200 transition-colors">View all newsletters</h6>
           </ChevronArrowSpan>
         </Link>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
