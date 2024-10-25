@@ -29,13 +29,13 @@ const HeroSection = () => {
         </p>
         <div className="flex flex-row gap-x-4">
           <Link href="/events">
-            <ChevronArrowButton className="bg-google-lightGrey text-google-black border-2 border-google-black">
+            <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
               <span className="font-semibold">See our events</span>
             </ChevronArrowButton>
           </Link>
           { joinUsHref && (
             <Link href={joinUsHref} rel="norefferer" target="_blank">
-              <ChevronArrowButton className="bg-google-black text-google-lightGrey border-2 border-google-lightGrey">
+              <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
                 <span className="font-semibold">Join us</span>
               </ChevronArrowButton>
             </Link>
