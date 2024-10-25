@@ -243,11 +243,15 @@ const NewslettersSection = async () => {
 
 export default async function Index() {
   return (
-    <main>
-      <HeroSection />
-      <SponsorsSection />
-      <EventsSection />
-      <NewslettersSection />
-    </main>
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <SponsorsSection />
+        <EventsSection />
+        <NewslettersSection />
+      </main>
+      <Footer />
+    </>
   );
 }
