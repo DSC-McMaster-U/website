@@ -19,7 +19,7 @@ const HeroSection = () => {
   const joinUsHref = socialMedia.find((media) => media.name === "Discord")?.href;
 
   return (
-    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0 pt-20 md:pt-28 lg:pt-40 justify-center items-center">
+    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
         <h1>Google Developer Student Club</h1>
         <h5>McMaster University</h5>
@@ -243,15 +243,11 @@ const NewslettersSection = async () => {
 
 export default async function Index() {
   return (
-    <>
-      <Header />
-      <main>
-        <HeroSection />
-        <SponsorsSection />
-        <EventsSection />
-        <NewslettersSection />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <HeroSection />
+      <SponsorsSection />
+      <EventsSection />
+      <NewslettersSection />
+    </main>
   );
 }
