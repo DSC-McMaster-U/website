@@ -1,7 +1,9 @@
 import { client } from "@/sanity/lib/client";
 import { Newsletter } from "@/types/sanity";
 import { Metadata } from "next";
-import Link from "next/link";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import LinkTitleCard from "@/app/components/LinkTitleCard";
 
 export const metadata: Metadata = {
     title: "Newsletters | GDSC McMaster U",
@@ -12,7 +14,7 @@ const fetchNewsletters = async () => {
   const newsletters = await client.fetch(
     `*[_type == 'newsletter']{
             title,
-            subtitle,
+            description,
             slug,
             body,
             _updatedAt
@@ -21,30 +23,32 @@ const fetchNewsletters = async () => {
   return newsletters;
 };
 
-const NewsletterPage = async () => {
+const NewslettersPage = async () => {
   const newsletters: Newsletter[] = await fetchNewsletters();
 
   return (
-    <div>
-      <h1>Newsletters</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {newsletters.map((newsletter) => (
-          <div
-            key={newsletter.slug.current}
-            className="border rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200"
-          >
-            <Link href={`/newsletters/${newsletter.slug.current}`}>
-              <h2 className="text-lg font-bold">{newsletter.title}</h2>
-              <p className="text-sm text-gray-600">{newsletter.description}</p>
-              <p className="text-xs text-gray-400">
-                {new Date(newsletter._updatedAt).toLocaleDateString()}
-              </p>
-            </Link>
+    <>
+      <Header />
+        <main>
+        <section id="newsletters" className="flex flex-col gap-y-4">
+          <h2>Newsletters</h2>
+          <p>Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-10">
+            {newsletters.map((newsletter) => (
+              <LinkTitleCard
+                key={newsletter.slug.current}
+                title={newsletter.title}
+                link={`/newsletters/${newsletter.slug.current}`}
+              >
+                <p>{newsletter.description}</p>
+              </LinkTitleCard>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 };
 
-export default NewsletterPage;
+export default NewslettersPage;
