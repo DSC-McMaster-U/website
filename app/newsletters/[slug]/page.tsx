@@ -1,7 +1,8 @@
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextComponentProps, PortableTextReactComponents } from "@portabletext/react";
 import { client } from "@/sanity/lib/client";
 import { Newsletter } from "@/types/sanity";
 import Image from "next/image";
+import Link from "next/link";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 
@@ -36,7 +37,7 @@ const fetchNewsletter = async (slug: string) => {
     return newsletter;
 };
 
-const serializers = {
+const serializers: Partial<PortableTextReactComponents> = {
     types: {
         image: ({ value }: { value: { asset: { url: string }; alt?: string } }) => (
             <div className="my-4">
@@ -51,10 +52,10 @@ const serializers = {
         ),
     },
     marks: {
-        link: ({ children, value }: { children: React.ReactNode; value: { href: string } }) => (
-            <a href={value.href} target="_blank" rel="noopener noreferrer" className="newsletter-a">
+        link: ({ children, value }: { children: React.ReactNode; value?: { href: string } }) => (
+            <Link href={value?.href ?? "#"} target="_blank" rel="noopener noreferrer" className="newsletter-a">
                 {children}
-            </a>
+            </Link>
         ),
         strong: ({ children }: { children: React.ReactNode }) => (
             <strong className="font-bold">{children}</strong>
@@ -64,20 +65,20 @@ const serializers = {
         ),
     },
     block: {
-        h1: ({ children }: { children: React.ReactNode }) => <h1 className="newsletter-h1">{children}</h1>,
-        h2: ({ children }: { children: React.ReactNode }) => <h2 className="newsletter-h2">{children}</h2>,
-        h3: ({ children }: { children: React.ReactNode }) => <h3 className="newsletter-h3">{children}</h3>,
-        normal: ({ children }: { children: React.ReactNode }) => <p className="newsletter-p">{children}</p>,
-        ul: ({ children }: { children: React.ReactNode }) => (
+        h1: ({ children }: PortableTextComponentProps<unknown>) => <h1 className="newsletter-h1">{children}</h1>,
+        h2: ({ children }: PortableTextComponentProps<unknown>) => <h2 className="newsletter-h2">{children}</h2>,
+        h3: ({ children }: PortableTextComponentProps<unknown>) => <h3 className="newsletter-h3">{children}</h3>,
+        normal: ({ children }: PortableTextComponentProps<unknown>) => <p className="newsletter-p">{children}</p>,
+        ul: ({ children }: PortableTextComponentProps<unknown>) => (
             <ul className="newsletter-ul">{children}</ul>
         ),
-        li: ({ children }: { children: React.ReactNode }) => (
+        li: ({ children }: PortableTextComponentProps<unknown>) => (
             <li className="newsletter-li">{children}</li>
         ),
     },
     listItem: {
-        bullet: ({ children }: { children: React.ReactNode }) => <li className="newsletter-bullet">{children}</li>,
-        number: ({ children }: { children: React.ReactNode }) => (
+        bullet: ({ children }: PortableTextComponentProps<unknown>) => <li className="newsletter-bullet">{children}</li>,
+        number: ({ children }: PortableTextComponentProps<unknown>) => (
             <li className="newsletter-number">{children}</li>
         ),
     }
