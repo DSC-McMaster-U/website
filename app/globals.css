@@ -32,7 +32,7 @@ h6 {
 }
 
 p {
-  @apply text-sm sm:text-base lg:text-lg dark:text-google-lightGrey text-google-grey;
+  @apply text-sm sm:text-base lg:text-lg dark:text-google-lightGrey text-google-darkGrey;
 }
 
 main {
@@ -77,11 +77,11 @@ header {
 }
 
 .newsletter-p {
-  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey;
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }
 
 .newsletter-a {
-  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey underline transition-colors duration-200;
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey underline transition-colors duration-200;
 }
 
 .newsletter-a:hover {
@@ -89,17 +89,17 @@ header {
 }
 
 .newsletter-ul {
-  @apply list-disc list-inside text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey;
+  @apply list-disc list-inside text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }
 
 .newsletter-li {
-  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey;
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }
 
 .newsletter-bullet {
-  @apply list-inside list-disc text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey;
+  @apply list-inside list-disc text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }
 
 .newsletter-number {
-  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-grey;
+  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }

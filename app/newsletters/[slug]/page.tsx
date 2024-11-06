@@ -104,7 +104,7 @@ const NewsletterDetailPage = async ({ params }: { params: { slug: string } }) =>
             <Header />
             <main>
                 <section id="newsletter" className="flex flex-col gap-y-4">
-                    <div className="flex flex-col gap-y-4 pb-12 mb-12 border-b-2 border-l-google-lightGrey">
+                    <div className="flex flex-col gap-y-4 pb-12 mb-12 border-b-2 border-google-darkGrey dark:border-google-lightGrey">
                         <h2>{newsletter.title}</h2>
                         <h5>{newsletter.description}</h5>
                         <p>{formattedDate}</p>

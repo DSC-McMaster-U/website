@@ -136,7 +136,7 @@ const EventsSection = async () => {
                     <span className="text-sm">{event.type}</span>
                   </Tag><div className="transition-transform duration-300 ease-in-out">
                     <h5>{event.title}</h5>
-                    <p className="text-google-grey dark:text-google-lightGrey">{event.description}</p>
+                    <p>{event.description}</p>
                   </div>
                 </>
               }
@@ -182,7 +182,7 @@ const NewslettersSection = async () => {
       <section id="newsletters" className="flex flex-col gap-y-8">
         <h2>Newsletters</h2>
         <div className="flex flex-col md:flex-row md:gap-x-8 md:gap-y-0 gap-y-8 md:items-center">
-          <h6 className="md:w-4/5 dark:text-google-lightGrey text-google-grey">Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</h6>
+          <h6 className="md:w-4/5">Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</h6>
           <div className="md:w-1/5 flex flex-col gap-y-2">
             <h5>{newsletterCount}</h5>
             <p className="text-sm"><span className="text-google-darkGrey dark:text-google-lightGrey">Monthly newsletters</span> available to read.</p>
