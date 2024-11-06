@@ -38,7 +38,7 @@ const fetchNewsletter = async (slug: string) => {
 
 const serializers = {
     types: {
-        image: ({ value }: { value: any }) => (
+        image: ({ value }: { value: unknown }) => (
             <div className="my-4">
                 <Image
                     src={value.asset.url}
@@ -51,7 +51,7 @@ const serializers = {
         ),
     },
     marks: {
-        link: ({ children, value }: { children: React.ReactNode; value: any }) => (
+        link: ({ children, value }: { children: React.ReactNode; value: unknown }) => (
             <a href={value.href} target="_blank" rel="noopener noreferrer" className="newsletter-a">
                 {children}
             </a>
