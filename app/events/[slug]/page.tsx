@@ -2,17 +2,29 @@ import { client } from '@/sanity/lib/client';
 import { Event } from '@/types/sanity';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
+    // Fetch the event using the slug
+    const event = await fetchEvent(params.slug);
+
+    // If no event is found, return default metadata
+    if (!event) {
+        return {
+            title: "Event | GDSC McMaster U",
+            description: "Event details not found",
+        };
+    }
+
+    // Use the event title for the metadata
     return {
-        title: `${params.slug} | GDSC McMaster U`,
-        description: `Event | ${params.slug}`,
+        title: `${event.title} | GDSC McMaster U`,
+        description: `Event | ${event.title}`,
     };
 }
 
 const fetchEvent = async (slug: string) => {
-    const Event = await client.fetch(
+    const event = await client.fetch(
         `*[_type == 'event' && slug.current == $slug][0]{
         title,
-        subtitle,
+        description,
         startTime,
         endTime,
         location,
@@ -32,28 +44,28 @@ const fetchEvent = async (slug: string) => {
         { slug }
     );
 
-    return Event;
+    return event;
 };
 
 const EventDetailPage = async ({ params }: { params: { slug: string } }) => {
     const { slug } = params;
-    const Event: Event = await fetchEvent(slug);
+    const event: Event = await fetchEvent(slug);
 
-    if (!Event) {
+    if (!event) {
         throw new Response("Not Found", { status: 404 });
     }
 
     return (
         <div>
-        <h1 className="text-2xl font-bold">{Event.title}</h1>
-        <h2 className="text-lg text-gray-600">{Event.description}</h2>
-        <p className="text-xs text-gray-400">
-            {new Date(Event._updatedAt).toLocaleDateString()}
-        </p>            
-        <p>{Event.startTime} - {Event.endTime}</p>
-        <p>{Event.location}</p>
-        <p>{Event.organizer}</p>
-        <p>{Event.contactEmail}</p>
+            <h1 className="text-2xl font-bold">{event.title}</h1>
+            <h2 className="text-lg text-gray-600">{event.description}</h2>
+            <p className="text-xs text-gray-400">
+                {new Date(event._updatedAt).toLocaleDateString()}
+            </p>
+            <p>{event.startTime} - {event.endTime}</p>
+            <p>{event.location}</p>
+            <p>{event.organizer}</p>
+            <p>{event.contactEmail}</p>
         </div>
     );
 };

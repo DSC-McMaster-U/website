@@ -8,7 +8,7 @@ import LinkTitleCard from "@/app/components/LinkTitleCard";
 export const metadata: Metadata = {
     title: "Newsletters | GDSC McMaster U",
     description: "Newsletters from GDSC McMaster U",
-  };
+};
 
 const fetchNewsletters = async () => {
   const newsletters = await client.fetch(
@@ -30,22 +30,22 @@ const NewslettersPage = async () => {
     <>
       <Header />
         <main>
-        <section id="newsletters" className="flex flex-col gap-y-4">
-          <h2>Newsletters</h2>
-          <p>Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-10">
-            {newsletters.map((newsletter) => (
-              <LinkTitleCard
-                key={newsletter.slug.current}
-                title={newsletter.title}
-                link={`/newsletters/${newsletter.slug.current}`}
-              >
-                <p>{newsletter.description}</p>
-              </LinkTitleCard>
-            ))}
-          </div>
-        </section>
-      </main>
+          <section id="newsletters" className="flex flex-col gap-y-4">
+            <h2>Newsletters</h2>
+            <p>Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-10">
+              {newsletters.map((newsletter) => (
+                <LinkTitleCard
+                  key={newsletter.slug.current}
+                  title={newsletter.title}
+                  link={`/newsletters/${newsletter.slug.current}`}
+                >
+                  <p>{newsletter.description}</p>
+                </LinkTitleCard>
+              ))}
+            </div>
+          </section>
+        </main>
       <Footer />
     </>
   );

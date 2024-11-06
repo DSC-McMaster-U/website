@@ -32,7 +32,7 @@ h6 {
 }
 
 p {
-  @apply text-sm sm:text-base lg:text-lg dark:text-google-lightGrey text-google-grey;
+  @apply text-sm sm:text-base lg:text-lg dark:text-google-lightGrey text-google-darkGrey;
 }
 
 main {
@@ -58,4 +58,48 @@ header {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+}
+
+.newsletter-h1 {
+  @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white pt-10;
+}
+
+.newsletter-h2 {
+  @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white pt-8;
+}
+
+.newsletter-h3 {
+  @apply text-xl sm:text-2xl lg:text-3xl font-medium text-black dark:text-white pt-6;
+}
+
+.newsletter-h4 {
+  @apply text-lg sm:text-xl lg:text-2xl dark:text-black text-white pt-4;
+}
+
+.newsletter-p {
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
+}
+
+.newsletter-a {
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey underline transition-colors duration-200;
+}
+
+.newsletter-a:hover {
+  @apply text-google-blue dark:text-google-yellow;
+}
+
+.newsletter-ul {
+  @apply list-disc list-inside text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
+}
+
+.newsletter-li {
+  @apply text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
+}
+
+.newsletter-bullet {
+  @apply list-inside list-disc text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
+}
+
+.newsletter-number {
+  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl dark:text-google-lightGrey text-google-darkGrey;
 }
