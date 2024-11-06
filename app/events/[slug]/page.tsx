@@ -24,7 +24,7 @@ const fetchEvent = async (slug: string) => {
     const event = await client.fetch(
         `*[_type == 'event' && slug.current == $slug][0]{
         title,
-        subtitle,
+        description,
         startTime,
         endTime,
         location,
@@ -58,7 +58,7 @@ const EventDetailPage = async ({ params }: { params: { slug: string } }) => {
     return (
         <div>
             <h1 className="text-2xl font-bold">{event.title}</h1>
-            <h2 className="text-lg text-gray-600">{event.subtitle}</h2>
+            <h2 className="text-lg text-gray-600">{event.description}</h2>
             <p className="text-xs text-gray-400">
                 {new Date(event._updatedAt).toLocaleDateString()}
             </p>
