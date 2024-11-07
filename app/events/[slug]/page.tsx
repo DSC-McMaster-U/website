@@ -1,5 +1,7 @@
+import Header from '@/app/components/Header';
 import { client } from '@/sanity/lib/client';
 import { Event } from '@/types/sanity';
+import Footer from "@/app/components/Footer";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     return {
@@ -12,7 +14,7 @@ const fetchEvent = async (slug: string) => {
     const Event = await client.fetch(
         `*[_type == 'event' && slug.current == $slug][0]{
         title,
-        subtitle,
+        description,
         startTime,
         endTime,
         location,
@@ -44,17 +46,21 @@ const EventDetailPage = async ({ params }: { params: { slug: string } }) => {
     }
 
     return (
-        <div>
-        <h1 className="text-2xl font-bold">{Event.title}</h1>
-        <h2 className="text-lg text-gray-600">{Event.description}</h2>
-        <p className="text-xs text-gray-400">
-            {new Date(Event._updatedAt).toLocaleDateString()}
-        </p>            
-        <p>{Event.startTime} - {Event.endTime}</p>
-        <p>{Event.location}</p>
-        <p>{Event.organizer}</p>
-        <p>{Event.contactEmail}</p>
-        </div>
+        <>
+            <Header />
+                <div>
+                <h1 className="text-2xl font-bold">{Event.title}</h1>
+                <h2 className="text-lg text-gray-600">{Event.description}</h2>
+                <p className="text-xs text-gray-400">
+                    {new Date(Event._updatedAt).toLocaleDateString()}
+                </p>            
+                <p>{Event.startTime} - {Event.endTime}</p>
+                <p>{Event.location}</p>
+                <p>{Event.organizer}</p>
+                <p>{Event.contactEmail}</p>
+                </div>
+            <Footer />
+        </>
     );
 };
 
