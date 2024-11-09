@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Header from "../components/Header";
 import MemberCard from "../components/MemberCard";
-import { ChevronArrowSpan } from "../components/ChevronArrow";
 
 export const metadata: Metadata = {
   title: "Team | GDSC McMaster U",
@@ -111,7 +109,7 @@ const TeamPage = () => {
               {team.members.map((member, _idx) => (
                 <div>
                   <MemberCard
-                    key={_idx}
+                    key={idx * 100 + _idx}
                     Image={
                       <Image
                           src={member.image}
