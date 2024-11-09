@@ -20,6 +20,7 @@ interface Member {
   image: string;
   name: string;
   position: string;
+  hoverContent: string;
 }
 
 const teams : Team[] = [
@@ -29,33 +30,39 @@ const teams : Team[] = [
     members: [
       {
         image: '',
-        name: "Harrison Johns",
+        name: "Test Name",
         position: "Development Subteam",
+        hoverContent: "Additional information goes here. test test test test test test test test test \n test test test test test test?"
       },
       {
         image: '',
-        name: "Aidan Froggatt",
-        position: "Marketing & Branding Lead",
-      },
-      {
-        image: '',
-        name: "Ryan Gosling",
-        position: "Celebrity",
-      },
-      {
-        image: '',
-        name: "Harrison Johns",
+        name: "Test Name",
         position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
       {
         image: '',
-        name: "Aidan Froggatt",
-        position: "Marketing & Branding Lead",
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
       {
         image: '',
-        name: "Ryan Gosling",
-        position: "Celebrity",
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
+      },
+      {
+        image: '',
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
+      },
+      {
+        image: '',
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
     ]
   },
@@ -65,18 +72,21 @@ const teams : Team[] = [
     members: [
       {
         image: '',
-        name: "Harrison Johns",
+        name: "Test Name",
         position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
       {
         image: '',
-        name: "Aidan Froggatt",
-        position: "Marketing & Branding Lead",
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
       {
         image: '',
-        name: "Ryan Gosling",
-        position: "Celebrity",
+        name: "Test Name",
+        position: "Development Subteam",
+        hoverContent: "Additional information here"
       },
     ]
   },
@@ -119,14 +129,9 @@ const TeamPage = () => {
                       </>
                     }
                     CTA={
-                      <Link
-                          href='#'  
-                          className='text-google-lightBlue hover:text-google-black dark:hover:text-white text-lg flex items-center transition-colors duration-200 w-fit'
-                      >
-                          <ChevronArrowSpan>
-                              Read more
-                          </ChevronArrowSpan>
-                      </Link>
+                      <div className="transition-transform duration-300 ease-in-out">
+                        <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
+                      </div>
                     }
                   />
                 </div>

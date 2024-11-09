@@ -13,7 +13,7 @@ interface MemberCardProps {
 const MemberCard = ({ Image, Content, CTA }: MemberCardProps) => {
     return (
         <div className="relative group w-full h-[26rem] bg-white dark:bg-google-grey dark:bg-opacity-10 rounded-md overflow-hidden shadow-lg p-1">
-            <div className="relative h-72 overflow-hidden rounded-md transition-all duration-200 ease-in-out hover-none:h-64 group-hover:h-64 bg-google-lightGrey dark:bg-google-black">
+            <div className="relative h-72 overflow-hidden rounded-md transition-all duration-200 ease-in-out hover-none:h-60 group-hover:h-60 bg-google-lightGrey dark:bg-google-black">
                 {Image}
             </div>
             <div className="p-4 flex flex-col gap-y-2">
