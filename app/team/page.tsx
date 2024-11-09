@@ -107,32 +107,30 @@ const TeamPage = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {team.members.map((member, _idx) => (
-                <div>
-                  <MemberCard
-                    key={idx * 100 + _idx}
-                    Image={
-                      <Image
-                          src={member.image}
-                          alt={member.name || "not available"}
-                          fill
-                          className="object-cover transition-opacity rounded-md duration-300"
-                      />
-                    }
-                    Content={
-                      <>
-                        <div className="transition-transform duration-300 ease-in-out">
-                          <h6>{member.name}</h6>
-                          <p className="text-google-grey dark:text-google-lightGrey">{member.position}</p>
-                        </div>
-                      </>
-                    }
-                    CTA={
+                <MemberCard
+                  key={idx * 100 + _idx}
+                  Image={
+                    <Image
+                        src={member.image}
+                        alt={member.name || "not available"}
+                        fill
+                        className="object-cover transition-opacity rounded-md duration-300"
+                    />
+                  }
+                  Content={
+                    <>
                       <div className="transition-transform duration-300 ease-in-out">
-                        <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
+                        <h6>{member.name}</h6>
+                        <p className="text-google-grey dark:text-google-lightGrey">{member.position}</p>
                       </div>
-                    }
-                  />
-                </div>
+                    </>
+                  }
+                  CTA={
+                    <div className="transition-transform duration-300 ease-in-out">
+                      <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
+                    </div>
+                  }
+                />
               ))}
             </div>
             
