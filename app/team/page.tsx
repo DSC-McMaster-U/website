@@ -1,6 +1,9 @@
+import { client } from "@/sanity/lib/client";
+import { Newsletter } from "@/types/sanity";
 import { Metadata } from "next";
 import Image from "next/image";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import MemberCard from "../components/MemberCard";
 
 export const metadata: Metadata = {
@@ -137,7 +140,7 @@ const TeamPage = () => {
             </section>
         ))}
 
-        
+        <Footer />
         
       </main>
     </>

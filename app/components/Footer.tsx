@@ -50,6 +50,7 @@ const Footer = () => {
               <li><a href="/home" className="hover:underline text-google-grey hover:text-google-mediumBlue">Home</a></li>
               <li><a href="/events" className="hover:underline text-google-grey hover:text-google-mediumBlue">Events</a></li>
               <li><a href="/newsletter" className="hover:underline text-google-grey hover:text-google-mediumBlue">Newsletter</a></li>
+              <li><a href="/team" className="hover:underline text-google-grey hover:text-google-mediumBlue">Team</a></li>
             </ul>
           </div>
 
