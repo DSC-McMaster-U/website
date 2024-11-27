@@ -1,5 +1,6 @@
+import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import { Newsletter } from "@/types/sanity";
+import { Team, Member } from "@/types/sanity";
 import { Metadata } from "next";
 import Image from "next/image";
 import Header from "../components/Header";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   description: "Our team @ GDSC McMaster U",
 };
 
-interface Team {
+/*interface Team {
   name: string;
   sectionId: string;
   members: Member[];
@@ -22,7 +23,7 @@ interface Member {
   name: string;
   position: string;
   hoverContent: string;
-}
+} 
 
 const teams : Team[] = [
   {
@@ -92,11 +93,32 @@ const teams : Team[] = [
     ]
   },
 ];
+*/
 
-// will be async once fetching data
-const TeamPage = () => {
-  // await fetch team data
-  // temp using consts for team data
+const fetchTeams = async () => {
+  const query = groq`*[_type == "team"]{
+        _id,
+        _type,
+        name,
+        sectionId,
+        members[]-> {
+          _id,
+          _type,
+          name,
+          position,
+          hoverContent,
+          picture {
+            _type,
+            asset-> { url }
+          }
+        }
+    }`
+  const teams = await client.fetch(query);
+  return teams;
+};
+
+const TeamPage = async () => {
+  const teams: Team[] = await fetchTeams();
 
   return (
     <>
@@ -107,14 +129,13 @@ const TeamPage = () => {
         {teams.map((team, idx) => (
           <section id={team.sectionId} key={idx} className="px-8 sm:px-0 w-full">
             <h5 className="mb-6">{team.name}</h5>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-              {team.members.map((member, _idx) => (
+              {team.members.map((member,_idx) => (
                 <MemberCard
                   key={idx * 100 + _idx}
                   Image={
                     <Image
-                        src={member.image}
+                        src={member.picture?.asset?._ref || "" }
                         alt={member.name || "not available"}
                         fill
                         className="object-cover transition-opacity rounded-md duration-300"

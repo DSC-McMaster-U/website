@@ -60,8 +60,16 @@ export interface Team {
   name: string;               // The name of the team
   sectionId: string;          // The unique section ID for navigation
   members: {
-    _type: 'reference';       // Reference type
-    _ref: string;             // Reference to a Member document
+    name: string;               // The name of the member
+    position: string;           // The position of the member
+    hoverContent: string;       // The content that appears on hover of member card
+    picture: {
+      _type: 'image';           // Image type
+      asset: {
+        _ref: string;           // Reference to the image asset
+        _type: 'reference';     // Reference type
+      };
+    };
   }[];                        // Array of Member references
 }
 
