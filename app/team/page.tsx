@@ -1,125 +1,49 @@
 import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import { Team, Member } from "@/types/sanity";
+import { Team } from "@/types/sanity";
 import { Metadata } from "next";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MemberCard from "../components/MemberCard";
+import { urlFor } from "@/sanity/lib/image";
 
 export const metadata: Metadata = {
   title: "Team | GDSC McMaster U",
   description: "Our team @ GDSC McMaster U",
 };
 
-/*interface Team {
-  name: string;
-  sectionId: string;
-  members: Member[];
-}
-
-interface Member {
-  image: string;
+type Member = {
+  __id: string;
+  _type: string;
   name: string;
   position: string;
-  hoverContent: string;
-} 
-
-const teams : Team[] = [
-  {
-    name: "Marketing & Branding Team",
-    sectionId: "marketing-branding",
-    members: [
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information goes here. test test test test test test test test test \n test test test test test test?"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-    ]
-  },
-  {
-    name: "Test Team",
-    sectionId: "test",
-    members: [
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-      {
-        image: '',
-        name: "Test Name",
-        position: "Development Subteam",
-        hoverContent: "Additional information here"
-      },
-    ]
-  },
-];
-*/
+  hoverContent?: string;
+  picture?: {
+    _type: string;
+    asset: {
+      url: string;
+    };
+  };
+};
 
 const fetchTeams = async () => {
-  const query = groq`*[_type == "team"]{
-        _id,
-        _type,
-        name,
-        sectionId,
-        members[]-> {
-          _id,
-          _type,
-          name,
-          position,
-          hoverContent,
-          picture {
-            _type,
-            asset-> { url }
-          }
-        }
+  const teams = await client.fetch(
+    `*[_type == 'team']{
+      _id,
+      name,
+      sectionId,
+      members
     }`
-  const teams = await client.fetch(query);
+  );
+
   return teams;
 };
 
 const TeamPage = async () => {
   const teams: Team[] = await fetchTeams();
-
+  console.log("Fetched teams:", teams);
+  
   return (
     <>
       <Header />
@@ -131,32 +55,32 @@ const TeamPage = async () => {
             <h5 className="mb-6">{team.name}</h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {team.members.map((member,_idx) => (
-                <MemberCard
-                  key={idx * 100 + _idx}
-                  Image={
-                    <Image
-                        src={member.picture?.asset?._ref || "" }
-                        alt={member.name || "not available"}
-                        fill
-                        className="object-cover transition-opacity rounded-md duration-300"
-                    />
-                  }
-                  Content={
-                    <>
+                  <MemberCard
+                    key={idx * 1000 + _idx}
+                    Image={
+                      <Image
+                          src={urlFor(member.picture.asset).url()}
+                          alt={member.name || "not available"}
+                          fill
+                          className="object-cover transition-opacity rounded-md duration-300"
+                      />
+                    }
+                    Content={
+                      <>
+                        <div className="transition-transform duration-300 ease-in-out">
+                          <h6>{member.name}</h6>
+                          <p className="text-google-grey dark:text-google-lightGrey">{member.position}</p>
+                        </div>
+                      </>
+                    }
+                    CTA={
                       <div className="transition-transform duration-300 ease-in-out">
-                        <h6>{member.name}</h6>
-                        <p className="text-google-grey dark:text-google-lightGrey">{member.position}</p>
+                        <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
                       </div>
-                    </>
-                  }
-                  CTA={
-                    <div className="transition-transform duration-300 ease-in-out">
-                      <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
-                    </div>
-                  }
-                />
+                    }
+                  />
               ))}
-            </div>
+            </div> 
             
             </section>
         ))}

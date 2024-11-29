@@ -75,7 +75,7 @@ export interface Team {
 
 
 // Member Schema Type
-export interface Member {
+/*export interface Member {
   _id: string;                // Unique identifier for the document
   _type: 'member';            // Document type
   name: string;               // The name of the member
@@ -88,4 +88,4 @@ export interface Member {
       _type: 'reference';     // Reference type
     };
   };  
-}
+}*/
