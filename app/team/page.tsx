@@ -1,4 +1,3 @@
-import { groq } from "next-sanity";
 import { client } from "@/sanity/lib/client";
 import { Team } from "@/types/sanity";
 import { Metadata } from "next";
@@ -11,20 +10,6 @@ import { urlFor } from "@/sanity/lib/image";
 export const metadata: Metadata = {
   title: "Team | GDSC McMaster U",
   description: "Our team @ GDSC McMaster U",
-};
-
-type Member = {
-  __id: string;
-  _type: string;
-  name: string;
-  position: string;
-  hoverContent?: string;
-  picture?: {
-    _type: string;
-    asset: {
-      url: string;
-    };
-  };
 };
 
 const fetchTeams = async () => {
@@ -42,7 +27,7 @@ const fetchTeams = async () => {
 
 const TeamPage = async () => {
   const teams: Team[] = await fetchTeams();
-  console.log("Fetched teams:", teams);
+  //console.log("Fetched teams:", teams);
   
   return (
     <>
@@ -52,7 +37,7 @@ const TeamPage = async () => {
 
         {teams.map((team, idx) => (
           <section id={team.sectionId} key={idx} className="px-8 sm:px-0 w-full">
-            <h5 className="mb-6">{team.name}</h5>
+            <h5 className="mb-6 text-center">{team.name}</h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
               {team.members.map((member,_idx) => (
                   <MemberCard
