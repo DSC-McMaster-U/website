@@ -18,7 +18,7 @@ const fetchTeams = async () => {
       _id,
       name,
       sectionId,
-      members
+      members,
     }`
   );
 
@@ -27,7 +27,7 @@ const fetchTeams = async () => {
 
 const TeamPage = async () => {
   const teams: Team[] = await fetchTeams();
-  //console.log("Fetched teams:", teams);
+  //console.log("Fetched teams:", teams);   // for testing
   
   return (
     <>

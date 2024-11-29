@@ -1,8 +1,3 @@
-/*
- * This component can be removed if we update the ImageCTACard
- * to have a prop for custom styling
- */
-
 
 interface MemberCardProps {
     Image: React.ReactNode;
