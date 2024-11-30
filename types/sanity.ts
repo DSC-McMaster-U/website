@@ -52,3 +52,25 @@ export interface Sponsor {
   };  
   website: string;            // The website of the sponsor
 }
+
+// Team Schema Type
+export interface Team {
+  _id: string;                // Unique identifier for the document
+  _type: 'team';              // Document type
+  name: string;               // The name of the team
+  sectionId: string;          // The unique section ID for navigation
+  members: Member[];
+}
+
+export interface Member {
+  name: string;               // The name of the member
+  position: string;           // The position of the member
+  hoverContent: string;       // The content that appears on hover of member card
+  picture: {
+    _type: "image";           // Image type
+    asset: {
+      _ref: string;           // Reference to the image asset
+      _type: "reference";     // Reference type
+    };
+  };
+};

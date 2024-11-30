@@ -65,6 +65,7 @@ const Header = () => {
 			],
 		},
 		{ name: "Newsletters", href: "/newsletters" },
+		{ name: "Team", href: "/team" },
 	];
 
   	return (
