@@ -16,8 +16,8 @@ const Footer = () => {
       <div className='w-full grid grid-cols-1 md:grid-cols-2 py-8 gap-y-8'>
         <div id='information' className='order-2 md:order-none flex flex-col justify-between gap-y-4 md:gap-y-8'>
           <div className="flex flex-col gap-y-4"> 
-            <Link href="/">
-              <Image src={Icon} alt="Icon" className="h-12 w-auto" />
+            <Link href="/" className='w-fit h-fit'>
+              <Image src={Icon} alt="Icon" className="h-12 w-fit" />
             </Link>
             <p>
               Google Developer Student Club
