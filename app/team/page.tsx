@@ -68,13 +68,11 @@ const TeamPage = async () => {
             </div> 
             
             </section>
-        ))}
-
-        <Footer />
-        
+        ))}        
       </main>
+      <Footer />
     </>
   )
 }
 
-export default TeamPage
+export default TeamPage;

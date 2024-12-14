@@ -13,33 +13,33 @@ import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronAr
 import { MdHandyman, MdForum, MdCode, MdGroup, MdArticle, MdCalendarToday, MdLightbulb } from "react-icons/md";
 import newsletter from "@/assets/illustrations/newsletter.svg";
 import hero from "@/assets/illustrations/hero.png";
-import { socialMedia } from "./constants/socialMedia";
 
-const HeroSection = () => {
-  const joinUsHref = socialMedia.find((media) => media.name === "Discord")?.href;
+const HeroSection = async () => {
+  const generalInfo = await client.fetch(
+    `*[_type == 'generalInfo'][0]`
+  );
+
+  console.log(generalInfo);
 
   return (
     <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
-        <h1>Google Developer Student Club</h1>
-        <h5>McMaster University</h5>
+        <h1>{generalInfo.club}</h1>
+        <h5>{generalInfo.school}</h5>
         <p>
-          Google Developer Student Club at McMaster University bridges the gap
-          between theory and practice through solving real-world problems.
+          {generalInfo.description}
         </p>
         <div className="flex flex-row gap-x-4">
-          <Link href="/events">
+          <Link href={generalInfo.cta1.href}>
             <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
-              <span className="font-semibold">See our events</span>
+              <span className="font-semibold">{generalInfo.cta1.label}</span>
             </ChevronArrowButton>
           </Link>
-          { joinUsHref && (
-            <Link href={joinUsHref} rel="norefferer" target="_blank">
-              <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
-                <span className="font-semibold">Join us</span>
-              </ChevronArrowButton>
-            </Link>
-          )}
+          <Link href={generalInfo.cta2.href} rel="norefferer" target="_blank">
+            <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
+              <span className="font-semibold">{generalInfo.cta2.label}</span>
+            </ChevronArrowButton>
+          </Link>
         </div>
       </div>
       <div className="md:w-1/3">
@@ -64,7 +64,7 @@ const SponsorsSection = async () => {
   );
 
   if (!sponsors.length) {
-    return <p>No sponsors available</p>;
+    return null;
   }
 
   return (
@@ -87,6 +87,32 @@ const SponsorsSection = async () => {
   );
 };
 
+const AboutUsSection = async () => {
+  const about = await client.fetch(`*[_type == 'about'][0]`);
+
+  if (!about) {
+    return null;
+  }
+
+  return (
+    <section id="about-us" className="flex flex-col gap-y-8">
+      <div className="flex flex-col gap-y-2">
+        <h2>{about.title}</h2>
+        <p>{about.description}</p>  
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        { about.cards && about.cards.map((card: { _key: string, title: string, description: string }) => (
+          <div key={card._key} className="flex flex-col gap-y-2">
+            <h4>{card.title}</h4>
+            <p>{card.description}</p>
+          </div>
+          ))
+        }
+      </div>
+    </section>
+  );
+};
+
 const EventsSection = async () => {
   const upcomingEvents = await client.fetch(
     `*[_type == "event" && startTime > now()] | order(startTime asc){
@@ -102,7 +128,7 @@ const EventsSection = async () => {
   );
 
   if (!upcomingEvents) {
-    return <p>No upcoming events available</p>;
+    return null;
   }
 
   const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string } } = {
@@ -175,7 +201,7 @@ const NewslettersSection = async () => {
   );
 
   if (!latestNewsletter) {
-    return <p>No newsletters available</p>;
+    return null;
   }
 
   return (
@@ -248,6 +274,7 @@ export default async function Index() {
       <main>
         <HeroSection />
         <SponsorsSection />
+        <AboutUsSection />
         <EventsSection />
         <NewslettersSection />
       </main>

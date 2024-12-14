@@ -1,73 +1,68 @@
-import { socialMedia } from '../constants/socialMedia';
-
+import { socialMedia } from '@/app/constants/socialMedia';
+import Link from 'next/link';
+import Image from 'next/image';
+import Icon from '@/app/icon.svg';
 
 const Footer = () => {
-  return (
-    <footer className="bg-google-lightGrey dark:bg-google-black text-google-black dark:text-google-lightGrey py-6 mt-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
-        
-        {/* Contact Us */}
-        <div className="sm:text-left text-center sm:col-span-1 col-span-full">  
-          <h4 className="text-lg sm:text-xl font-bold text-google-black dark:text-google-lightGrey py-2">
-            McMaster University
-          </h4>
-          <a
-            className="text-base sm:text-lg text-google-grey hover:text-google-mediumBlue dark:hover:text-google-lightBlue cursor-pointer"
-            href="mailto:dsc.mcmaster@gmail.com">
-            dsc.mcmasteru@gmail.com
-          </a>
-        </div>
+  const pages = [
+    { name: 'Home', href: '/home' },
+    { name: 'Events', href: 'https://gdg.community.dev/gdg-on-campus-mcmaster-university-hamilton-canada/' },
+    { name: 'Newsletters', href: '/newsletters' },
+    { name: 'Team', href: '/team' },
+  ];
 
-        {/* Follow Us / Site Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:text-left text-center">
-          
-          {/* Follow Us */}
-          <div className="sm:text-left text-center sm:col-span-1 col-span-full">  
-            <h4 className="font-bold text-google-black dark:text-google-lightGrey mb-2">Follow Us</h4>
-            <ul className="space-y-1">
-              {socialMedia.map((media, index) => (
-                <li key={index} className="flex items-center justify-center sm:justify-start">
-                  <div className="mr-2 h-5 w-5">
-                    {media.icon}
-                  </div>
-                  <a
+  return (
+    <footer>        
+      <div className='w-full grid grid-cols-1 md:grid-cols-2 py-8 gap-y-8'>
+        <div id='information' className='order-2 md:order-none flex flex-col justify-between gap-y-4 md:gap-y-8'>
+          <div className="flex flex-col gap-y-4"> 
+            <Link href="/">
+              <Image src={Icon} alt="Icon" className="h-12 w-auto" />
+            </Link>
+            <p>
+              Google Developer Student Club
+              <br />
+              McMaster University
+            </p>
+            <ul className='flex flex-row gap-x-2 items-center'>
+              { socialMedia.map((media, index) => (
+                <li key={index}>
+                  <Link
                     href={media.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline text-google-grey hover:text-google-mediumBlue dark:hover:text-google-lightBlue"
+                    className="hover:underline hover:text-google-yellow"
                   >
-                    {media.name}
-                  </a>
+                    {media.icon}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Site Map */}
-          <div>
-            <h4 className="font-bold text-google-black dark:text-google-lightGrey mb-2">Site Map</h4>
-            <ul className="space-y-1">
-              <li><a href="/home" className="hover:underline text-google-grey hover:text-google-mediumBlue">Home</a></li>
-              <li><a href="/events" className="hover:underline text-google-grey hover:text-google-mediumBlue">Events</a></li>
-              <li><a href="/newsletter" className="hover:underline text-google-grey hover:text-google-mediumBlue">Newsletter</a></li>
-              <li><a href="/team" className="hover:underline text-google-grey hover:text-google-mediumBlue">Team</a></li>
-            </ul>
-          </div>
-
-          {/* Programs */}
-          <div>
-            <h4 className="font-bold text-google-black dark:text-google-lightGrey mb-2">Programs</h4>
-            <ul className="space-y-1">
-              <li><a href="#" className="hover:underline text-google-grey hover:text-google-mediumBlue">Solutions Challenge</a></li>
-            </ul>
-          </div>
-
+          <div>&copy; {new Date().getFullYear()} | All rights reserved.</div>
         </div>
-      </div>
-
-      {/* Footer Bottom Section */}
-      <div className="max-w-7xl mx-auto text-left mt-4 px-4">
-        <p className="text-sm text-google-grey dark:text-google-lightGrey">&copy; {new Date().getFullYear()} | All rights reserved.</p>
+        <div id='navigation' className="order-1 md:order-none grid grid-cols-2 gap-4">
+          <nav className='flex flex-col gap-2 md:gap-4'>
+            <p className='font-bold'>Pages</p>
+            <ul className='flex flex-col gap-1 md:gap-2'>
+              {pages.map((page, index) => (
+                <li key={index}>
+                  <Link href={page.href} className="hover:underline hover:text-google-yellow">
+                    {page.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className='flex flex-col gap-2 md:gap-4'>
+            <p className='font-bold'>Programs</p>
+            <ul className='flex flex-col gap-1 md:gap-2'>
+              <li>
+                <Link href="https://mac-a-thon.gdscmcmasteru.ca/" className="hover:underline hover:text-google-yellow">Mac-a-thon</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </footer>
   );

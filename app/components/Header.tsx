@@ -60,8 +60,8 @@ const Header = () => {
 		{
 			name: "Events",
 			links: [
-				{ href: "/events", label: "All Events", description: "Workshops, socials, and more", icon: <FiCalendar /> },
-				{ href: "https://solutionchallenge.gdscmcmasteru.ca/", label: "Solution Challenge", description: "Test your skills", icon: <FiStar /> },
+				{ href: "https://gdg.community.dev/gdg-on-campus-mcmaster-university-hamilton-canada/", label: "All Events", description: "Workshops, socials, and more", icon: <FiCalendar /> },
+				{ href: "https://mac-a-thon.gdscmcmasteru.ca/", label: "Mac-a-thon", description: "Test your skills", icon: <FiStar /> },
 			],
 		},
 		{ name: "Newsletters", href: "/newsletters" },
