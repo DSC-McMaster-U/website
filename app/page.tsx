@@ -19,27 +19,27 @@ const HeroSection = async () => {
     `*[_type == 'generalInfo'][0]`
   );
 
-  console.log(generalInfo);
-
   return (
     <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
-        <h1>{generalInfo.club}</h1>
-        <h5>{generalInfo.school}</h5>
-        <p>
-          {generalInfo.description}
-        </p>
+        <h1 className="hero-title">{generalInfo.club && generalInfo.club}</h1>
+        <h5>{generalInfo.school && generalInfo.school}</h5>
+        <p>{generalInfo.description && generalInfo.description}</p>
         <div className="flex flex-row gap-x-4">
-          <Link href={generalInfo.cta1.href}>
-            <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
-              <span className="font-semibold">{generalInfo.cta1.label}</span>
-            </ChevronArrowButton>
-          </Link>
-          <Link href={generalInfo.cta2.href} rel="norefferer" target="_blank">
-            <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
-              <span className="font-semibold">{generalInfo.cta2.label}</span>
-            </ChevronArrowButton>
-          </Link>
+          { generalInfo.cta1 && (
+              <Link href={generalInfo.cta1.href}>
+              <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
+                <span className="font-semibold">{generalInfo.cta1.label}</span>
+              </ChevronArrowButton>
+            </Link>
+          )}
+          { generalInfo.cta2 && (
+            <Link href={generalInfo.cta2.href} rel="norefferer" target="_blank">
+              <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
+                <span className="font-semibold">{generalInfo.cta2.label}</span>
+              </ChevronArrowButton>
+            </Link>
+          )}
         </div>
       </div>
       <div className="md:w-1/3">
