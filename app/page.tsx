@@ -19,6 +19,10 @@ const HeroSection = async () => {
     `*[_type == 'generalInfo'][0]`
   );
 
+  if (!generalInfo) {
+    return null;
+  }
+
   return (
     <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0 min-h-screen items-center">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
