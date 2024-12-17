@@ -20,7 +20,7 @@ const HeroSection = async () => {
   );
 
   return (
-    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0">
+    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0 min-h-screen items-center">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
         <h1 className="hero-title">{generalInfo.club && generalInfo.club}</h1>
         <h5>{generalInfo.school && generalInfo.school}</h5>
@@ -46,7 +46,7 @@ const HeroSection = async () => {
         <Image 
           src={hero}
           alt="Roundtable" 
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full"
         />
       </div>
     </section>
@@ -95,21 +95,23 @@ const AboutUsSection = async () => {
   }
 
   return (
-    <section id="about-us" className="flex flex-col gap-y-8">
-      <div className="flex flex-col gap-y-2">
-        <h2>{about.title}</h2>
-        <p>{about.description}</p>  
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        { about.cards && about.cards.map((card: { _key: string, title: string, description: string }) => (
-          <div key={card._key} className="flex flex-col gap-y-2">
-            <h4>{card.title}</h4>
-            <p>{card.description}</p>
-          </div>
-          ))
-        }
-      </div>
-    </section>
+    <div className="geometric-background-1 w-full">
+      <section id="about-us" className="flex flex-col gap-y-8">
+        <div className="flex flex-col gap-y-2">
+          <h2 className="text-google-darkGrey">{about.title}</h2>
+          <p className="text-google-darkGrey">{about.description}</p>  
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          { about.cards && about.cards.map((card: { _key: string, title: string, description: string }) => (
+            <div key={card._key} className="flex flex-col gap-y-2">
+              <h4 className="text-google-darkGrey">{card.title}</h4>
+              <p className="text-google-darkGrey">{card.description}</p>
+            </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
   );
 };
 
@@ -273,8 +275,8 @@ export default async function Index() {
       <Header />
       <main>
         <HeroSection />
-        <SponsorsSection />
         <AboutUsSection />
+        <SponsorsSection />
         <EventsSection />
         <NewslettersSection />
       </main>

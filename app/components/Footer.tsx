@@ -5,7 +5,6 @@ import Icon from '@/app/icon.svg';
 
 const Footer = () => {
   const pages = [
-    { name: 'Home', href: '/home' },
     { name: 'Events', href: 'https://gdg.community.dev/gdg-on-campus-mcmaster-university-hamilton-canada/' },
     { name: 'Newsletters', href: '/newsletters' },
     { name: 'Team', href: '/team' },
