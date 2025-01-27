@@ -11,11 +11,11 @@ interface DropdownItemProps {
 
 export const DropdownItem = ({ href, label, icon, description }: DropdownItemProps) => {
     return (
-        <Link href={href} className="block whitespace-nowrap w-full text-google-grey hover:text-google-black dark:hover:text-white transition-colors duration-200 py-2 px-3">
+        <Link href={href} className="block whitespace-nowrap w-full text-grey-700 hover:text-black-00 dark:hover:text-white-00 transition-colors duration-200 py-2 px-3">
             <div className="flex flex-row items-center gap-x-2">
                 {icon && <>{icon}</>}
                 <div className="flex flex-col">
-                    <span className="text-base text-google-black dark:text-white">{label}</span>
+                    <span className="text-base text-black-00 dark:text-white-00">{label}</span>
                     {description && <span className="text-xs">{description}</span>}
                 </div>
             </div>
@@ -47,14 +47,14 @@ const Dropdown = ({ name, children }: DropdownProps) => {
         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
                 onClick={handleToggle}
-                className="flex items-center gap-x-1 px-3 py-1 group group-hover:text-google-grey cursor-pointer transition-colors duration-200"
+                className="flex items-center gap-x-1 px-3 py-1 group group-hover:text-grey-700 cursor-pointer transition-colors duration-200"
             >
                 {name}
                 <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             {isDropdownOpen && (
-                <div className="drop-shadow absolute left-0 rounded-lg bg-google-lightGrey dark:bg-google-black">
+                <div className="drop-shadow absolute left-0 rounded-lg bg-white-01 dark:bg-black-01">
                     {children}
                 </div>
             )}

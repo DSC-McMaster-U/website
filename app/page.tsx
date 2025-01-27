@@ -1,45 +1,41 @@
 import { client } from "@/sanity/lib/client";
+import { FC } from "react";
 import { Sponsor } from "@/types/sanity";
 import Link from "next/link";
 import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
 import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import { Event } from "@/types/sanity";
-import ImageCTACard from "@/app/components/ImageCTACard";
 import Image from "next/image";
-import Tag from "@/app/components/Tag";
 import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
-import { MdHandyman, MdForum, MdCode, MdGroup, MdArticle, MdCalendarToday, MdLightbulb } from "react-icons/md";
-import newsletter from "@/assets/illustrations/newsletter.svg";
-import hero from "@/assets/illustrations/hero.png";
+import * as Icons from "react-icons/md"; // Import all MD icons
+import HeroAnimation from "@/assets/animations/HeroAnimation.gif";
+import SectionCard from "./components/SectionCard";
+import Card from "./components/Card";
 
 const HeroSection = async () => {
   const generalInfo = await client.fetch(
     `*[_type == 'generalInfo'][0]`
   );
 
-  if (!generalInfo) {
-    return null;
-  }
+  if (!generalInfo) return null;
 
   return (
-    <section id="hero" className="flex md:flex-row flex-col gap-y-8 md:gap-y-0 min-h-screen items-center">
+    <div id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex md:flex-row flex-col gap-y-8 md:gap-y-0 min-h-screen items-center">
       <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
         <h1 className="hero-title">{generalInfo.club && generalInfo.club}</h1>
         <h5>{generalInfo.school && generalInfo.school}</h5>
         <p>{generalInfo.description && generalInfo.description}</p>
         <div className="flex flex-row gap-x-4">
           { generalInfo.cta1 && (
-              <Link href={generalInfo.cta1.href}>
-              <ChevronArrowButton className="dark:bg-google-lightGrey bg-google-black dark:text-google-black text-google-lightGrey border-2 dark:border-google-black border-google-lightGrey">
+            <Link href={generalInfo.cta1.href}>
+              <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
                 <span className="font-semibold">{generalInfo.cta1.label}</span>
               </ChevronArrowButton>
             </Link>
           )}
           { generalInfo.cta2 && (
             <Link href={generalInfo.cta2.href} rel="norefferer" target="_blank">
-              <ChevronArrowButton className="dark:bg-google-black bg-google-lightGrey dark:text-google-lightGrey border-2 dark:border-google-lightGrey border-google-black">
+              <ChevronArrowButton className="dark:bg-black-00 bg-white-00 dark:text-white-00 border-2 dark:border-white-00 border-black-00">
                 <span className="font-semibold">{generalInfo.cta2.label}</span>
               </ChevronArrowButton>
             </Link>
@@ -48,243 +44,250 @@ const HeroSection = async () => {
       </div>
       <div className="md:w-1/3">
         <Image 
-          src={hero}
+          src={HeroAnimation}
           alt="Roundtable" 
           className="object-contain w-full h-full"
+          unoptimized
         />
       </div>
-    </section>
-  );
-};
-
-const SponsorsSection = async () => {
-  const sponsors = await client.fetch(
-    `*[_type == 'sponsor']{
-      _id,
-      name,
-      logo,
-      website,
-    }`
-  );
-
-  if (!sponsors.length) {
-    return null;
-  }
-
-  return (
-    <section id="sponsors" className="flex flex-col justify-center items-center w-full">
-      <Ticker>
-        {sponsors.map((sponsor: Sponsor) => (
-          <li key={sponsor._id}>
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32">
-                <Image 
-                    src={urlFor(sponsor.logo.asset).url()} 
-                    alt={`${sponsor.name} logo`} 
-                    fill 
-                    style={{ objectFit: "contain" }} 
-                />
-            </div>
-          </li>
-        ))}
-      </Ticker>
-    </section>
+    </div>
   );
 };
 
 const AboutUsSection = async () => {
   const about = await client.fetch(`*[_type == 'about'][0]`);
+  const sponsors = await client.fetch(`*[_type == 'sponsor']`);
 
-  if (!about) {
-    return null;
-  }
+  if (!about) return null;
 
   return (
-    <div className="geometric-background-1 w-full">
-      <section id="about-us" className="flex flex-col gap-y-8">
-        <div className="flex flex-col gap-y-2">
-          <h2 className="text-google-darkGrey">{about.title}</h2>
-          <p className="text-google-darkGrey">{about.description}</p>  
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          { about.cards && about.cards.map((card: { _key: string, title: string, description: string }) => (
-            <div key={card._key} className="flex flex-col gap-y-2">
-              <h4 className="text-google-darkGrey">{card.title}</h4>
-              <p className="text-google-darkGrey">{card.description}</p>
+    <SectionCard title={about.title} description={about.description} id="about-us">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        {about.cards &&
+          about.cards.map((card: { _key: string; title: string; description: string; icon: string; image: { _type: string; asset: { _ref: string; _type: string } } }) => {
+            const IconComponent = Icons[card.icon as keyof typeof Icons] || Icons.MdHelp;
+            return (
+              <Card
+                key={card._key}
+                title={card.title}
+                description={card.description}
+                icon={<IconComponent className="w-full h-fit" />}
+                image={{
+                  src: urlFor(card.image.asset).url(),
+                  alt: `${card.title}`,
+                }}
+              />
+            );
+          })}
+        <Card title="Sponsors" icon={<Icons.MdStar className="w-full h-fit" />}>
+          {sponsors && sponsors.length > 0 && (
+            <div className="flex items-center justify-center h-full">
+              <Ticker>
+                {sponsors.map((sponsor: Sponsor) => (
+                  <li key={sponsor._id}>
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32">
+                      <Image
+                        src={urlFor(sponsor.logo.asset).url()}
+                        alt={`${sponsor.name} logo`}
+                        fill
+                        style={{ objectFit: "contain" }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </Ticker>
             </div>
-            ))
-          }
-        </div>
-      </section>
-    </div>
+          )}
+        </Card>
+      </div>
+    </SectionCard>
   );
 };
 
 const EventsSection = async () => {
-  const upcomingEvents = await client.fetch(
-    `*[_type == "event" && startTime > now()] | order(startTime asc){
-      _id,
-      title,
-      image,
-      slug,
-      description,
-      type,
-      startTime,
-      location
-    }`
-  );
-
-  if (!upcomingEvents) {
-    return null;
-  }
-
-  const eventTypeStyles: { [key: string]: { icon: JSX.Element, color: string } } = {
-    Workshop: { icon: <MdHandyman className="w-6 h-6 text-google-green dark:text-google-lightGreen" />, color: 'text-google-green dark:text-google-lightGreen' },
-    Conference: { icon: <MdForum className="w-6 h-6 text-google-blue dark:text-google-lightBlue" />, color: 'text-google-blue dark:text-google-lightBlue' },
-    Hackathon: { icon: <MdCode className="w-6 h-6 text-googleRed dark:text-google-lightRed" />, color: 'text-googleRed dark:text-google-lightRed' },
-    Meetup: { icon: <MdGroup className="w-6 h-6 text-google-yellow dark:text-google-lightYellow" />, color: 'text-google-yellow dark:text-google-lightYellow' },
-};
-
   return (
-    <section id="events" className="flex flex-col gap-y-8">
-      <h2>Events</h2>
-      <div id="event-cards" className="grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-8">
-        { upcomingEvents.map((event: Event) => {
-          const { icon, color } = eventTypeStyles[event.type] || { icon: null, color: 'google-blue' };
-          return (
-            <ImageCTACard
-              key={event._id}
-              Image={
-                <Image
-                    src={urlFor(event.image).url()}
-                    alt={event.image.asset.altText || event.title}
-                    fill
-                    className="object-cover transition-opacity rounded-md duration-300"
-                />
-              }
-              Content={
-                <>
-                  <Tag className="bg-google-lightGrey dark:bg-google-black">
-                    {icon}
-                    <span className="text-sm">{event.type}</span>
-                  </Tag><div className="transition-transform duration-300 ease-in-out">
-                    <h5>{event.title}</h5>
-                    <p>{event.description}</p>
-                  </div>
-                </>
-              }
-              CTA={
-                <Link
-                    href={`/events/${event.slug.current}`}  
-                    className={`${color} hover:text-google-black dark:hover:text-white text-lg flex items-center transition-colors duration-200 w-fit`}
-                >
-                    <ChevronArrowSpan>
-                        Learn more
-                    </ChevronArrowSpan>
-                </Link>
-              }
-            />
-          )
-        })
-        }
-      </div>
-    </section>
+    <SectionCard title="Our Events" description="Check out some different ways to get involved" id="events">
+      <Link target="_blank" rel="noreferrer" href={"https://gdg.community.dev/gdg-on-campus-mcmaster-university-hamilton-canada/"}>
+        <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
+          <span className="font-semibold">See Our Events</span>
+        </ChevronArrowButton>
+      </Link>
+    </SectionCard>
   );
 };
 
 const NewslettersSection = async () => {
-  const latestNewsletter = await client.fetch(
-    `*[_type == "newsletter"] | order(_createdAt desc)[0]{
-      _id,
-      title,
-      slug,
-      description,
-      _createdAt
-    }`
+  const newsletters = await client.fetch(
+    `*[_type == "newsletter"]`
   );
 
-  const newsletterCount = await client.fetch(
-    `count(*[_type == "newsletter"])`
-  );
-
-  if (!latestNewsletter) {
-    return null;
-  }
+  if (!newsletters) return null;
 
   return (
-      <section id="newsletters" className="flex flex-col gap-y-8">
-        <h2>Newsletters</h2>
-        <div className="flex flex-col md:flex-row md:gap-x-8 md:gap-y-0 gap-y-8 md:items-center">
-          <h6 className="md:w-4/5">Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</h6>
-          <div className="md:w-1/5 flex flex-col gap-y-2">
-            <h5>{newsletterCount}</h5>
-            <p className="text-sm"><span className="text-google-darkGrey dark:text-google-lightGrey">Monthly newsletters</span> available to read.</p>
-          </div>
-        </div>
-        <Link href="/newsletters" className="w-fit">
-          <ChevronArrowSpan className="hover:text-google-grey duration-200 transition-colors">
-            <h6 className="hover:text-google-grey duration-200 transition-colors">View all newsletters</h6>
-          </ChevronArrowSpan>
-        </Link>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="flex flex-col gap-y-6">
-            <div className="flex flex-col gap-y-2">
-              <h6 className="flex flex-row items-center gap-x-1"><MdArticle/>What?</h6>
-              <p>Newsletters covering the latest and greatest in all things tech!</p>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <h6 className="flex flex-row items-center gap-x-1"><MdCalendarToday/>When?</h6>
-              <p>The newsletter is delivered once at the beginning of every month.</p>
-            </div>
-            <div className="flex flex-col gap-y-2">
-              <h6 className="flex flex-row items-center gap-x-1"><MdLightbulb/>Why?</h6>
-              <p>To keep you up-to-date with the latest and greatest in the industry.</p>
-            </div>
-        </div>
-        <div className="relative flex flex-col w-full h-auto shadow-lg rounded-md overflow-hidden">
-          {/* Image with gradient overlay */}
-          <div className="relative h-52">
-            <Image
-              src={newsletter}
-              alt="Newsletter illustration"
-              fill
-              className="object-cover object-top"
-            />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-google-darkGrey to-transparent" />
-            {/* Title/logo centered */}
-            <div className="absolute inset-0 flex justify-center items-center">
-              <h4 className="text-center">
-                {latestNewsletter.title}
-              </h4>
-            </div>
-          </div>
-          {/* Content section */}
-          <div className="bg-white dark:bg-google-darkGrey px-6 pb-8 flex flex-col gap-y-6">
-            <p>{latestNewsletter.description}</p>
-            <Link href={`newsletters/${latestNewsletter.slug.current}`} className="w-fit">
-              <ChevronArrowButton className="bg-google-darkGrey hover:bg-google-grey transition-colors duration-200 text-google-lightGrey dark:bg-google-lightGrey dark:text-black">
-                Read the newsletter
-              </ChevronArrowButton>
-            </Link>
-          </div>
-        </div>
+    <SectionCard id="newsletters" title="Our Newsletter" description="Stay up-to-date with the latest and greatest in everything tech">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        { newsletters && newsletters.map((newsletter: { _id: string, title: string, description: string, slug: { current: string, type: string } }) => (
+          <Card
+            key={newsletter._id}
+            title={newsletter.title}
+            description={newsletter.description}
+            icon={<Icons.MdArticle className="w-full h-fit"/>}
+            CTA={
+              <Link href={`/newsletters/${newsletter.slug.current}`}>
+                <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
+                  <span className="font-semibold">Read More</span>
+                </ChevronArrowButton>
+              </Link>
+            }
+          >
+          </Card>
+        ))}
       </div>
-    </section>
+    </SectionCard>
   );
 };
+
+interface Project {
+  _key: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface TeamItem {
+  _type: string;
+  name: string;
+  description: string;
+  _key: string;
+  icon?: string;
+  projects?: Project[];
+}
+
+interface Team {
+  _updatedAt: string;
+  teams: TeamItem[];
+  _createdAt: string;
+  _rev: string;
+  _type: string;
+  description: string;
+  _id: string;
+  title: string;
+}
+
+const TeamSection: FC = async () => {
+  const team: Team | null = await client.fetch(`*[_type == "team"][0]`);
+
+  if (!team) return null;
+
+  const hasProjects = team.teams.some((t) => t.projects && t.projects.length > 0);
+
+  return (
+    <SectionCard id="team" title={team.title} description={team.description}>
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${
+          hasProjects ? 3 : 1
+        } gap-2`}
+      >
+        {team.teams.map((teamItem: TeamItem, index: number) => {
+          const isCoreTeam = teamItem.name === "Core";
+          const isInfiniteCarousel = hasProjects && teamItem.projects;
+          const colSpanClass = (hasProjects || isCoreTeam) ? "col-span-3" : "col-span-1";
+          const IconComponent = Icons[teamItem.icon as keyof typeof Icons] || Icons.MdHelp;
+          if (isCoreTeam) {
+            return (
+              <Card key={index} className={colSpanClass}>
+                <div className="flex w-full h-fit text-start justify-between flex-row gap-y-6 p-6">
+                  <div className="flex flex-row items-center gap-x-2">
+                    <div className="w-6">
+                      <IconComponent className="w-full h-fit" />
+                    </div>
+                    <span className="text-white-00">{teamItem.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-white-03">{teamItem.description}</span>
+                  </div>
+                </div>
+              </Card>
+            );
+          }
+
+          return (
+            <div
+              key={index}
+              className={isInfiniteCarousel ? colSpanClass : ""}
+            >
+              <Card>
+                <div className="flex flex-col w-full h-fit text-start gap-y-6 p-6">
+                  <div className="flex flex-row items-center gap-x-2">
+                    <div className="w-6">
+                      <IconComponent className="w-full h-fit" />
+                    </div>
+                    <span className="text-white-00">{teamItem.name}</span>
+                  </div>
+                  <div>
+                    <span className="text-white-03">{teamItem.description}</span>
+                  </div>
+                  {isInfiniteCarousel && (
+                    <div className="relative">
+                      <div className="overflow-x-auto flex space-x-4">
+                        {teamItem.projects?.map(
+                          ({ _key, title, description, link }: Project) => (
+                            <div
+                              className="h-64 w-64 bg-black-03 p-16"
+                              key={_key}
+                            >
+                              <h2 className="text-white-00">{title}</h2>
+                              <p className="text-white-03">{description}</p>
+                              <a
+                                href={link}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <ChevronArrowSpan className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
+                                  <span className="font-semibold">
+                                    Learn More
+                                  </span>
+                                </ChevronArrowSpan>
+                              </a>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </div>
+          );
+        })}
+      </div>
+      <Link href={"/team"}>
+        <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
+          <span className="font-semibold">Meet Our Team</span>
+        </ChevronArrowButton>
+      </Link>
+    </SectionCard>
+  );
+};
+
+const ThankYouSection = () => {
+  return (
+    <SectionCard id="thank-you" title="Thanks For Visiting" description="Made with *heart* by your GDSC Team" />
+  );
+}
 
 export default async function Index() {
   return (
     <>
       <Header />
-      <main>
+      <main className="flex flex-col p-4 gap-y-2">
         <HeroSection />
         <AboutUsSection />
-        <SponsorsSection />
         <EventsSection />
         <NewslettersSection />
+        <TeamSection />
+        <ThankYouSection />
       </main>
-      <Footer />
     </>
   );
 }

@@ -20,8 +20,15 @@ export const structure: StructureResolver = (S) =>
             .schemaType("generalInfo")
             .documentId("generalInfo") // Use a fixed ID for the general info
         ),
+      S.listItem()
+        .title("Team")
+        .child(
+          S.document()
+            .schemaType("team")
+            .documentId("team") // Use a fixed ID for the team
+        ),
       // Include other document types if needed
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() !== "about" && item.getId() !== "generalInfo"
+        (item) => item.getId() !== "about" && item.getId() !== "generalInfo" && item.getId() !== "team"
       ),
     ]);

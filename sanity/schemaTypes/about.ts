@@ -38,6 +38,12 @@ export const aboutSchema = defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
+              name: "icon",
+              title: "Icon",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
               name: "image",
               title: "Image",
               type: "image",

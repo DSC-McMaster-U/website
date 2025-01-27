@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ImageCTACard from '@/app/components/ImageCTACard';
+import ImageCTACard from '@/app/components/CTACard';
 import Image from 'next/image';
 
 describe('ImageCTACard', () => {
