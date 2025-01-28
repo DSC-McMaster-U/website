@@ -22,11 +22,11 @@ h2 {
 }
 
 h3 {
-  @apply text-3xl sm:text-4xl lg:text-5xl;
+  @apply text-lg sm:text-xl lg:text-2xl;
 }
 
 h4 {
-  @apply text-2xl sm:text-3xl lg:text-4xl;
+  @apply text-lg sm:text-xl lg:text-2xl;
 }
 
 h5 {
@@ -41,11 +41,13 @@ p {
   @apply font-default text-sm sm:text-base lg:text-lg;
 }
 
-header {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
-  @apply py-2 sm:py-4 lg:py-6;
+main {
+  @apply flex flex-col p-4 gap-y-2;
 }
 
+header {
+  @apply mx-auto max-w-[97.5vw] top-1 flex flex-row items-center justify-between w-full fixed z-50 bg-white-01 dark:bg-black-01 p-3 rounded-xl left-0 right-0;
+}
 
 footer {
   @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
@@ -81,7 +83,7 @@ footer {
 }
 
 .newsletter-p {
-  @apply text-base sm:text-lg lg:text-xl;
+  @apply text-base sm:text-lg lg:text-xl text-start;
 }
 
 .newsletter-a {
@@ -93,11 +95,11 @@ footer {
 }
 
 .newsletter-ul {
-  @apply list-disc list-inside text-base sm:text-lg lg:text-xl;
+  @apply list-disc list-inside text-base sm:text-lg lg:text-xl text-start;
 }
 
 .newsletter-li {
-  @apply text-base sm:text-lg lg:text-xl;
+  @apply text-base sm:text-lg lg:text-xl text-start;
 }
 
 .newsletter-bullet {
@@ -105,7 +107,7 @@ footer {
 }
 
 .newsletter-number {
-  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl;
+  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl text-start;
 }
 
 .geometric-background-1 {

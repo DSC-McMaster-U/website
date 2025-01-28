@@ -4,8 +4,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Events | GDSC McMaster U",
-    description: "Events from GDSC McMaster U",
+    title: "Events | Google Developer Group on Campus | McMaster University",
+    description: "Events from Google Developer Group on Campus | McMaster University",
   };
 
 const fetchEvents = async () => {

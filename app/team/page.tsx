@@ -1,76 +1,88 @@
 import { client } from "@/sanity/lib/client";
-import { Team } from "@/types/sanity";
+import { Member, Team, TeamItem } from "@/types/sanity";
 import { Metadata } from "next";
-import Image from "next/image";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
-import MemberCard from "../components/MemberCard";
+import Pill from "../components/Pill";
+import SectionCard from "../components/SectionCard";
 import { urlFor } from "@/sanity/lib/image";
+import MemberCard from "../components/MemberCard";
+import Image from 'next/image';
+import AnimatedHero from "../components/AnimatedHero";
 
 export const metadata: Metadata = {
-  title: "Team | GDSC McMaster U",
-  description: "Our team @ GDSC McMaster U",
+  title: "Team | Google Developer Group on Campus | McMaster U",
+  description: "Our team Google Developer Group on Campus | McMaster University",
 };
 
-const fetchTeams = async () => {
-  const teams = await client.fetch(
-    `*[_type == 'team']{
-      _id,
-      name,
-      sectionId,
-      members,
-    }`
+const fetchTeam = async () => {
+  const team = await client.fetch(
+    `*[_type == 'team'][0]`
   );
 
-  return teams;
+  return team;
 };
 
-const TeamPage = async () => {
-  const teams: Team[] = await fetchTeams();
-  //console.log("Fetched teams:", teams);   // for testing
-  
+const HeroSection = () => {
+  return (
+    <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
+            <Pill>Our Team</Pill>
+            <h2>Meet our team that keeps everything running behind the scenes</h2>
+        </div>
+      </div>
+    </AnimatedHero>
+  )
+}
+
+const TeamsSections = async () => {
+  const team: Team = await fetchTeam();
+
+  return (
+    <>
+      {team?.teams?.map((teamItem: TeamItem) => (
+        <SectionCard 
+          key={teamItem._key} 
+          id={teamItem.name}
+          description={teamItem.description}
+          title={teamItem.name}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            {teamItem?.members?.map((member: Member) => (
+              <MemberCard 
+                key={member._key}
+                Image={
+                  <Image
+                    src={urlFor(member.picture.asset).url()}
+                    alt={member.name}
+                    width={200}
+                    height={200}
+                  />
+                }
+                Content={
+                  <>
+                    <span className="text-lg font-semibold">{member.name}</span>
+                    <span className="text-base">{member.position}</span>
+                  </>
+                }
+              />
+            ))}
+          </div>
+        </SectionCard>
+      ))}
+    </>
+  );
+};
+
+
+const TeamPage = () => {  
   return (
     <>
       <Header />
-      <main className="pt-32">
-        <h3 className="text-center mb-8">Our Team @ GDSC McMaster U</h3>
-
-        {teams.map((team, idx) => (
-          <section id={team.sectionId} key={idx} className="px-8 sm:px-0 w-full">
-            <h5 className="mb-6 text-center">{team.name}</h5>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-              {team.members.map((member,_idx) => (
-                  <MemberCard
-                    key={idx * 1000 + _idx}
-                    Image={
-                      <Image
-                          src={urlFor(member.picture.asset).url()}
-                          alt={member.name || "not available"}
-                          fill
-                          className="object-cover transition-opacity rounded-md duration-300"
-                      />
-                    }
-                    Content={
-                      <>
-                        <div className="transition-transform duration-300 ease-in-out">
-                          <h6>{member.name}</h6>
-                          <p className="text-google-grey dark:text-google-lightGrey">{member.position}</p>
-                        </div>
-                      </>
-                    }
-                    CTA={
-                      <div className="transition-transform duration-300 ease-in-out">
-                        <p className="px-1 text-google-grey dark:text-google-lightGrey hover:text-google-black dark:hover:text-white text-sm">{member.hoverContent}</p>
-                      </div>
-                    }
-                  />
-              ))}
-            </div> 
-            
-            </section>
-        ))}        
+      <main>
+        <HeroSection />
+        <TeamsSections />
       </main>
-      <Footer />
     </>
   )
 }

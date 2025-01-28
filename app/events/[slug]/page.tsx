@@ -8,14 +8,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     // If no event is found, return default metadata
     if (!event) {
         return {
-            title: "Event | GDSC McMaster U",
+            title: "Event | Google Developer Group on Campus | McMaster University",
             description: "Event details not found",
         };
     }
 
     // Use the event title for the metadata
     return {
-        title: `${event.title} | GDSC McMaster U`,
+        title: `${event.title} | Google Developer Group on Campus | McMaster University`,
         description: `Event | ${event.title}`,
     };
 }

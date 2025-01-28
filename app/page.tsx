@@ -1,27 +1,27 @@
 import { client } from "@/sanity/lib/client";
 import { FC } from "react";
-import { Sponsor } from "@/types/sanity";
+import { About, AboutCard, GeneralInfo, Newsletter, Project, Sponsor, Team, TeamItem } from "@/types/sanity";
 import Link from "next/link";
 import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
 import Header from "@/app/components/Header";
 import Image from "next/image";
-import { ChevronArrowButton, ChevronArrowSpan } from "@/app/components/ChevronArrow";
-import * as Icons from "react-icons/md"; // Import all MD icons
+import { ChevronArrowButton } from "@/app/components/ChevronArrow";
+import * as Icons from "react-icons/md";
 import HeroAnimation from "@/assets/animations/HeroAnimation.gif";
 import SectionCard from "./components/SectionCard";
 import Card from "./components/Card";
+import Heart from "./components/svgs/Heart";
+import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
 
 const HeroSection = async () => {
-  const generalInfo = await client.fetch(
-    `*[_type == 'generalInfo'][0]`
-  );
+  const generalInfo: GeneralInfo = await client.fetch(`*[_type == 'generalInfo'][0]`);
 
   if (!generalInfo) return null;
 
   return (
-    <div id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 flex md:flex-row flex-col gap-y-8 md:gap-y-0 min-h-screen items-center">
-      <div className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
+    <div id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+      <AnimatedHero className="md:w-2/3 flex flex-col justify-start gap-y-4" id="hero-content">
         <h1 className="hero-title">{generalInfo.club && generalInfo.club}</h1>
         <h5>{generalInfo.school && generalInfo.school}</h5>
         <p>{generalInfo.description && generalInfo.description}</p>
@@ -41,22 +41,22 @@ const HeroSection = async () => {
             </Link>
           )}
         </div>
-      </div>
-      <div className="md:w-1/3">
+      </AnimatedHero>
+      <AnimatedHeroSvg className="md:w-1/3">
         <Image 
           src={HeroAnimation}
           alt="Roundtable" 
           className="object-contain w-full h-full"
           unoptimized
         />
-      </div>
+      </AnimatedHeroSvg>
     </div>
   );
 };
 
 const AboutUsSection = async () => {
-  const about = await client.fetch(`*[_type == 'about'][0]`);
-  const sponsors = await client.fetch(`*[_type == 'sponsor']`);
+  const about: About = await client.fetch(`*[_type == 'about'][0]`);
+  const sponsors: Sponsor[] = await client.fetch(`*[_type == 'sponsor']`);
 
   if (!about) return null;
 
@@ -64,7 +64,7 @@ const AboutUsSection = async () => {
     <SectionCard title={about.title} description={about.description} id="about-us">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {about.cards &&
-          about.cards.map((card: { _key: string; title: string; description: string; icon: string; image: { _type: string; asset: { _ref: string; _type: string } } }) => {
+          about.cards.map((card: AboutCard) => {
             const IconComponent = Icons[card.icon as keyof typeof Icons] || Icons.MdHelp;
             return (
               <Card
@@ -117,8 +117,8 @@ const EventsSection = async () => {
 };
 
 const NewslettersSection = async () => {
-  const newsletters = await client.fetch(
-    `*[_type == "newsletter"]`
+  const newsletters: Newsletter[] = await client.fetch(
+    `*[_type == "newsletter"] | order(publishedAt desc) [0...3]`
   );
 
   if (!newsletters) return null;
@@ -126,53 +126,19 @@ const NewslettersSection = async () => {
   return (
     <SectionCard id="newsletters" title="Our Newsletter" description="Stay up-to-date with the latest and greatest in everything tech">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        { newsletters && newsletters.map((newsletter: { _id: string, title: string, description: string, slug: { current: string, type: string } }) => (
-          <Card
-            key={newsletter._id}
-            title={newsletter.title}
-            description={newsletter.description}
-            icon={<Icons.MdArticle className="w-full h-fit"/>}
-            CTA={
-              <Link href={`/newsletters/${newsletter.slug.current}`}>
-                <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
-                  <span className="font-semibold">Read More</span>
-                </ChevronArrowButton>
-              </Link>
-            }
-          >
-          </Card>
+        { newsletters && newsletters.map((newsletter: Newsletter) => (
+          <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
+            <Card
+              title={newsletter.title}
+              description={newsletter.description}
+              icon={<Icons.MdArticle className="w-full h-fit"/>}
+            />
+          </Link>
         ))}
       </div>
     </SectionCard>
   );
 };
-
-interface Project {
-  _key: string;
-  title: string;
-  description: string;
-  link: string;
-}
-
-interface TeamItem {
-  _type: string;
-  name: string;
-  description: string;
-  _key: string;
-  icon?: string;
-  projects?: Project[];
-}
-
-interface Team {
-  _updatedAt: string;
-  teams: TeamItem[];
-  _createdAt: string;
-  _rev: string;
-  _type: string;
-  description: string;
-  _id: string;
-  title: string;
-}
 
 const TeamSection: FC = async () => {
   const team: Team | null = await client.fetch(`*[_type == "team"][0]`);
@@ -191,21 +157,23 @@ const TeamSection: FC = async () => {
         {team.teams.map((teamItem: TeamItem, index: number) => {
           const isCoreTeam = teamItem.name === "Core";
           const isInfiniteCarousel = hasProjects && teamItem.projects;
-          const colSpanClass = (hasProjects || isCoreTeam) ? "col-span-3" : "col-span-1";
+          const colSpanClass = (hasProjects || isCoreTeam) ? "col-span-1 md:col-span-2 lg:col-span-3" : "col-span-1";
           const IconComponent = Icons[teamItem.icon as keyof typeof Icons] || Icons.MdHelp;
           if (isCoreTeam) {
             return (
               <Card key={index} className={colSpanClass}>
-                <div className="flex w-full h-fit text-start justify-between flex-row gap-y-6 p-6">
+                <div className="flex w-full h-fit text-start md:justify-between flex-col md:flex-row gap-y-6 p-6">
                   <div className="flex flex-row items-center gap-x-2">
                     <div className="w-6">
                       <IconComponent className="w-full h-fit" />
                     </div>
                     <span className="text-white-00">{teamItem.name}</span>
                   </div>
-                  <div>
-                    <span className="text-white-03">{teamItem.description}</span>
-                  </div>
+                  {!hasProjects &&
+                    <div>
+                      <span className="text-white-03">{teamItem.description}</span>
+                    </div>
+                  }
                 </div>
               </Card>
             );
@@ -224,34 +192,35 @@ const TeamSection: FC = async () => {
                     </div>
                     <span className="text-white-00">{teamItem.name}</span>
                   </div>
-                  <div>
-                    <span className="text-white-03">{teamItem.description}</span>
-                  </div>
+                  {!hasProjects && 
+                    <div>
+                      <span className="text-white-03">{teamItem.description}</span>
+                    </div>
+                  }
                   {isInfiniteCarousel && (
-                    <div className="relative">
-                      <div className="overflow-x-auto flex space-x-4">
-                        {teamItem.projects?.map(
-                          ({ _key, title, description, link }: Project) => (
-                            <div
-                              className="h-64 w-64 bg-black-03 p-16"
-                              key={_key}
-                            >
-                              <h2 className="text-white-00">{title}</h2>
-                              <p className="text-white-03">{description}</p>
-                              <a
-                                href={link}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <ChevronArrowSpan className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
-                                  <span className="font-semibold">
-                                    Learn More
-                                  </span>
-                                </ChevronArrowSpan>
-                              </a>
+                    <div className="relative overflow-x-auto ">
+                      <div className="flex flex-row space-x-4">
+                        {teamItem.projects?.map(({ _key, name, image, link }: Project) => (
+                          <div className="flex flex-col gap-y-2" key={_key}>
+                            <Link href={link} target="_blank" rel="noreferrer">
+                              <div className="h-40 w-40 md:w-64 rounded-xl bg-black-03 flex items-center justify-center">
+                                { image ?
+                                  <Image 
+                                    src={urlFor(image.asset).url()}
+                                    alt={name}
+                                    width={150}
+                                    height={150}
+                                  />
+                                  :
+                                  <Icons.MdCode size={200} />
+                                }
+                              </div>
+                            </Link>
+                            <div className="flex flex-col items-center w-40 md:w-64">
+                              <span className="break-words text-center max-w-full">{name}</span>
                             </div>
-                          )
-                        )}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -272,7 +241,11 @@ const TeamSection: FC = async () => {
 
 const ThankYouSection = () => {
   return (
-    <SectionCard id="thank-you" title="Thanks For Visiting" description="Made with *heart* by your GDSC Team" />
+    <SectionCard id="thank-you" title="Our Appreciation" description="Thanks for visitng" >
+      <div className="flex flex-row items-center">
+        Made with&nbsp;<Heart width={20} height={20}/>&nbsp;by your GDSC Team
+      </div>
+    </SectionCard>
   );
 }
 
@@ -280,7 +253,7 @@ export default async function Index() {
   return (
     <>
       <Header />
-      <main className="flex flex-col p-4 gap-y-2">
+      <main>
         <HeroSection />
         <AboutUsSection />
         <EventsSection />

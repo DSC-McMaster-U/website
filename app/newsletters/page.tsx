@@ -2,12 +2,16 @@ import { client } from "@/sanity/lib/client";
 import { Newsletter } from "@/types/sanity";
 import { Metadata } from "next";
 import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import LinkTitleCard from "@/app/components/LinkTitleCard";
+import SectionCard from "../components/SectionCard";
+import Link from "next/link";
+import Card from "../components/Card";
+import * as Icons from "react-icons/md";
+import Pill from "../components/Pill";
+import AnimatedHero from "../components/AnimatedHero";
 
 export const metadata: Metadata = {
-    title: "Newsletters | GDSC McMaster U",
-    description: "Newsletters from GDSC McMaster U",
+    title: "Newsletters | Google Developer Group on Campus | McMaster University",
+    description: "Newsletters from Google Developer Group on Campus | McMaster University",
 };
 
 const fetchNewsletters = async () => {
@@ -23,30 +27,48 @@ const fetchNewsletters = async () => {
   return newsletters;
 };
 
-const NewslettersPage = async () => {
+const HeroSection = () => {
+
+  return (
+    <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
+            <Pill>Our Newsletter</Pill>
+            <h2>Keeping you up-to-date with the latest and greatest for everything tech</h2>
+        </div>
+      </div>
+    </AnimatedHero>
+  )
+}
+
+const NewslettersGridSection = async () => {
   const newsletters: Newsletter[] = await fetchNewsletters();
+  return (
+    <SectionCard id={"newsletters-grid"}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        { newsletters && newsletters.map((newsletter: Newsletter) => (
+          <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
+            <Card
+              title={newsletter.title}
+              description={newsletter.description}
+              icon={<Icons.MdArticle className="w-full h-fit"/>}
+            />
+          </Link>
+        ))}
+      </div>
+    </SectionCard>
+  )
+}
+
+const NewslettersPage = async () => {
 
   return (
     <>
       <Header />
-        <main>
-          <section id="newsletters" className="flex flex-col gap-y-4">
-            <h2>Newsletters</h2>
-            <p>Through GDSC McMaster University&apos;s monthly newsletter, stay updated on the latest tech news, events, and innovations. Featuring industry trends, club highlights, and upcoming activities, the newsletter connects members to valuable insights and opportunities in the tech world.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-10">
-              {newsletters.map((newsletter) => (
-                <LinkTitleCard
-                  key={newsletter.slug.current}
-                  title={newsletter.title}
-                  link={`/newsletters/${newsletter.slug.current}`}
-                >
-                  <p>{newsletter.description}</p>
-                </LinkTitleCard>
-              ))}
-            </div>
-          </section>
-        </main>
-      <Footer />
+      <main>
+        <HeroSection />
+        <NewslettersGridSection />
+      </main>
     </>
   );
 };

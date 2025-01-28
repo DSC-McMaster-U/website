@@ -127,6 +127,8 @@ export const teamSchema = defineType({
                       title: "Link",
                       type: "url",
                       description: "Link to the project",
+                      validation: (Rule) =>
+                        Rule.required().error("Link is required"),
                     }),
                   ],
                 },

@@ -3,21 +3,24 @@ import { client } from "@/sanity/lib/client";
 import { Newsletter } from "@/types/sanity";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
+import Pill from "@/app/components/Pill";
+import SectionCard from "@/app/components/SectionCard";
+import { urlFor } from "@/sanity/lib/image";
+import AnimatedHero from "@/app/components/AnimatedHero";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const newsletter = await fetchNewsletter(params.slug);
     
     if (!newsletter) {
         return {
-            title: "Newsletter | GDSC McMaster U",
+            title: "Newsletter | Google Developer Group on Campus | McMaster University",
             description: "Newsletter content not found",
         };
     }
 
     return {
-        title: `${newsletter.title} | GDSC McMaster U`,
+        title: `${newsletter.title} | Google Developer Group on Campus | McMaster University`,
         description: `Newsletter | ${newsletter.title}`,
     };
 }
@@ -39,10 +42,10 @@ const fetchNewsletter = async (slug: string) => {
 
 const serializers: Partial<PortableTextReactComponents> = {
     types: {
-        image: ({ value }: { value: { asset: { url: string }; alt?: string } }) => (
+        image: ({ value }) => (
             <div className="my-4">
                 <Image
-                    src={value.asset.url}
+                    src={urlFor(value.asset).url()}
                     alt={value.alt || "Image"}
                     width={600}
                     height={400}
@@ -84,37 +87,45 @@ const serializers: Partial<PortableTextReactComponents> = {
     }
 };
 
-const NewsletterDetailPage = async ({ params }: { params: { slug: string } }) => {
-    const { slug } = params;
-    const newsletter: Newsletter = await fetchNewsletter(slug);
+const HeroSection = ({newsletter} : {newsletter : Newsletter}) => {
+    return (
+      <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+        <div className="w-full flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
+                <Pill>Our Newsletter</Pill>
+                <h2>{newsletter.title}</h2>
+                <h3 className="italic">{newsletter.description}</h3>
+          </div>
+        </div>
+      </AnimatedHero>
+    )
+}
 
+const NewsletterContent = ({newsletter} : {newsletter : Newsletter}) => {
     if (!newsletter) {
         throw new Response("Not Found", { status: 404 });
     }
 
-    // Format the date as "Monday, September 16, 2024"
-    const formattedDate = new Date(newsletter._updatedAt).toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+    console.log(newsletter)
+
+    return (
+        <SectionCard id="newsletter-content">
+            <PortableText value={newsletter.body} components={serializers} />
+        </SectionCard>
+    )
+}
+
+const NewsletterDetailPage = async ({ params }: { params: { slug: string } }) => {
+    const { slug } = params;
+    const newsletter: Newsletter = await fetchNewsletter(slug);
 
     return (
         <>
             <Header />
             <main>
-                <section id="newsletter" className="flex flex-col gap-y-4">
-                    <div className="flex flex-col gap-y-4 pb-12 mb-12 border-b-2 border-google-darkGrey dark:border-google-lightGrey">
-                        <h2>{newsletter.title}</h2>
-                        <h5>{newsletter.description}</h5>
-                        <p>{formattedDate}</p>
-                    </div>
-                    {/* Render the newsletter body using PortableText */}
-                    <PortableText value={newsletter.body} components={serializers} />
-                </section>
+                <HeroSection newsletter={newsletter} />
+                <NewsletterContent newsletter={newsletter} />
             </main>
-            <Footer />
         </>
     );
 };

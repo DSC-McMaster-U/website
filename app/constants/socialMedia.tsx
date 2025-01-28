@@ -27,24 +27,4 @@ export const socialMedia = [
         href: "https://github.com/DSC-McMaster-U/", 
         icon: <SiGithub className="w-full h-full min-h-6" />
     },
-    {
-        name: "YouTube",
-        href: "https://www.youtube.com/channel/UCyxVVPDEYRCjL0lcwoX9lzA/videos", 
-        icon: <SiYoutube className="w-full h-full min-h-6" />
-    },
-    {
-        name: "Facebook",
-        href: "https://www.facebook.com/GDSCMcMasterU", 
-        icon: <SiFacebook className="w-full h-full min-h-6" />
-    },
-    {
-        name: "X",
-        href: "https://twitter.com/dscmcmasteru", 
-        icon: <SiX className="w-full h-full min-h-6" />
-    },
-    {
-        name: "Gmail",
-        href: "mailto:dsc.mcmaster@gmail.com",
-        icon: <SiGmail className="w-full h-full min-h-6" />
-    }
 ];

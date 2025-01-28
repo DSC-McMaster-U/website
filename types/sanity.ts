@@ -53,38 +53,94 @@ export interface Sponsor {
   website: string;            // The website of the sponsor
 }
 
-// Team Schema Type
-export interface Team {
-  _id: string;                // Unique identifier for the document
-  _type: 'team';              // Document type
-  name: string;               // The name of the team
-  sectionId: string;          // The unique section ID for navigation
+export interface Project {
+  _key: string;
+  name: string;
+  description: string;
+  link: string;
+  image?: {
+    _type: string,
+    asset: {
+      _ref: string,
+      _type: string
+    }
+  }
+}
+
+export interface TeamItem {
+  _type: string;
+  name: string;
+  description: string;
+  _key: string;
+  icon?: string;
+  projects?: Project[];
   members: Member[];
-  projects: Project[];
+}
+
+export interface Team {
+  _updatedAt: string;
+  teams: TeamItem[];
+  _createdAt: string;
+  _rev: string;
+  _type: string;
+  description: string;
+  _id: string;
+  title: string;
 }
 
 export interface Member {
-  name: string;               // The name of the member
-  position: string;           // The position of the member
-  hoverContent: string;       // The content that appears on hover of member card
+  _key: string;
+  name: string;
+  position: string;
   picture: {
-    _type: "image";           // Image type
+    _type: string,
     asset: {
-      _ref: string;           // Reference to the image asset
-      _type: "reference";     // Reference type
-    };
-  };
-};
+      _ref: string,
+      _type: string
+    }
+  }
+}
 
-export interface Project {
-  title: string;              // The title of the project
-  description: string;        // The description of the project
-  link: URL;                  // The link to the project
+export interface AboutCard {
+  icon: string; // Assuming this references the string name of an icon
+  description: string;
+  _key: string;
+  title: string;
   image: {
-    _type: "image";           // Image type
+    _type: string,
     asset: {
-      _ref: string;           // Reference to the image asset
-      _type: "reference";     // Reference type
-    };
+      _ref: string,
+      _type: string
+    }
+  }
+}
+
+export interface About {
+  description: string;
+  _id: string;
+  title: string;
+  _updatedAt: string;
+  _createdAt: string;
+  _rev: string;
+  _type: string;
+  cards: AboutCard[];
+}
+
+export interface GeneralInfo {
+  club: string;
+  cta1: {
+    href: string;
+    label: string;
   };
-};
+  cta2: {
+    href: string;
+    label: string;
+  };
+  _type: string;
+  description: string;
+  _id: string;
+  _updatedAt: string;
+  school: string;
+  _createdAt: string;
+  _rev: string;
+}
