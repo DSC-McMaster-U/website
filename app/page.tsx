@@ -145,17 +145,15 @@ const TeamSection: FC = async () => {
 
   if (!team) return null;
 
-  const hasProjects = team.teams.some((t) => t.projects && t.projects.length > 0);
 
   return (
     <SectionCard id="team" title={team.title} description={team.description}>
       <div
-        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${
-          hasProjects ? 3 : 1
-        } gap-2`}
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2`}
       >
         {team.teams.map((teamItem: TeamItem, index: number) => {
           const isCoreTeam = teamItem.name === "Core";
+          const hasProjects = teamItem.projects && (teamItem.projects.length > 0)
           const isInfiniteCarousel = hasProjects && teamItem.projects;
           const colSpanClass = (hasProjects || isCoreTeam) ? "col-span-1 md:col-span-2 lg:col-span-3" : "col-span-1";
           const IconComponent = Icons[teamItem.icon as keyof typeof Icons] || Icons.MdHelp;
