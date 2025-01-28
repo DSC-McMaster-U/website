@@ -13,7 +13,6 @@ import SectionCard from "./components/SectionCard";
 import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
-import SocialMediaAnimation from "./components/SocialMediaAnimation";
 
 const HeroSection = async () => {
   const generalInfo: GeneralInfo = await client.fetch(`*[_type == 'generalInfo'][0]`);
