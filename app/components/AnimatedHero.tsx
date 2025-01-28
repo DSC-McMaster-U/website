@@ -10,6 +10,7 @@ interface AnimatedContainerProps {
 const AnimatedHero = ({children, className, id}: AnimatedContainerProps) => {
     return (
         <motion.div
+            id={id}
             initial={{
                 opacity: 0,
                 y: 50,
@@ -31,6 +32,7 @@ const AnimatedHero = ({children, className, id}: AnimatedContainerProps) => {
 export const AnimatedHeroSvg = ({children, className, id}: AnimatedContainerProps) => {
     return (
         <motion.div
+            id={id}
             initial={{
                 opacity: 0,
                 scale: 0,

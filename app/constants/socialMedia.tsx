@@ -1,4 +1,4 @@
-import { SiInstagram, SiDiscord, SiLinkedin, SiGithub, SiYoutube, SiFacebook, SiX, SiGmail } from "react-icons/si";
+import { SiInstagram, SiDiscord, SiLinkedin, SiGithub } from "react-icons/si";
 
 export interface SocialMedia {
     name: string;
