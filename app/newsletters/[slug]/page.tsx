@@ -87,44 +87,29 @@ const serializers: Partial<PortableTextReactComponents> = {
     }
 };
 
-const HeroSection = ({newsletter} : {newsletter : Newsletter}) => {
-    return (
-      <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
-        <div className="w-full flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
-                <Pill>Our Newsletter</Pill>
-                <h2>{newsletter.title}</h2>
-                <h3 className="italic">{newsletter.description}</h3>
-          </div>
-        </div>
-      </AnimatedHero>
-    )
-}
+type Params = Promise<{ slug: string[] }>
 
-const NewsletterContent = ({newsletter} : {newsletter : Newsletter}) => {
-    if (!newsletter) {
-        throw new Response("Not Found", { status: 404 });
-    }
-
-    console.log(newsletter)
-
-    return (
-        <SectionCard id="newsletter-content">
-            <PortableText value={newsletter.body} components={serializers} />
-        </SectionCard>
-    )
-}
-
-const NewsletterDetailPage = async ({ params }: { params: { slug: string } }) => {
-    const { slug } = params;
-    const newsletter: Newsletter = await fetchNewsletter(slug);
-
+const NewsletterDetailPage = async ({ params }: { params: Params }) => {
+    const { slug } = await params;
+    const slugString = slug.toString();   
+    const newsletter: Newsletter = await fetchNewsletter(slugString);
+    if (!newsletter) return null;
     return (
         <>
             <Header />
             <main>
-                <HeroSection newsletter={newsletter} />
-                <NewsletterContent newsletter={newsletter} />
+                <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+                    <div className="w-full flex flex-col items-center">
+                    <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
+                            <Pill>Our Newsletter</Pill>
+                            <h2>{newsletter.title}</h2>
+                            <h3 className="italic">{newsletter.description}</h3>
+                    </div>
+                    </div>
+                </AnimatedHero>
+                <SectionCard id="newsletter-content">
+                    <PortableText value={newsletter.body} components={serializers} />
+                </SectionCard>
             </main>
         </>
     );

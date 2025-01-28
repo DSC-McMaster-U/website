@@ -44,8 +44,8 @@ const HeroSection = () => {
 const NewslettersGridSection = async () => {
   const newsletters: Newsletter[] = await fetchNewsletters();
   return (
-    <SectionCard id={"newsletters-grid"}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    <SectionCard id={"newsletters-grid-section"}>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" key={'newsletter-grid'}>
         { newsletters && newsletters.map((newsletter: Newsletter) => (
           <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
             <Card
