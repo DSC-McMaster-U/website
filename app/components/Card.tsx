@@ -20,7 +20,7 @@ interface CardProps {
 const Card = ({title, description, icon, image, children, CTA, className, imageHeight, imageWidth}: CardProps) => {
 
     return (
-        <div className={`${CTA && "pb-12"} relative p-4 card-group overflow-hidden flex flex-col items-center justify-start w-full h-full bg-white-02 dark:bg-black-02 rounded-lg shadow-lg ${className}`}>
+        <div className={`${className} ${CTA && "pb-12"} relative p-4 card-group overflow-hidden flex flex-col items-center justify-start w-full h-full bg-white-02 dark:bg-black-02 rounded-lg shadow-lg`}>
             {image && (
                 <div className='relative flex items-center justify-center w-full h-full'>
                     <CardGradientBackground className="relativew-full h-fit z-0" />

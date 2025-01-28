@@ -45,20 +45,21 @@ const NewslettersGridSection = async () => {
   const newsletters: Newsletter[] = await fetchNewsletters();
   return (
     <SectionCard id={"newsletters-grid-section"}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" key={'newsletter-grid'}>
-        { newsletters && newsletters.map((newsletter: Newsletter) => (
-          <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
-            <Card
-              title={newsletter.title}
-              description={newsletter.description}
-              icon={<Icons.MdArticle className="w-full h-fit"/>}
-            />
-          </Link>
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {newsletters &&
+          newsletters.map((newsletter: Newsletter) => (
+            <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
+              <Card
+                title={newsletter.title}
+                description={newsletter.description}
+                icon={<Icons.MdArticle className="w-full h-fit" />}
+              />
+            </Link>
+          ))}
       </div>
     </SectionCard>
-  )
-}
+  );
+};
 
 const NewslettersPage = async () => {
 
