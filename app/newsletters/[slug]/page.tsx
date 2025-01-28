@@ -9,8 +9,12 @@ import SectionCard from "@/app/components/SectionCard";
 import { urlFor } from "@/sanity/lib/image";
 import AnimatedHero from "@/app/components/AnimatedHero";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const newsletter = await fetchNewsletter(params.slug);
+type Params = Promise<{ slug: string[] }>
+
+export async function generateMetadata({ params }: { params: Params }) {
+    const { slug } = await params;
+    const slugString = slug.toString(); 
+    const newsletter = await fetchNewsletter(slugString);
     
     if (!newsletter) {
         return {
@@ -86,8 +90,6 @@ const serializers: Partial<PortableTextReactComponents> = {
         ),
     }
 };
-
-type Params = Promise<{ slug: string[] }>
 
 const NewsletterDetailPage = async ({ params }: { params: Params }) => {
     const { slug } = await params;
