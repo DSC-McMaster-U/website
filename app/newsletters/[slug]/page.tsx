@@ -53,7 +53,7 @@ const serializers: Partial<PortableTextReactComponents> = {
                     alt={value.alt || "Image"}
                     width={600}
                     height={400}
-                    className="rounded-lg"
+                    className="rounded-lg w-full max-w-[95%] mx-auto"
                 />
             </div>
         ),
