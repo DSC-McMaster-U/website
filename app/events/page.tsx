@@ -1,36 +1,42 @@
-"use client";
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Header from "@/app/components/Header";
 import Image from 'next/image'
 
 
-const eventsPage = () => {
-    const [pastEvents, setPastEvents] = useState([]);
-    const [upcomingEvents, setUpcomingEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
+async function getEvents () {
+    const pastEventsUrl = "https://gdg.community.dev/api/event_slim/for_chapter/2428/?status=Completed";
+    const upcomingEventsUrl = "https://gdg.community.dev/api/event_slim/for_chapter/2428/?status=Live";
+    try {
+        // Fetch the past events data from the GDG event page in parallel with the upcoming events data
+        const [pastResponse, upcomingResponse] = await Promise.all([
+            fetch(pastEventsUrl),
+            fetch(upcomingEventsUrl),
+        ]);
 
-    const getEvents = async () => {
-        try {
-            const res = await fetch('/api/scrapeEvents', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await res.json();
-            setPastEvents(data["past_events"]);
-            setUpcomingEvents(data["upcoming_events"]);
-            setLoading(false);
-            console.log(data["past_events"]);
-
-        } catch (error) {
-            console.error(error);
+        if (!pastResponse.ok || !upcomingResponse.ok) {
+            throw new Error("Failed to fetch event data");
         }
-    }
 
-    useEffect(() =>{
-        getEvents();
-    }, []);
+        const pastData = await pastResponse.json();
+        const upcomingData = await upcomingResponse.json();
+
+        const pastEvents = pastData.results;
+        const upcomingEvents = upcomingData.results;
+
+
+        // Return the past and upcoming events data
+        return { "past_events": pastEvents, "upcoming_events": upcomingEvents};
+
+
+    } catch (error) {
+        console.error(error);
+        return { "past_events": [], "upcoming_events": []};
+    }
+}
+
+
+export default async function eventsPage () {
+    const { past_events, upcoming_events } = await getEvents(); 
 
   return (
     <>
@@ -42,12 +48,14 @@ const eventsPage = () => {
             <div className="mx-auto">
                 <h2>Upcoming Events</h2>
                 <ul>
-                    {upcomingEvents ? upcomingEvents.map((upcomingEvent, index) => {
-                        return (
-                            <li key={index}>hi</li>
-                        );
+                    {upcoming_events.length > 0 ? (
+                        upcoming_events.map((upcomingEvent: {picture: string, start_date: string, title: string, chapter_title: string}, index: number) => (
+                            <li key={index}></li>
+                        ))
+                    ) : (
+                        <p>No upcoming events</p>
+                    )}
 
-                    }) : (loading ? <p>Loading...</p> : <p>No upcoming events</p>)}
                 </ul>
                 
 
@@ -55,13 +63,13 @@ const eventsPage = () => {
             <div className="mx-auto">
                 <h2>Past Events</h2>
                 <ul>
-                    {pastEvents ? pastEvents.map((pastEvent, index) => {
+                    {past_events ? past_events.map((pastEvent: {picture: string, start_date: string, title: string, chapter_title: string }, index: number) => {
                         return (
                             <li key={index}>
                                 <Image src={pastEvent.picture}
                                     width={200}
                                     height={200}
-                                    alt="Event Image"
+                                    alt="Past Event Image"
                                     className="w-auto h-auto"
                                 />
                                 <p>{pastEvent.start_date}</p>
@@ -69,7 +77,7 @@ const eventsPage = () => {
                                 <p>{pastEvent.chapter_title}</p>
                             </li>
                         );
-                    }) : (loading ? <p>Loading...</p> : <p>No past events</p>)}
+                    }) : <p>No past events</p>}
 
                 </ul>
             </div>
@@ -78,5 +86,3 @@ const eventsPage = () => {
     </>
   )
 }
-
-export default eventsPage
