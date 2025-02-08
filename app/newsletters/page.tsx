@@ -52,7 +52,7 @@ const NewslettersGridSection = async () => {
               <Card
                 title={newsletter.title}
                 description={newsletter.description}
-                icon={<Icons.MdArticle className="w-full h-fit" />}
+                icon={<Icons.MdArticle className="w-full h-fit text-2xl" />}
               />
             </Link>
           ))}

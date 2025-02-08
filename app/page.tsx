@@ -71,7 +71,7 @@ const AboutUsSection = async () => {
                 key={card._key}
                 title={card.title}
                 description={card.description}
-                icon={<IconComponent className="w-full h-fit" />}
+                icon={<IconComponent className="w-full h-fit text-2xl" />}
                 image={{
                   src: urlFor(card.image.asset).url(),
                   alt: `${card.title}`,
@@ -79,7 +79,7 @@ const AboutUsSection = async () => {
               />
             );
           })}
-        <Card title="Sponsors" icon={<Icons.MdStar className="w-full h-fit" />}>
+        <Card title="Sponsors" icon={<Icons.MdStar className="w-full h-fit text-2xl" />}>
           {sponsors && sponsors.length > 0 && (
             <div className="flex items-center justify-center h-full">
               <Ticker>
@@ -131,7 +131,7 @@ const NewslettersSection = async () => {
             <Card
               title={newsletter.title}
               description={newsletter.description}
-              icon={<Icons.MdArticle className="w-full h-fit"/>}
+              icon={<Icons.MdArticle className="w-full h-fit text-2xl"/>}
             />
           </Link>
         ))}
@@ -163,7 +163,7 @@ const TeamSection: FC = async () => {
                 <div className="flex w-full h-fit text-start md:justify-between flex-col md:flex-row gap-y-6 p-6">
                   <div className="flex flex-row items-center gap-x-2">
                     <div className="w-6">
-                      <IconComponent className="w-full h-fit" />
+                      <IconComponent className="w-full h-fit text-2xl" />
                     </div>
                     <span className="text-white-00">{teamItem.name}</span>
                   </div>
@@ -186,7 +186,7 @@ const TeamSection: FC = async () => {
                 <div className="flex flex-col w-full h-fit text-start gap-y-6 p-6">
                   <div className="flex flex-row items-center gap-x-2">
                     <div className="w-6">
-                      <IconComponent className="w-full h-fit" />
+                      <IconComponent className="w-full h-fit text-2xl" />
                     </div>
                     <span className="text-white-00">{teamItem.name}</span>
                   </div>
@@ -210,7 +210,7 @@ const TeamSection: FC = async () => {
                                     height={150}
                                   />
                                   :
-                                  <Icons.MdCode size={200} />
+                                  <Icons.MdCode size={200} className="text-2xl" />
                                 }
                               </div>
                             </Link>
