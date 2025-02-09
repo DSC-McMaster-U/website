@@ -163,11 +163,11 @@ const TeamSection: FC = async () => {
                 <div className="flex w-full h-fit text-start md:justify-between flex-col md:flex-row gap-y-6 p-6">
                   <div className="flex flex-row items-center gap-x-2">
                     <IconComponent className="text-2xl" />
-                    <span className="text-white-00">{teamItem.name}</span>
+                    <span className="text-black-00 dark:text-white-00">{teamItem.name}</span>
                   </div>
                   {!hasProjects &&
                     <div>
-                      <span className="text-white-03">{teamItem.description}</span>
+                      <span className="text-black-00 dark:text-white-03">{teamItem.description}</span>
                     </div>
                   }
                 </div>
@@ -184,11 +184,11 @@ const TeamSection: FC = async () => {
                 <div className="flex flex-col w-full h-fit text-start gap-y-6 p-6">
                   <div className="flex flex-row items-center gap-x-2">
                     <IconComponent className="text-2xl" />
-                    <span className="text-white-00">{teamItem.name}</span>
+                    <span className="text-black-00 dark:text-white-00">{teamItem.name}</span>
                   </div>
                   {!hasProjects && 
                     <div>
-                      <span className="text-white-03">{teamItem.description}</span>
+                      <span className="text-black-03 dark:text-white-03">{teamItem.description}</span>
                     </div>
                   }
                   {isInfiniteCarousel && (
@@ -197,7 +197,7 @@ const TeamSection: FC = async () => {
                         {teamItem.projects?.map(({ _key, name, image, link }: Project) => (
                           <div className="flex flex-col gap-y-2" key={_key}>
                             <Link href={link} target="_blank" rel="noreferrer">
-                              <div className="h-40 w-40 md:w-64 rounded-xl bg-black-03 flex items-center justify-center">
+                              <div className="h-40 w-40 md:w-64 rounded-xl bg-white-03 dark:bg-black-03 flex items-center justify-center">
                                 { image ?
                                   <Image 
                                     src={urlFor(image.asset).url()}
