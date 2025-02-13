@@ -30,6 +30,7 @@ export default async function eventsPage () {
                                     <a><p className="text-center">{upcomingEvent.title}</p></a>
                                     <p className="text-center">{upcomingEvent.chapter_title}</p>
                                     <p className="text-center">{upcomingEvent.description_short}</p>
+                                    <p></p>
 
                                 </div>
                             </li>
