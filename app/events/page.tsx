@@ -2,113 +2,56 @@ import React from 'react';
 import Header from "@/app/components/Header";
 import Image from 'next/image';
 import getEvents from '../lib/getEvents';
-import SectionCard from "@/app/components/SectionCard";
+import EventsSectionCard from "@/app/components/EventsSectionCard";
+import EventCard from "@/app/components/EventCard";
 
 interface Event {
-    picture: string;
-    start_date: string;
-    title: string;
-    chapter_title: string;
-    description_short?: string; // Optional for past events
+    start_date: string,
+    event_type: string,
+    title: string,
+    description_short: string,
+    picture: string,
   }
 
 export default async function eventsPage () {
-    // const { past_events, upcoming_events } = await getEvents(); 
-    const past_events: Event[] = [];
-    const upcoming_events: Event[] = [];
+   const { past_events, upcoming_events } = await getEvents();
 
-//   return (
-//     <>
-//         <Header />
-//         <main className="mt-20">
-//             <div className="mx-auto">
-//                 <h1>Events</h1>
-//             </div>
-//             <div className="mx-auto">
-//                 <h2>Upcoming Events</h2>
-//                 <ul>
-//                     {upcoming_events.length > 0 ? (
-//                         upcoming_events.map((upcomingEvent: {picture: string, start_date: string, title: string, chapter_title: string, description_short: string}, index: number) => (
-//                             <li key={index} >
-//                                 <div className="items-center">
-//                                     <Image src={upcomingEvent.picture}
-//                                         width={200}
-//                                         height={200}
-//                                         alt="Past Event Image"
-//                                         className="w-auto h-auto m-auto"
-//                                     />
-//                                     <p className="text-center">{upcomingEvent.start_date}</p>
-//                                     <a><p className="text-center">{upcomingEvent.title}</p></a>
-//                                     <p className="text-center">{upcomingEvent.chapter_title}</p>
-//                                     <p className="text-center">{upcomingEvent.description_short}</p>
-//                                     <p></p>
-
-//                                 </div>
-//                             </li>
-//                         ))
-//                     ) : (
-//                         <p>No upcoming events</p>
-//                     )}
-
-//                 </ul>
-                
-
-//             </div>
-//             <div className="mx-auto">
-//                 <h2>Past Events</h2>
-//                 <ul>
-//                     {past_events ? past_events.map((pastEvent: {picture: string, start_date: string, title: string, chapter_title: string }, index: number) => {
-//                         return (
-//                             <li key={index}>
-//                                 <Image src={pastEvent.picture}
-//                                     width={200}
-//                                     height={200}
-//                                     alt="Past Event Image"
-//                                     className="w-auto h-auto"
-//                                 />
-//                                 <p>{pastEvent.start_date}</p>
-//                                 <a><p>{pastEvent.title}</p></a>
-//                                 <p>{pastEvent.chapter_title}</p>
-//                             </li>
-//                         );
-//                     }) : <p>No past events</p>}
-
-//                 </ul>
-//             </div>
-//         </main>
-      
-//     </>
-//   )
     return (
         <>
             <Header />
             <main>
-                <div className="h-60 mt-40 items-center">
+                <div className="h-64 mt-24 flex items-center">
                     <h1 className="text-[48px] text-center max-w-[80%] mx-auto">Explore Our Events: What We’ve Done & What’s Next</h1>
                 </ div>
-                <SectionCard title={"Upcoming Events"} description={""} id="upcoming-events">
-                    <ul>
+                <EventsSectionCard title="Upcoming Events" description="" id="upcoming-events">
+                    <ul className="w-full space-y-4">
                         { upcoming_events.length > 0 ? upcoming_events.map((upcomingEvent: Event, index: number) => (
-                            <p>hi</p> )
+                            <li key={index} className="w-full">
+                                <EventCard date={upcomingEvent.start_date} event_type="" event_name={upcomingEvent.title} short_description={upcomingEvent.description_short} image={upcomingEvent.picture}/>
+                            </li>
+                        )
                         
-                        ) : (<div>
-                                <p>No Upcoming Events... Check Back Soon!</p>
-                            </div>)
+                        ) : (<li>
+                                <p className="text-center">No Upcoming Events... Check Back Soon!</p>
+                             </li>)
                         }
                     </ul>
-                </SectionCard>
-                <SectionCard title={"Past Events"} description={""} id="past-events">
-                    <ul>
-                        { upcoming_events.length > 0 ? upcoming_events.map((upcomingEvent: Event, index: number) => (
-                            <p>hi</p> )
+                </EventsSectionCard>
+                <EventsSectionCard title="Past Events" description="" id="past-events">
+                    <ul className="w-full space-y-4">
+                        { past_events.length > 0 ? past_events.map((pastEvent: Event, index: number) => (
+                            <li key={index} className="w-full">
+                                <EventCard date={pastEvent.start_date} event_type="" event_name={pastEvent.title} short_description={pastEvent.description_short} image={pastEvent.picture}/>
+                            </li>
+                        )
                         
-                        ) : (<div>
+                        ) : (<li className="text-center">
                                 <p>No Past Events.</p>
-                            </div>)
+                            </li>)
                         }
                     </ul>
 
-                </SectionCard>
+                </EventsSectionCard>
             </main>
         </>
     )
