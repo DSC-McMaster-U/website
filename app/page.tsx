@@ -107,7 +107,7 @@ const AboutUsSection = async () => {
 const EventsSection = async () => {
   return (
     <SectionCard title="Our Events" description="Check out some different ways to get involved" id="events">
-      <Link target="_blank" rel="noreferrer" href={"https://gdg.community.dev/gdg-on-campus-mcmaster-university-hamilton-canada/"}>
+      <Link target="_blank" rel="noreferrer" href={"/events"}>
         <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
           <span className="font-semibold">See Our Events</span>
         </ChevronArrowButton>
