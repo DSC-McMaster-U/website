@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 const fetchNewsletters = async () => {
   const newsletters = await client.fetch(
     `*[_type == 'newsletter']{
+            _id,
             title,
             description,
             slug,

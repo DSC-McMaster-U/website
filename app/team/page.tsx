@@ -10,7 +10,7 @@ import Image from 'next/image';
 import AnimatedHero from "../components/AnimatedHero";
 
 export const metadata: Metadata = {
-  title: "Team | Google Developer Group on Campus | McMaster U",
+  title: "Team | Google Developer Group on Campus | McMaster University",
   description: "Our team Google Developer Group on Campus | McMaster University",
 };
 
