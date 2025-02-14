@@ -2,13 +2,13 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Dave Gray Teaches Code',
-        short_name: "Dave Gray",
-        description: "Dave's Blog powered by Next.js",
+        name: 'Google Developer Group on Campus | McMaster University',
+        short_name: "GDG MacU",
+        description: "Google Developer Group on Campus at McMaster University bridges the gap between theory and practice through solving real-world problems.",
         start_url: '/',
         display: 'standalone',
-        background_color: '#1E283A',
-        theme_color: '#1E283A',
+        background_color: '#FFFFFF',
+        theme_color: '#FFFFFF',
         icons: [
             {
                 "src": "/images/icon-192.png",
