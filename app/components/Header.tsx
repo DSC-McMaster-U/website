@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Icon from "@/app/icon.svg";
 import { FiMenu, FiX, FiCalendar, FiStar } from "react-icons/fi";
 import { socialMedia } from "@/app/constants/socialMedia";
 import Dropdown, { DropdownItem } from "@/app/components/Dropdown";
@@ -84,7 +83,7 @@ const Header = () => {
 		>
 			<div className="flex flex-row items-center h-full gap-x-8">
 				<Link href="/">
-					<Image src={Icon} alt="Icon" className="h-6 w-auto" />
+					<Image src={"/icon.svg"} alt="Icon" width={24} height={24} />
 				</Link>
 				<nav className="lg:flex hidden flex-row text-base">
 					<ul className="flex flex-row items-center justify-start">
@@ -119,7 +118,7 @@ const Header = () => {
 				<div className="flex flex-col gap-y-8 bg-white-01 dark:bg-black-01 rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
 					<div className="flex justify-between items-center">
 						<Link href="/" onClick={() => setPopupOpen(false)}>
-							<Image src={Icon} alt="Icon" className="h-6 w-auto" />
+							<Image src={"/icon.svg"} alt="Icon" width={24} height={24} />
 						</Link>	
 						<button
 							role="button"
