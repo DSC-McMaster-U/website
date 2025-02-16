@@ -37,7 +37,7 @@ const EventCard = ({date, event_type, event_name, short_description, image}: Eve
             <div className="md:ml-4 w-full flex-grow py-4">
                 <div className="flex flex-row">
                     <h4 className="mr-8 text-[20px]">{formatDate(date)}</h4>
-                    <h4 className="text-[18px] font-light"></h4>
+                    <h4 className="text-[18px] font-light">{event_type}</h4>
                 </div>
                 <h2 className="mt-5">{event_name}</h2>
                 <p className="mt-4 mb-8 text-[18px]">{short_description}</p>
