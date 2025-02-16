@@ -3,6 +3,8 @@ import Header from "@/app/components/Header";
 import getEvents from '../lib/getEvents';
 import EventsSectionCard from "@/app/components/EventsSectionCard";
 import EventCard from "@/app/components/EventCard";
+import AnimatedHero from "../components/AnimatedHero";
+import Pill from "../components/Pill";
 
 interface Event {
     start_date: string,
@@ -18,6 +20,19 @@ export const metadata: Metadata = {
     description: "Our events Google Developer Group on Campus | McMaster University",
 };
 
+const HeroSection = () => {
+    return (
+        <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+            <div className="w-full flex flex-col items-center">
+                <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
+                    <Pill>Our Events</Pill>
+                    <h2>Explore What We&apos;ve Done & What&apos;s Next</h2>
+                </div>
+            </div>
+        </AnimatedHero>
+    );
+}
+
 export default async function eventsPage () {
    const { past_events, upcoming_events } = await getEvents();
 
@@ -25,9 +40,7 @@ export default async function eventsPage () {
         <>
             <Header />
             <main>
-                <div className="h-64 mt-16 flex items-center">
-                    <h1 className="text-[48px] text-center max-w-[80%] mx-auto">Explore Our Events: What We’ve Done & What’s Next</h1>
-                </ div>
+                <HeroSection/>
                 <EventsSectionCard title="Upcoming Events" description="" id="upcoming-events">
                     <ul className="w-full space-y-4">
                         { upcoming_events.length > 0 ? upcoming_events.map((upcomingEvent: Event, index: number) => (
@@ -60,6 +73,4 @@ export default async function eventsPage () {
             </main>
         </>
     )
-
-
 }

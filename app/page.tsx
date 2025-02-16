@@ -40,7 +40,7 @@ const HeroSection = async () => {
             </Link>
           )}
           { generalInfo.cta2 && (
-            <Link href="./events" rel="norefferer" target="_blank">
+            <Link href="/events" rel="norefferer">
               <ChevronArrowButton className="dark:bg-black-00 bg-white-00 dark:text-white-00 border-2 dark:border-white-00 border-black-00">
                 <span className="font-semibold">{generalInfo.cta2.label}</span>
               </ChevronArrowButton>
@@ -113,7 +113,7 @@ const AboutUsSection = async () => {
 const EventsSection = async () => {
   return (
     <SectionCard title="Our Events" description="Check out some different ways to get involved" id="events">
-      <Link target="_blank" rel="noreferrer" href={"/events"}>
+      <Link rel="noreferrer" href="/events">
         <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
           <span className="font-semibold">See Our Events</span>
         </ChevronArrowButton>
