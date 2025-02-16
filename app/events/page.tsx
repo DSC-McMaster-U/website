@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from "@/app/components/Header";
-import Image from 'next/image';
 import getEvents from '../lib/getEvents';
 import EventsSectionCard from "@/app/components/EventsSectionCard";
 import EventCard from "@/app/components/EventCard";
@@ -20,7 +19,7 @@ export default async function eventsPage () {
         <>
             <Header />
             <main>
-                <div className="h-64 mt-24 flex items-center">
+                <div className="h-64 mt-16 flex items-center">
                     <h1 className="text-[48px] text-center max-w-[80%] mx-auto">Explore Our Events: What We’ve Done & What’s Next</h1>
                 </ div>
                 <EventsSectionCard title="Upcoming Events" description="" id="upcoming-events">

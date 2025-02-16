@@ -34,7 +34,7 @@ const HeroSection = async () => {
             </Link>
           )}
           { generalInfo.cta2 && (
-            <Link href={generalInfo.cta2.href} rel="norefferer" target="_blank">
+            <Link href="./events" rel="norefferer" target="_blank">
               <ChevronArrowButton className="dark:bg-black-00 bg-white-00 dark:text-white-00 border-2 dark:border-white-00 border-black-00">
                 <span className="font-semibold">{generalInfo.cta2.label}</span>
               </ChevronArrowButton>
