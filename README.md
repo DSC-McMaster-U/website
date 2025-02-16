@@ -115,7 +115,6 @@ website
 │   ├── studio
 │   │   ├── ...
 │   ├── global.css
-│   ├── icon.svg
 │   └── layout.tsx
 │   └── page.tsx
 ├── sanity

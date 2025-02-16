@@ -13,6 +13,12 @@ import SectionCard from "./components/SectionCard";
 import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Google Developer Group on Campus | McMaster University",
+  description: "Google Developer Group on Campus at McMaster University bridges the gap between theory and practice through solving real-world problems.",
+};
 
 const HeroSection = async () => {
   const generalInfo: GeneralInfo = await client.fetch(`*[_type == 'generalInfo'][0]`);

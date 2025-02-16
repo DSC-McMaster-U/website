@@ -11,6 +11,12 @@ interface Event {
     description_short: string,
     picture: string,
   }
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Events | Google Developer Group on Campus | McMaster University",
+    description: "Our events Google Developer Group on Campus | McMaster University",
+};
 
 export default async function eventsPage () {
    const { past_events, upcoming_events } = await getEvents();
