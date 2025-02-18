@@ -47,13 +47,14 @@ const fetchNewsletter = async (slug: string) => {
 const serializers: Partial<PortableTextReactComponents> = {
     types: {
         image: ({ value }) => (
-            <div className="my-4">
+            <div className="my-4 w-full max-w-[95%] mx-auto overflow-hidden">
                 <Image
                     src={urlFor(value.asset).url()}
                     alt={value.alt || "Image"}
                     width={600}
                     height={400}
-                    className="rounded-lg w-full max-w-[95%] mx-auto"
+                    layout="intrinsic"
+                    className="rounded-lg w-full h-auto object-contain"
                 />
             </div>
         ),
