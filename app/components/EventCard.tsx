@@ -24,7 +24,7 @@ const formatDate = (date: string) => {
 const EventCard = ({date, event_type, event_name, short_description, image}: EventCardProps) => {
 
     return (
-        <div className="bg-black-02 flex flex-col md:flex-row w-full p-9 rounded-lg mt-[0.5rem]">
+        <div className="bg-white-02 dark:bg-black-02 flex flex-col md:flex-row w-full p-9 rounded-lg mt-[0.5rem]">
             <div className="flex items-center flex-shrink-0 p-8 md:ml-4 mx-auto">
                 <Image src={image}
                 width={190}
