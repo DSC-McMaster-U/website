@@ -26,7 +26,7 @@ const HeroSection = () => {
             <div className="w-full flex flex-col items-center">
                 <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
                     <Pill>Our Events</Pill>
-                    <h2>Explore What We&apos;ve Done & What&apos;s Next</h2>
+                    <h2>Explore a variety of exciting upcoming events and past highlights</h2>
                 </div>
             </div>
         </AnimatedHero>
