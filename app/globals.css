@@ -67,27 +67,27 @@ footer {
 }
 
 .newsletter-h1 {
-  @apply text-3xl sm:text-4xl lg:text-5xl font-bold pt-10;
+  @apply text-3xl sm:text-4xl lg:text-5xl font-bold pt-10 max-w-full;
 }
 
 .newsletter-h2 {
-  @apply text-2xl sm:text-3xl lg:text-4xl font-bold pt-8;
+  @apply text-2xl sm:text-3xl lg:text-4xl font-bold pt-8 max-w-full;
 }
 
 .newsletter-h3 {
-  @apply text-xl sm:text-2xl lg:text-3xl font-medium pt-6;
+  @apply text-xl sm:text-2xl lg:text-3xl font-medium pt-6 max-w-full;
 }
 
 .newsletter-h4 {
-  @apply text-lg sm:text-xl lg:text-2xl pt-4;
+  @apply text-lg sm:text-xl lg:text-2xl pt-4 max-w-full;
 }
 
 .newsletter-p {
-  @apply text-base sm:text-lg lg:text-xl text-start;
+  @apply text-base sm:text-lg lg:text-xl text-start max-w-full;
 }
 
 .newsletter-a {
-  @apply text-base sm:text-lg lg:text-xl underline transition-colors duration-200;
+  @apply text-base sm:text-lg lg:text-xl underline transition-colors duration-200 max-w-full inline-block break-words;
 }
 
 .newsletter-a:hover {
@@ -95,19 +95,19 @@ footer {
 }
 
 .newsletter-ul {
-  @apply list-disc list-inside text-base sm:text-lg lg:text-xl text-start;
+  @apply list-disc list-inside text-base sm:text-lg lg:text-xl text-start max-w-full overflow-hidden break-words;
 }
 
 .newsletter-li {
-  @apply text-base sm:text-lg lg:text-xl text-start;
+  @apply text-base sm:text-lg lg:text-xl text-start max-w-full;
 }
 
 .newsletter-bullet {
-  @apply list-inside list-disc text-base sm:text-lg lg:text-xl;
+  @apply list-inside list-disc text-base sm:text-lg lg:text-xl max-w-full;
 }
 
 .newsletter-number {
-  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl text-start;
+  @apply list-inside list-decimal text-base sm:text-lg lg:text-xl text-start max-w-full;
 }
 
 .geometric-background-1 {
