@@ -53,7 +53,6 @@ const serializers: Partial<PortableTextReactComponents> = {
                     alt={value.alt || "Image"}
                     width={600}
                     height={400}
-                    layout="responsive"
                     className="rounded-lg w-full h-auto object-contain"
                 />
             </div>
@@ -111,9 +110,7 @@ const NewsletterDetailPage = async ({ params }: { params: Params }) => {
                     </div>
                 </AnimatedHero>
                 <SectionCard id="newsletter-content">
-                    <div className="w-full max-w-full overflow-hidden">
                         <PortableText value={newsletter.body} components={serializers} />
-                    </div>
                 </SectionCard>
             </main>
         </>

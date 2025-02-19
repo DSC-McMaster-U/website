@@ -14,7 +14,6 @@ const SectionCard = ({ title, description, id, children }: SectionCardProps ) =>
                 { (title || description) && (
                     <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl">
                         <Pill>{title}</Pill>
-                        <h3>Hemtoj</h3>
                         <h2>{description}</h2>
                     </div>
                 )}
