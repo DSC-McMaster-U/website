@@ -47,13 +47,13 @@ const fetchNewsletter = async (slug: string) => {
 const serializers: Partial<PortableTextReactComponents> = {
     types: {
         image: ({ value }) => (
-            <div className="my-4">
+            <div className="my-4 max-w-[70%] mx-auto overflow-hidden">
                 <Image
                     src={urlFor(value.asset).url()}
                     alt={value.alt || "Image"}
                     width={600}
                     height={400}
-                    className="rounded-lg w-full max-w-[95%] mx-auto"
+                    className="rounded-lg w-full h-auto object-contain"
                 />
             </div>
         ),
@@ -110,7 +110,9 @@ const NewsletterDetailPage = async ({ params }: { params: Params }) => {
                     </div>
                 </AnimatedHero>
                 <SectionCard id="newsletter-content">
-                    <PortableText value={newsletter.body} components={serializers} />
+                    <div className="w-full max-w-full overflow-hidden">
+                        <PortableText value={newsletter.body} components={serializers} />
+                    </div>
                 </SectionCard>
             </main>
         </>
