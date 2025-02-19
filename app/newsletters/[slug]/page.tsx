@@ -110,7 +110,9 @@ const NewsletterDetailPage = async ({ params }: { params: Params }) => {
                     </div>
                 </AnimatedHero>
                 <SectionCard id="newsletter-content">
+                    <div className="w-full max-w-full overflow-hidden">
                         <PortableText value={newsletter.body} components={serializers} />
+                    </div>
                 </SectionCard>
             </main>
         </>
