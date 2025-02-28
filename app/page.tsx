@@ -4,7 +4,7 @@ import { About, AboutCard, GeneralInfo, Newsletter, Project, Sponsor, Team, Team
 import Link from "next/link";
 import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
-import MainPageHeader from "@/app/components/MainPageHeader";
+import Header from "@/app/components/Header";
 import Image from "next/image";
 import { ChevronArrowButton } from "@/app/components/ChevronArrow";
 import * as Icons from "react-icons/md";
@@ -250,7 +250,7 @@ const ThankYouSection = () => {
 export default async function Index() {
   return (
     <>
-      <MainPageHeader />
+      <Header />
       <main>
         <HeroSection />
         <AboutUsSection />

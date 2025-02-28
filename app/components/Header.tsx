@@ -8,12 +8,14 @@ import { FiMenu, FiX, FiCalendar, FiStar } from "react-icons/fi";
 import { socialMedia } from "@/app/constants/socialMedia";
 import Dropdown, { DropdownItem } from "@/app/components/Dropdown";
 import Accordion, { AccordionItem } from "@/app/components/Accordion";
+import { usePathname } from "next/navigation";
+import path from "path";
 
 interface DropdownMenuProps {
 	name: string;
 	links: { href: string; label: string; description: string; icon: JSX.Element }[];
 }
-  
+
 const DropdownMenu = ({ name, links }: DropdownMenuProps) => (
 	<Dropdown name={name}>
 		<ul className="flex flex-col">
@@ -30,7 +32,7 @@ interface AccordionMenuProps {
 	name: string;
 	links: { href: string; label: string; icon: JSX.Element }[];
 }
-  
+
 const AccordionMenu = ({ name, links }: AccordionMenuProps) => (
 	<Accordion title={name}>
 		{links.map((link, index) => (
@@ -40,9 +42,9 @@ const AccordionMenu = ({ name, links }: AccordionMenuProps) => (
 );
 
 const SocialMediaIcons = () => (
-	<div className="flex flex-row items-center space-x-4">
+	<div className="flex flex-row items-center space-x-2 md:space-x-4 mx-auto">
 		{socialMedia.map((social, index) => (
-			<Link key={index} href={social.href} target="_blank" className="flex justify-center items-center w-6 h-6 cursor-pointer text-black-00 hover:text-grey-700 dark:text-white-00 transition-colors duration-200">
+			<Link key={index} href={social.href} target="_blank" className="flex justify-center items-center w-10 h-10 md:w-12 md:h-12 cursor-pointer text-black-00 hover:text-grey-700 dark:text-white-00 transition-colors duration-200 bg-black-02 rounded-full p-2 md:p-3">
 				{social.icon}
 			</Link>
 		))}
@@ -50,6 +52,7 @@ const SocialMediaIcons = () => (
 );
 
 const Header = () => {
+	const pathname = usePathname();
 	const [isPopupOpen, setPopupOpen] = useState(false);
 
 	useEffect(() => {
@@ -57,6 +60,10 @@ const Header = () => {
 	}, [isPopupOpen]);
 
 	const navLinks = [
+        {
+            name: "Home",
+            href: "/"
+        },
 		{
 			name: "Events",
 			links: [
@@ -82,75 +89,78 @@ const Header = () => {
 				duration: 0.5,
 			}}
 		>
+        <div className="flex items-center justify-between w-full p-1">
 			<div className="flex flex-row items-center h-full gap-x-8">
 				<Link href="/">
-					<Image src={Icon} alt="Icon" className="h-6 w-auto" />
+					<Image src="/images/image.png" width={25} height={25} alt="Icon" className="h-6 w-auto" />
 				</Link>
-				<nav className="lg:flex hidden flex-row text-base">
-					<ul className="flex flex-row items-center justify-start">
-						{navLinks.map((navLink, index) => (
-							<li key={index} className="relative cursor-default group text-black-00 dark:text-white-00">
-								{navLink.links ? (
-									<DropdownMenu name={navLink.name} links={navLink.links} />
-								) : (
-									<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer">
-										{navLink.name}
-									</Link>
-								)}
-							</li>
-						))}
-					</ul>
-				</nav>
 			</div>
-		<div className="hidden lg:flex">
-			<SocialMediaIcons />
-		</div>
-		<button
-			tabIndex={0}
-			role="button"
-			aria-label="Close popup"
-			onClick={() => setPopupOpen(true)} 
-			className="dark:text-white-00 hover:text-google-grey transition-colors duration-200 cursor-pointer lg:hidden" 
-		>
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden xl:flex">
+                <SocialMediaIcons />
+            </div>
+            <nav className="xl:flex hidden flex-row text-base">
+                        <ul className="flex flex-row items-center justify-start">
+                            {navLinks.map((navLink, index) => (
+                                <li key={index} className="relative cursor-default group text-black-00 dark:text-white-00">
+                                    {navLink.links ? (
+                                        <DropdownMenu name={navLink.name} links={navLink.links} />
+                                    ) : (
+                                        <Link href={navLink.href} className={`flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer ${pathname === navLink.href ? "bg-black-03 rounded-2xl mr-4" : ""} `}>
+                                            {navLink.name}
+                                        </Link>
+                                    )
+                                    }
+                                </li>
+                            ))}
+                        </ul>
+            </nav>
+		    <button
+                tabIndex={0}
+                role="button"
+                aria-label="Close popup"
+                onClick={() => setPopupOpen(true)} 
+                className="dark:text-white-00 hover:text-google-grey transition-colors duration-200 cursor-pointer xl:hidden" 
+		    >
 			<FiMenu className="w-6 h-6"/>
-		</button>
-		{isPopupOpen && (
-			<div className="fixed inset-0 z-50 flex justify-center items-center bg-black-00 bg-opacity-50">
-				<div className="flex flex-col gap-y-8 bg-white-01 dark:bg-black-01 rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
-					<div className="flex justify-between items-center">
-						<Link href="/" onClick={() => setPopupOpen(false)}>
-							<Image src={Icon} alt="Icon" className="h-6 w-auto" />
-						</Link>	
-						<button
-							role="button"
-							aria-label="Close popup"
-							onClick={() => setPopupOpen(false)} 
-							className="cursor-pointer text-black-00 dark:text-white-00 hover:text-grey-700 transition-colors duration-200" 
-						>
-							<FiX className="w-6 h-6"/>
-						</button>
-					</div>
-					<nav>
-						<ul className="flex flex-col">
-							{navLinks.map((navLink, index) => (
-								<li key={index} className="group">
-									{navLink.links ? (
-										<AccordionMenu name={navLink.name} links={navLink.links} />
-									) : (
-									navLink.href && (
-										<Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 hover:text-grey-700 cursor-pointer">
-											{navLink.name}
-										</Link>
-									)
-									)}
-								</li>
-							))}
-						</ul>
-					</nav>
-					<SocialMediaIcons />
-				</div>
-			</div>
-		)}
+		    </button>
+            {isPopupOpen && (
+                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black-00 bg-opacity-50">
+                    <div className="flex flex-col gap-y-8 bg-white-01 dark:bg-black-01 rounded-lg w-full min-h-screen max-h-screen overflow-auto p-4">
+                        <div className="flex justify-between items-center">
+                            <Link href="/" onClick={() => setPopupOpen(false)}>
+                                <Image src={Icon} alt="Icon" className="h-6 w-auto" />
+                            </Link>	
+                            <button
+                                role="button"
+                                aria-label="Close popup"
+                                onClick={() => setPopupOpen(false)} 
+                                className="cursor-pointer text-black-00 dark:text-white-00 hover:text-grey-700 transition-colors duration-200" 
+                            >
+                                <FiX className="w-6 h-6"/>
+                            </button>
+                        </div>
+                        <nav>
+                            <ul className="flex flex-col">
+                                {navLinks.map((navLink, index) => (
+                                    <li key={index} className="group">
+                                        {navLink.links ? (
+                                            <AccordionMenu name={navLink.name} links={navLink.links} />
+                                        ) : (
+                                        navLink.href && (
+                                            <Link href={navLink.href} className="flex items-center transition-colors duration-200 py-1 hover:text-grey-700 cursor-pointer">
+                                                {navLink.name}
+                                            </Link>
+                                        )
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                        <SocialMediaIcons />
+                    </div>
+                </div>
+                )}
+        </div>
 		</motion.header>
   );
 };
