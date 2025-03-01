@@ -12,8 +12,8 @@ async function getEvents () {
     try {
         // Fetch the past events data from the GDG event page in parallel with the upcoming events data
         const [pastResponse, upcomingResponse] = await Promise.all([
-            fetch(pastEventsUrl),
-            fetch(upcomingEventsUrl),
+            fetch(pastEventsUrl, {cache: 'no-store'}),
+            fetch(upcomingEventsUrl, {cache: 'no-store'}),
         ]);
 
         if (!pastResponse.ok || !upcomingResponse.ok) {
