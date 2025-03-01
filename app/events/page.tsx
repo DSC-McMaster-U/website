@@ -12,6 +12,7 @@ interface Event {
     title: string,
     description_short: string,
     picture: string,
+    id: number,
   }
 import { Metadata } from 'next';
 
@@ -45,7 +46,7 @@ export default async function eventsPage () {
                     <ul className="w-full space-y-4">
                         { upcoming_events.length > 0 ? upcoming_events.map((upcomingEvent: Event, index: number) => (
                             <li key={index} className="w-full">
-                                <EventCard date={upcomingEvent.start_date} event_type="" event_name={upcomingEvent.title} short_description={upcomingEvent.description_short} image={upcomingEvent.picture}/>
+                                <EventCard date={upcomingEvent.start_date} event_type="" event_name={upcomingEvent.title} short_description={upcomingEvent.description_short} image={upcomingEvent.picture} id={upcomingEvent.id}/>
                             </li>
                         )
                         
@@ -59,7 +60,7 @@ export default async function eventsPage () {
                     <ul className="w-full space-y-4">
                         { past_events.length > 0 ? past_events.map((pastEvent: Event, index: number) => (
                             <li key={index} className="w-full">
-                                <EventCard date={pastEvent.start_date} event_type="" event_name={pastEvent.title} short_description={pastEvent.description_short} image={pastEvent.picture}/>
+                                <EventCard date={pastEvent.start_date} event_type="" event_name={pastEvent.title} short_description={pastEvent.description_short} image={pastEvent.picture} id={pastEvent.id}/>
                             </li>
                         )
                         

@@ -8,6 +8,7 @@ interface EventCardProps {
     event_name: string,
     short_description: string,
     image: string,
+    id: number,
 }
 
 const formatDate = (date: string) => {
@@ -21,7 +22,7 @@ const formatDate = (date: string) => {
 
 
 // NOTE: Update the href for the View Details button once the event details page has been created.
-const EventCard = ({date, event_type, event_name, short_description, image}: EventCardProps) => {
+const EventCard = ({date, event_type, event_name, short_description, image, id}: EventCardProps) => {
 
     return (
         <div className="bg-white-02 dark:bg-black-02 flex flex-col md:flex-row w-full p-9 rounded-lg mt-[0.5rem]">
@@ -41,7 +42,7 @@ const EventCard = ({date, event_type, event_name, short_description, image}: Eve
                 </div>
                 <h2 className="mt-5">{event_name}</h2>
                 <p className="mt-4 mb-8 text-[18px]">{short_description}</p>
-                <Link target="_blank" rel="noreferrer" href={""}>
+                <Link rel="noreferrer" href={`/events/${id}`}>
                     <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
                         <span className="font-semibold">View Details</span>
                     </ChevronArrowButton>
