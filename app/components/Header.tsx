@@ -103,9 +103,11 @@ const Header = () => {
                             {navLinks.map((navLink, index) => (
                                 <li key={index} className="relative cursor-default group text-black-00 dark:text-white-00">
                                     {navLink.links ? (
-                                        <DropdownMenu name={navLink.name} links={navLink.links} />
+                                        <div className={`${pathname === '/events' ? "bg-black-03 rounded-2xl" : ""}`}>
+                                            <DropdownMenu name={navLink.name} links={navLink.links} />
+                                        </div>
                                     ) : (
-                                        <Link href={navLink.href} className={`flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer ${pathname === navLink.href ? "bg-black-03 rounded-2xl mr-4" : ""} `}>
+                                        <Link href={navLink.href} className={`flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer ${pathname === navLink.href ? "bg-black-03 rounded-2xl" : ""} `}>
                                             {navLink.name}
                                         </Link>
                                     )
