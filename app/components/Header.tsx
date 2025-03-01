@@ -9,7 +9,6 @@ import { socialMedia } from "@/app/constants/socialMedia";
 import Dropdown, { DropdownItem } from "@/app/components/Dropdown";
 import Accordion, { AccordionItem } from "@/app/components/Accordion";
 import { usePathname } from "next/navigation";
-import path from "path";
 
 interface DropdownMenuProps {
 	name: string;
