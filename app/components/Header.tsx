@@ -92,7 +92,7 @@ const Header = () => {
         <div className="flex items-center justify-between w-full p-1">
 			<div className="flex flex-row items-center h-full gap-x-8">
 				<Link href="/">
-					<Image src="/images/image.png" width={25} height={25} alt="Icon" className="h-6 w-auto" />
+					<Image src="/images/headerIcon.png" width={25} height={25} alt="Icon" className="h-6 w-auto" />
 				</Link>
 			</div>
             <div className="absolute left-1/2 transform -translate-x-1/2 hidden xl:flex">
