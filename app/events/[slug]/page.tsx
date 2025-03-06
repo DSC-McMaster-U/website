@@ -1,7 +1,7 @@
-"use client"
-import { useParams } from 'next/navigation';
 import EventCard from "@/app/components/EventCard";
 import Header from "@/app/components/Header";
+import getEvent from '../../lib/getEvent';
+
 interface Event {
     start_date: string,
     event_type: string,
@@ -11,7 +11,9 @@ interface Event {
     id: number,
   }
 
-export default function EventPage() {
-    const { slug } = useParams(); 
+export default async function EventPage({ params }: { params: { slug: string }}) {
+    const { slug } = await params;
+    const { event_data } = await getEvent(slug);
+    console.log("Obtained Event Data:", event_data);
     return <p>Post: {slug}</p>
 }
