@@ -20,10 +20,17 @@ const formatDate = (date: string) => {
     });
 };
 
+function generateSlug(title: string) {
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')  // Remove special characters
+        .replace(/\s+/g, '-')           // Replace spaces with dashes
+        .replace(/-+/g, '-');           // Remove duplicate dashes
+}
 
 // NOTE: Update the href for the View Details button once the event details page has been created.
 const EventCard = ({date, event_type, event_name, short_description, image, id}: EventCardProps) => {
-
+    const slug = generateSlug(event_name)
     return (
         <div className="bg-white-02 dark:bg-black-02 flex flex-col md:flex-row w-full p-9 rounded-lg mt-[0.5rem]">
             <div className="flex items-center flex-shrink-0 p-8 md:ml-4 mx-auto">
@@ -42,7 +49,7 @@ const EventCard = ({date, event_type, event_name, short_description, image, id}:
                 </div>
                 <h2 className="mt-5">{event_name}</h2>
                 <p className="mt-4 mb-8 text-[18px]">{short_description}</p>
-                <Link rel="noreferrer" href={`/events/${id}`}>
+                <Link rel="noreferrer" href={`/events/${slug}`}>
                     <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
                         <span className="font-semibold">View Details</span>
                     </ChevronArrowButton>
