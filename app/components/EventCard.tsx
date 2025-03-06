@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ChevronArrowButton } from "./ChevronArrow";
 import Link from "next/link";
+import { formatDate } from '../lib/dateUtils';
 
 interface EventCardProps {
     date: string,
@@ -11,16 +12,9 @@ interface EventCardProps {
     id: number,
 }
 
-const formatDate = (date: string) => {
-    const formattedDate = new Date(date);
-    return formattedDate.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-};
 
 function generateSlug(title: string) {
+    console.log("TITLE OF THE EVENT:", title);
     return title
         .toLowerCase()
         .replace(/[^a-z0-9\s-]/g, '')  // Remove special characters
@@ -28,7 +22,6 @@ function generateSlug(title: string) {
         .replace(/-+/g, '-');           // Remove duplicate dashes
 }
 
-// NOTE: Update the href for the View Details button once the event details page has been created.
 const EventCard = ({date, event_type, event_name, short_description, image, id}: EventCardProps) => {
     const slug = generateSlug(event_name)
     return (
