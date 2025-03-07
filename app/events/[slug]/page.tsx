@@ -1,4 +1,3 @@
-import EventCard from "@/app/components/EventCard";
 import Header from "@/app/components/Header";
 import getEvent from '../../lib/getEvent';
 import AnimatedHero from "../../components/AnimatedHero";
@@ -25,6 +24,7 @@ interface Event {
     venue_address: string,
     venue_city: string,
     venue_zip_code: string,
+    is_virtual_event: boolean,
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -45,10 +45,24 @@ interface Event {
             <div className="w-full flex flex-col items-center">
                 <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
                     <h2>{title}</h2>
-                    <div className="flex flex-row justify-between w-[70%]">
-                      <Pill><FaCalendarAlt />{displayDate}</Pill>
-                      <Pill><FaRegClock/>{displayTime}</Pill>
-                      {rsvpCount > 0 && <Pill><FaRegCalendarCheck/>{rsvpCount} RSVP'd</Pill>}
+                    <div className="flex flex-col items-center gap-y-4 sm:flex-row justify-center sm:gap-x-6 w-full">
+                      <Pill>
+                        <div className="flex items-center gap-2 min-h-[50px]">
+                          <FaCalendarAlt /><p>{displayDate}</p>
+                        </div>
+                      </Pill>
+                      <Pill>
+                        <div className="flex items-center gap-2 min-h-[50px]">
+                          <FaRegClock />
+                          {displayTime}
+                        </div>
+                      </Pill>
+
+                      {rsvpCount > 0 && <Pill>
+                                          <div className="flex items-center gap-2 min-h-[50px]">
+                                            <FaRegCalendarCheck/><p>{rsvpCount} RSVP'd</p>
+                                          </div>
+                                        </Pill>}
                     </div>
                 </div>
             </div>
@@ -58,8 +72,7 @@ interface Event {
 
 export default async function EventPage({ params }: { params: { slug: string }}) {
     const { slug } = await params;
-    const { event_data } = await getEvent(slug);
-    console.log("Obtained Event Data:", event_data);
+    const { event_data }: { event_data: Event } = await getEvent(slug);
     return (
       <>
         <Header/>
@@ -68,8 +81,8 @@ export default async function EventPage({ params }: { params: { slug: string }})
           <SectionCard title="" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
-              <h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>
-              <div dangerouslySetInnerHTML={{ __html: event_data.description }} />
+              {event_data.venue_name  ? (<h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
+              <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
           </SectionCard>
         </main>

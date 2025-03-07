@@ -116,3 +116,7 @@ footer {
   background-attachment: fixed;
   background-size: cover;
 }
+
+.event-description a {
+  @apply underline;
+}
