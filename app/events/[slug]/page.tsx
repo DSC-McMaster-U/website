@@ -70,7 +70,7 @@ interface Event {
     );
 }
 
-export default async function EventPage({ params }: { params: { slug: string }}) {
+export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const { event_data }: { event_data: Event } = await getEvent(slug);
     return (
