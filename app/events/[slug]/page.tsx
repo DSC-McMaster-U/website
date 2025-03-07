@@ -7,6 +7,7 @@ import { FaCalendarAlt, FaRegCalendarCheck } from "react-icons/fa";
 import { formatDate, extractTime } from "../../lib/dateUtils";
 import { FaRegClock } from "react-icons/fa6";
 import SectionCard from "@/app/components/SectionCard";
+import Image from 'next/image';
 
 interface Event {
     start_date_iso: string,
@@ -14,9 +15,16 @@ interface Event {
     event_type: string,
     title: string,
     description_short: string,
+    description: string,
     picture: string,
     id: number,
     total_attendees: number,
+    chapter_banner: string,
+    banner: string | null,
+    venue_name: string,
+    venue_address: string,
+    venue_city: string,
+    venue_zip_code: string,
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -58,7 +66,11 @@ export default async function EventPage({ params }: { params: { slug: string }})
         <main>
           <HeroSection title={event_data.title} start_date={event_data.start_date_iso} end_date={event_data.end_date_iso} rsvpCount={event_data.total_attendees}/>
           <SectionCard title="" description="" id={"event-details-section"}>
-            <p>hi</p>
+            <div>
+              <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
+              <h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>
+              <div dangerouslySetInnerHTML={{ __html: event_data.description }} />
+            </div>
           </SectionCard>
         </main>
 
