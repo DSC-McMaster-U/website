@@ -7,23 +7,19 @@ interface EventCardProps {
     date: string,
     event_type: string,
     event_name: string,
+    event_url: string,
     short_description: string,
     image: string,
-    id: number,
 }
 
-
-function generateSlug(title: string) {
-    console.log("TITLE OF THE EVENT:", title);
-    return title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')  // Remove special characters
-        .replace(/\s+/g, '-')           // Replace spaces with dashes
-        .replace(/-+/g, '-');           // Remove duplicate dashes
+function generateSlug(url: string) {
+    const basepath = "https://gdg.community.dev/events/details/";
+    const slug = url.replace(basepath, "");
+    return slug;
 }
 
-const EventCard = ({date, event_type, event_name, short_description, image, id}: EventCardProps) => {
-    const slug = generateSlug(event_name)
+const EventCard = ({date, event_type, event_name, event_url, short_description, image}: EventCardProps) => {
+    const slug = generateSlug(event_url);
     return (
         <div className="bg-white-02 dark:bg-black-02 flex flex-col md:flex-row w-full p-9 rounded-lg mt-[0.5rem]">
             <div className="flex items-center flex-shrink-0 p-8 md:ml-4 mx-auto">
@@ -47,7 +43,6 @@ const EventCard = ({date, event_type, event_name, short_description, image, id}:
                         <span className="font-semibold">View Details</span>
                     </ChevronArrowButton>
                 </Link>
-
             </div>
 
         </div>

@@ -8,11 +8,12 @@ import Pill from "../components/Pill";
 
 interface Event {
     start_date: string,
-    event_type: string,
+    event_type_title: string,
     title: string,
     description_short: string,
-    picture: string,
-    id: number,
+    cropped_picture_url: string,
+    url: string,
+    slug: string,
   }
 import { Metadata } from 'next';
 
@@ -46,7 +47,7 @@ export default async function eventsPage () {
                     <ul className="w-full space-y-4">
                         { upcoming_events.length > 0 ? upcoming_events.map((upcomingEvent: Event, index: number) => (
                             <li key={index} className="w-full">
-                                <EventCard date={upcomingEvent.start_date} event_type="" event_name={upcomingEvent.title} short_description={upcomingEvent.description_short} image={upcomingEvent.picture} id={upcomingEvent.id}/>
+                                <EventCard date={upcomingEvent.start_date} event_type={upcomingEvent.event_type_title} event_name={upcomingEvent.title} event_url={upcomingEvent.url} short_description={upcomingEvent.description_short} image={upcomingEvent.cropped_picture_url}/>
                             </li>
                         )
                         
@@ -60,7 +61,7 @@ export default async function eventsPage () {
                     <ul className="w-full space-y-4">
                         { past_events.length > 0 ? past_events.map((pastEvent: Event, index: number) => (
                             <li key={index} className="w-full">
-                                <EventCard date={pastEvent.start_date} event_type="" event_name={pastEvent.title} short_description={pastEvent.description_short} image={pastEvent.picture} id={pastEvent.id}/>
+                                <EventCard date={pastEvent.start_date} event_type={pastEvent.event_type_title} event_name={pastEvent.title} event_url={pastEvent.url} short_description={pastEvent.description_short} image={pastEvent.cropped_picture_url}/>
                             </li>
                         )
                         

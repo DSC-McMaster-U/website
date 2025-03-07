@@ -1,5 +1,5 @@
 async function getEvent (slug: string) {
-    const eventURL = `https://gdg.community.dev/api/event_slim/google-gdg-on-campus-mcmaster-university-hamilton-canada-presents-${slug}`;
+    const eventURL = `https://gdg.community.dev/api/event_slim/${slug}`;
     try {
         // Fetch the past events data from the GDG event page in parallel with the upcoming events data
         const response = await fetch(eventURL, { cache: 'no-store' });
