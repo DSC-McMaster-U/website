@@ -60,7 +60,7 @@ interface Event {
 
                       {rsvpCount > 0 && <Pill>
                                           <div className="flex items-center gap-2 min-h-[50px]">
-                                            <FaRegCalendarCheck/><p>{rsvpCount} RSVP'd</p>
+                                            <FaRegCalendarCheck/><p>{rsvpCount} RSVP&apos;d</p>
                                           </div>
                                         </Pill>}
                     </div>
