@@ -47,21 +47,20 @@ interface Event {
                     <h2>{title}</h2>
                     <div className="flex flex-col items-center gap-y-4 sm:flex-row justify-center sm:gap-x-6 w-full">
                       <Pill>
-                        <div className="flex items-center gap-2 min-h-[50px]">
-                          <FaCalendarAlt /><p>{displayDate}</p>
-                        </div>
+                        <span className="inline-flex items-center gap-2">
+                          <FaCalendarAlt />{displayDate}
+                        </span>
                       </Pill>
                       <Pill>
-                        <div className="flex items-center gap-2 min-h-[50px]">
-                          <FaRegClock />
-                          {displayTime}
-                        </div>
+                        <span className="inline-flex items-center gap-2">
+                          <FaRegClock />{displayTime}
+                        </span>
                       </Pill>
 
                       {rsvpCount > 0 && <Pill>
-                                          <div className="flex items-center gap-2 min-h-[50px]">
-                                            <FaRegCalendarCheck/><p>{rsvpCount} RSVP&apos;d</p>
-                                          </div>
+                                          <span className="inline-flex items-center gap-2">
+                                            <FaRegCalendarCheck/>{rsvpCount} RSVP&apos;d
+                                          </span>
                                         </Pill>}
                     </div>
                 </div>
