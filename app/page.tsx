@@ -124,15 +124,30 @@ const EventsSection = async () => {
 
 const NewslettersSection = async () => {
   const newsletters: Newsletter[] = await client.fetch(
-    `*[_type == "newsletter"] | order(publishedAt desc) [0...3]`
+    `*[_type == "newsletter"]` // Fetch all newsletters first
   );
 
   if (!newsletters) return null;
 
+  // Function to convert slug (e.g., "january-2025") into a sortable value
+  const parseSlug = (slug: { current: string }) => {
+    const [month, year] = slug.current.split("-");
+    const months = [
+      "january", "february", "march", "april", "may", "june", 
+      "july", "august", "september", "october", "november", "december"
+    ];
+    return parseInt(year) * 12 + months.indexOf(month.toLowerCase());
+  };
+
+  // Sort newsletters by parsed slug value in descending order
+  const sortedNewsletters = newsletters.sort((a, b) => 
+    parseSlug(b.slug) - parseSlug(a.slug)
+  ).slice(0, 3);
+
   return (
     <SectionCard id="newsletters" title="Our Newsletter" description="Stay up-to-date with the latest and greatest in everything tech">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        { newsletters && newsletters.map((newsletter: Newsletter) => (
+        { sortedNewsletters && sortedNewsletters.map((newsletter: Newsletter) => (
           <Link href={`/newsletters/${newsletter.slug.current}`} key={newsletter._id}>
             <Card
               title={newsletter.title}
