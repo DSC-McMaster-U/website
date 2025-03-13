@@ -43,7 +43,7 @@ const AccordionMenu = ({ name, links }: AccordionMenuProps) => (
 const SocialMediaIcons = () => (
 	<div className="flex flex-row items-center space-x-2 md:space-x-4 mx-auto">
 		{socialMedia.map((social, index) => (
-			<Link key={index} href={social.href} target="_blank" className="flex justify-center items-center w-10 h-10 md:w-12 md:h-12 cursor-pointer text-black-00 hover:text-grey-700 dark:text-white-00 transition-colors duration-200 bg-black-02 rounded-full p-2 md:p-3">
+			<Link key={index} href={social.href} target="_blank" className="flex justify-center items-center w-10 h-10 md:w-12 md:h-12 cursor-pointer text-black-00 hover:text-grey-700 dark:text-white-00 transition-colors duration-200 dark:bg-black-02 bg-white rounded-full p-2 md:p-3">
 				{social.icon}
 			</Link>
 		))}
@@ -102,11 +102,11 @@ const Header = () => {
                             {navLinks.map((navLink, index) => (
                                 <li key={index} className="relative cursor-default group text-black-00 dark:text-white-00">
                                     {navLink.links ? (
-                                        <div className={`${pathname === '/events' ? "bg-black-03 rounded-2xl" : ""}`}>
+                                        <div className={`${pathname === '/events' ? "dark:bg-black-03 bg-white rounded-2xl" : ""}`}>
                                             <DropdownMenu name={navLink.name} links={navLink.links} />
                                         </div>
                                     ) : (
-                                        <Link href={navLink.href} className={`flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer ${pathname === navLink.href ? "bg-black-03 rounded-2xl" : ""} `}>
+                                        <Link href={navLink.href} className={`flex items-center transition-colors duration-200 py-1 px-3 hover:text-grey-700 cursor-pointer ${pathname === navLink.href ? "dark:bg-black-03 bg-white rounded-2xl" : ""} `}>
                                             {navLink.name}
                                         </Link>
                                     )
