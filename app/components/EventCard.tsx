@@ -37,7 +37,7 @@ const EventCard = ({date, event_type, event_name, event_url, short_description, 
                     <h4 className="text-[18px] font-light">{event_type}</h4>
                 </div>
                 <h2 className="mt-5">{event_name}</h2>
-                <p className="mt-4 mb-8 text-[18px]">{short_description}</p>
+                <p className="mt-4 mb-8 text-[18px] max-w-full break-words">{short_description}</p>
                 <Link rel="noreferrer" href={`/events/${slug}`}>
                     <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00">
                         <span className="font-semibold">View Details</span>
