@@ -7,6 +7,7 @@ import { formatDate, extractTime } from "../../lib/dateUtils";
 import { FaRegClock } from "react-icons/fa6";
 import SectionCard from "@/app/components/SectionCard";
 import Image from 'next/image';
+import Map from '@/app/components/Map';
 
 interface Event {
     start_date_iso: string,
@@ -80,8 +81,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <SectionCard title="" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
-              {event_data.venue_name  ? (<h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
+              {event_data.venue_name  ? (<h4 className="mt-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
+              <Map />
             </div>
           </SectionCard>
         </main>
