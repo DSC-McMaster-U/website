@@ -78,7 +78,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <main>
           <HeroSection title={event_data.title} start_date={event_data.start_date_iso} end_date={event_data.end_date_iso} rsvpCount={event_data.total_attendees}/>
           <SectionCard title="" description="" id={"event-details-section"}>
-            <div>
+            <div className="max-w-full">
               <Image width={500} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-full h-auto max-w-full rounded-lg mx-auto mb-20"></Image>
               {event_data.venue_name  ? (<h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />

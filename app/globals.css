@@ -120,3 +120,8 @@ footer {
 .event-description a {
   @apply underline;
 }
+
+.event-description {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
