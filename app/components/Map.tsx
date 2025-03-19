@@ -41,7 +41,7 @@ const Map = () => {
         initMap();
     }, [])
   return (
-    <div className="max-w-[60%] aspect-[8/3] mx-auto mt-10" ref={mapRef}/>
+    <div className="max-w-[60%] aspect-[8/3] m-auto" ref={mapRef}/>
   )
 }
 
