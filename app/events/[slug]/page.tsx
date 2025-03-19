@@ -9,6 +9,8 @@ import SectionCard from "@/app/components/SectionCard";
 import Image from 'next/image';
 import Map from '@/app/components/Map';
 import { FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
+import { ChevronArrowButton } from "@/app/components/ChevronArrow";
 
 interface Event {
     start_date_iso: string,
@@ -27,6 +29,8 @@ interface Event {
     venue_city: string,
     venue_zip_code: string,
     is_virtual_event: boolean,
+    rsvp_only: boolean,
+    url: string,
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -83,6 +87,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <SectionCard title="" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
+              {event_data.rsvp_only && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-xl">RSVP</span></Link></ChevronArrowButton>}
               <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
