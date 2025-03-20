@@ -78,7 +78,6 @@ interface Event {
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const { event_data }: { event_data: Event } = await getEvent(slug);
-    console.log(event_data);
     return (
       <>
         <Header/>
@@ -87,17 +86,24 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <SectionCard title="" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
-              {event_data.rsvp_only && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-xl">RSVP</span></Link></ChevronArrowButton>}
+              {event_data.rsvp_only && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
               <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
           </SectionCard>
           <SectionCard title="" description="" id={"event-details-location-section"}>
-            {event_data.venue_name  ? (<div className="flex flex-row h-[200px]"><FaLocationDot /><h4 className="flex-1">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4><div className="flex-1 min-w-[200px] p-auto"><Map /></div></div>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
+            {event_data.venue_name  ? (<div className="flex flex-col sm:flex-row max-w-full justify-between items-start gap-4">
+                                          <div className="flex-1 flex items-start gap-5 my-auto">
+                                              <div className="p-3 bg-blue-400 rounded-full"><FaLocationDot size={32} /></div>
+                                              <div>
+                                                <h4 className="sm:text-4xl text-2xl font-bold">Location</h4>
+                                                <h5 className="sm:text-2xl text-l font-light">{event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h5>
+                                              </div>
+                                          </div>
+                                        <div className="flex-1 min-w-[200px] mx-auto"><Map address={event_data.venue_name.concat(", ", event_data.venue_address, ", ", event_data.venue_city, ", ON")} /></div>
+                                      </div>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
           </SectionCard>
         </main>
-
-      
       </>
     );
 }

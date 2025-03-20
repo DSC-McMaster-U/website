@@ -2,7 +2,23 @@
 import React, { useEffect } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 
-const Map = () => {
+const geocodeAddress = async (address: string) => {
+    const geocoder = new google.maps.Geocoder();
+
+    return new Promise<google.maps.LatLngLiteral | null>((resolve, reject) => {
+        geocoder.geocode({ address }, (results, status) => {
+          if (status === "OK" && results && results.length > 0) {
+            const location = results[0].geometry.location;
+            resolve({ lat: location.lat(), lng: location.lng() });
+          } else {
+            console.error("Geocoding failed:", status, results);
+            reject(null);
+          }
+        });
+      });
+}
+
+const Map = ({ address }: { address: string }) => {
     const mapRef = React.useRef<HTMLDivElement>(null);
     useEffect(() => {
         const initMap = async () => {
@@ -16,14 +32,17 @@ const Map = () => {
             // Init a marker
             const { AdvancedMarkerElement } = await loader.importLibrary('marker') as google.maps.MarkerLibrary;
 
-            const position = {
-                lat: 43.652693,
-                lng: -79.3871189
+            let position = await geocodeAddress(address);
+
+            if (!position) {
+                // If no position was returned by the function, defaults to coordinates of 1280 Main Street West
+                position = { lat: 43.25877282006293, lng: -79.91948204551854 }
             }
 
             // Map options
             const mapOptions: google.maps.MapOptions = {
                 center: position,
+                disableDefaultUI: true,
                 zoom: 17,
                 mapId: 'GDSC_MAP_ID'
             }
@@ -32,7 +51,7 @@ const Map = () => {
             const map = new Map(mapRef.current as HTMLDivElement, mapOptions);
 
             // display a marker
-            const marker = new AdvancedMarkerElement({
+            new AdvancedMarkerElement({
                 map: map,
                 position: position
             })
@@ -41,7 +60,7 @@ const Map = () => {
         initMap();
     }, [])
   return (
-    <div className="max-w-[60%] aspect-[8/3] m-auto" ref={mapRef}/>
+    <div className="max-w-full aspect-[7/3]" ref={mapRef}/>
   )
 }
 
