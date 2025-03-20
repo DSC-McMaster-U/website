@@ -120,3 +120,11 @@ footer {
 .event-description a {
   @apply underline;
 }
+
+.event-description p {
+  margin-bottom: 5px;
+}
+
+.gm-title.gm-full-width {
+  color:black
+}
