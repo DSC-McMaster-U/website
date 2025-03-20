@@ -95,7 +95,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <SectionCard title="" description="" id={"event-details-location-section"}>
             {event_data.venue_name  ? (<div className="flex flex-col sm:flex-row max-w-full justify-between items-start gap-4">
                                           <div className="flex-1 flex items-start gap-5 my-auto">
-                                              <div className="p-3 bg-blue-400 rounded-full"><FaLocationDot size={32} /></div>
+                                              <div className="p-3 bg-blue-400 text-white rounded-full"><FaLocationDot size={32} /></div>
                                               <div>
                                                 <h4 className="sm:text-4xl text-2xl font-bold">Location</h4>
                                                 <h5 className="sm:text-2xl text-l font-light">{event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h5>
