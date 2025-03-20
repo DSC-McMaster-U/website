@@ -31,6 +31,7 @@ interface Event {
     is_virtual_event: boolean,
     rsvp_only: boolean,
     url: string,
+    completed: boolean,
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -86,7 +87,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
           <SectionCard title="" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
-              {event_data.rsvp_only && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
+              {event_data.rsvp_only && !event_data.completed && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
               <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
@@ -101,7 +102,15 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                                               </div>
                                           </div>
                                         <div className="flex-1 min-w-[200px] mx-auto"><Map address={event_data.venue_name.concat(", ", event_data.venue_address, ", ", event_data.venue_city, ", ON")} /></div>
-                                      </div>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
+                                      </div>) : (event_data.is_virtual_event &&  
+                                                    <div className="flex flex-row max-w-full justify-between items-start gap-4">
+                                                      <div className="p-3 bg-blue-400 rounded-full"><FaLocationDot size={32} /></div>
+                                                      <div>
+                                                        <h4 className="sm:text-4xl text-2xl font-bold">Location</h4>
+                                                        <h5 className="sm:text-2xl text-l font-light">Virtual</h5>
+                                                      </div>
+                                                    </div>
+                                      )}
           </SectionCard>
         </main>
       </>
