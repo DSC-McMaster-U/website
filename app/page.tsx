@@ -14,6 +14,7 @@ import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
 import { Metadata } from "next";
+import SolutionChallengeBanner from "./components/SolutionChallengeBanner";
 
 export const metadata: Metadata = {
   title: "Google Developer Group on Campus | McMaster University",
@@ -268,6 +269,7 @@ export default async function Index() {
       <Header />
       <main>
         <HeroSection />
+        <SolutionChallengeBanner />
         <AboutUsSection />
         <EventsSection />
         <NewslettersSection />
