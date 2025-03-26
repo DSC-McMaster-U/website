@@ -255,6 +255,26 @@ const TeamSection: FC = async () => {
   );
 };
 
+const SolutionChallengeSection: FC = async () => {
+  const description = "Registration for the 2025 North American Solution Challenge is officially open!";
+  const solutionChallengeLink = "https://gdg.community.dev/events/details/google-gdg-on-campus-mcmaster-university-hamilton-canada-presents-gdg-on-campus-mcmaster-solutions-challenge-2025-info/";
+  return (
+    <SectionCard id="solution-challenge" title="Solution Challenge 2025" description={description}>
+      <div className="text-left flex flex-col text-wrap">
+        <p>This year solutions challenge is running in collaboration with Google for Startups Accelerator Alumni, to solve a business problem by creating an innovative technical solution with demonstrated use of Google's tools or platforms that is powering their solution.</p>
+        <p>Each student team is to select one of the provided challenge prompts to submit a technical solution using 1 or more Google technologies.</p>
+        <p>➡️ Anyone interested in participating in the Solution Challenge should fill out the Entry Form as soon as possible</p>
+        <p><span className="font-semibold">Deadline to submit a project: </span> April 4th,   2025</p>
+        <Link href={solutionChallengeLink} className='h-fit'>
+          <ChevronArrowButton className="bg-red-500 hover:bg-red-600 transition-all duration-300 text-white-00 border-2 dark:border-black-00 border-white-00 min-w-44 items-center">
+            <span className="font-semibold p-1 px-2 text-lg">Learn More</span>
+          </ChevronArrowButton>
+        </Link>
+      </div>
+    </SectionCard>
+  );
+}
+
 const ThankYouSection = () => {
   return (
     <SectionCard id="thank-you" title="Our Appreciation" description="Thanks for visiting">
@@ -274,6 +294,7 @@ export default async function Index() {
         <EventsSection />
         <NewslettersSection />
         <TeamSection />
+        <SolutionChallengeSection />
         <ThankYouSection />
       </main>
     </>
