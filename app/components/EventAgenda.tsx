@@ -59,7 +59,6 @@ export default function EventAgenda({ agenda }: EventAgendaProps) {
             key={index} 
             className={`space-y-4 ${selectedIndex === index ? 'block' : 'hidden'}`}
           >
-            <h3 className="text-xl font-extrabold">{agendaDay.title}</h3>
             <ul className="space-y-6">
               {agendaDay.agenda.map((item: AgendaItem, innerIndex: number) => (
                 <li key={innerIndex} className="flex flex-col gap-3 p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
