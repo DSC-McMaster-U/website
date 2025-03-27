@@ -124,4 +124,11 @@ footer {
 .event-description {
   word-wrap: break-word;
   overflow-wrap: break-word;
+
+.event-description p {
+  margin-bottom: 5px;
+}
+
+.gm-title.gm-full-width {
+  color:black
 }

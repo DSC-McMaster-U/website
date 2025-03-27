@@ -7,6 +7,10 @@ import { formatDate, extractTime } from "../../lib/dateUtils";
 import { FaRegClock } from "react-icons/fa6";
 import SectionCard from "@/app/components/SectionCard";
 import Image from 'next/image';
+import Map from '@/app/components/Map';
+import { FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
+import { ChevronArrowButton } from "@/app/components/ChevronArrow";
 
 interface Event {
     start_date_iso: string,
@@ -25,6 +29,9 @@ interface Event {
     venue_city: string,
     venue_zip_code: string,
     is_virtual_event: boolean,
+    rsvp_only: boolean,
+    url: string,
+    completed: boolean,
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -78,15 +85,34 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
         <main>
           <HeroSection title={event_data.title} start_date={event_data.start_date_iso} end_date={event_data.end_date_iso} rsvpCount={event_data.total_attendees}/>
           <SectionCard title="" description="" id={"event-details-section"}>
-            <div className="max-w-full">
-              <Image width={500} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-full h-auto max-w-full rounded-lg mx-auto mb-20"></Image>
-              {event_data.venue_name  ? (<h4 className="mb-10">Location: {event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h4>) : (event_data.is_virtual_event && <h4 className="mb-10">Location: Online Event</h4>)}
+            <div>
+              <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
+              {event_data.rsvp_only && !event_data.completed && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
+              <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
           </SectionCard>
+          <SectionCard title="" description="" id={"event-details-location-section"}>
+            {event_data.venue_name  ? (<div className="flex flex-col sm:flex-row max-w-full justify-between items-start gap-4">
+                                          <div className="flex-1 flex items-start gap-5 my-auto">
+                                              <div className="p-3 bg-blue-400 text-white rounded-full"><FaLocationDot size={32} /></div>
+                                              <div>
+                                                <h4 className="sm:text-4xl text-2xl font-bold">Location</h4>
+                                                <h5 className="sm:text-2xl text-l font-light">{event_data.venue_name}, {event_data.venue_address}, {event_data.venue_city}, {event_data.venue_zip_code}</h5>
+                                              </div>
+                                          </div>
+                                        <div className="flex-1 min-w-[200px] mx-auto"><Map address={event_data.venue_name.concat(", ", event_data.venue_address, ", ", event_data.venue_city, ", ON")} /></div>
+                                      </div>) : (event_data.is_virtual_event &&  
+                                                    <div className="flex flex-row max-w-full justify-between items-start gap-4">
+                                                      <div className="p-3 bg-blue-400 rounded-full"><FaLocationDot size={32} /></div>
+                                                      <div>
+                                                        <h4 className="sm:text-4xl text-2xl font-bold">Location</h4>
+                                                        <h5 className="sm:text-2xl text-l font-light">Virtual</h5>
+                                                      </div>
+                                                    </div>
+                                      )}
+          </SectionCard>
         </main>
-
-      
       </>
     );
 }
