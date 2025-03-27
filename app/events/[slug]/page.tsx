@@ -48,7 +48,7 @@ interface Event {
       displayTime = extractTime(start_date, false)
     }
     return (
-        <AnimatedHero id="hero" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
+        <AnimatedHero id="hero" className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 xl:py-28 mt-8 flex md:flex-row flex-col gap-y-8 md:gap-y-0 items-center">
             <div className="w-full flex flex-col items-center">
                 <div className="flex flex-col items-center justify-center gap-y-4 max-w-2xl text-center">
                     <h2>{title}</h2>

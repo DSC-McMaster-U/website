@@ -121,6 +121,11 @@ footer {
   @apply underline;
 }
 
+.event-description {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 .event-description p {
   margin-bottom: 5px;
 }
