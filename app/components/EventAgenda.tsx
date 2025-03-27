@@ -41,7 +41,7 @@ export default function EventAgenda({ agenda }: EventAgendaProps) {
             {agenda.days.map((agendaDay: AgendaData, index: number) => (
               <li 
                 key={index} 
-                className={`text-lg font-semibold whitespace-nowrap cursor-pointer ${
+                className={`text-lg font-semibold hover:text-blue-400 whitespace-nowrap cursor-pointer ${
                   selectedIndex === index ? 'text-blue-400' : ''
                 }`}
                 onClick={() => setSelectedIndex(index)}
