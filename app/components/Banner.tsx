@@ -15,8 +15,8 @@ const Banner: React.FC<BannerProps> = ({ heading, link, buttonText }) => {;
     >
       <div className="flex flex-col md:flex-row justify-between md:justify-center gap-4 md:gap-24 items-center">
         <h1 className="text-4xl font-bold text-center md:text-left">{heading}</h1>
-        <Link href={link} passHref>
-          <ChevronArrowButton className="bg-red-500 hover:bg-red-600 transition-all duration-300 text-white-00 border-2 dark:border-black-00 border-white-00 min-w-44 items-center">
+        <Link href={link} target="_blank">
+          <ChevronArrowButton className="dark:bg-red-500 bg-yellow-500 hover:bg-yellow-600 dark:hover:bg-red-600 transition-all duration-500 text-white-00 border-2 dark:border-black-00 border-white-00 min-w-44 items-center">
             <span className="font-semibold p-1 px-2 text-lg">{buttonText}</span>
           </ChevronArrowButton>
         </Link>

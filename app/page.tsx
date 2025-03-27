@@ -14,7 +14,7 @@ import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
 import { Metadata } from "next";
-import SolutionChallengeBanner from "./components/SolutionChallengeBanner";
+import Banner from "./components/Banner";
 
 export const metadata: Metadata = {
   title: "Google Developer Group on Campus | McMaster University",
@@ -255,33 +255,20 @@ const TeamSection: FC = async () => {
   );
 };
 
-const SolutionChallengeSection: FC = async () => {
-  const sectionDesc = "Registration for the 2025 North American Solution Challenge is officially open!";
-  const solutionChallengeLink = "https://gdg.community.dev/events/details/google-gdg-on-campus-mcmaster-university-hamilton-canada-presents-gdg-on-campus-mcmaster-solutions-challenge-2025-info/";
+const AnnouncementBanner: FC = async () => {
+  // TO-DO:
+  //   get header, link, button-text from sanity
   
-  const whatDesc = "This year's Solution Challenge is running in collaboration with Google for Startups Accelerator Alumni, to solve a business problem by creating an innovative technical solution with demonstrated use of Google's tools or platforms that is powering their solution.";
-  const whenDesc = "➡️ Anyone interested in participating in the Solution Challenge should fill out the Entry Form as soon as possible.";
+  const heading = "🚀 Join the Solution Challenge 2025!"
+  const link = "https://gdg.community.dev/events/details/google-gdg-on-campus-mcmaster-university-hamilton-canada-presents-gdg-on-campus-mcmaster-solutions-challenge-2025-info/";
+  const buttonText = "Learn More"
 
   return (
-    <SectionCard id="solution-challenge" title="Solution Challenge 2025" description={sectionDesc}>
-      <div className="text-left flex flex-col text-wrap gap-2">
-        <Card title="What is the Solution Challenge?" description={whatDesc}>
-        </Card>
-        <Card title="When is it?" description={whenDesc}>
-          <div className="flex flex-col text-center w-max items-center">
-            <p className=""><span className="font-semibold">Deadline to submit a project: </span> April 4th,   2025</p>
-          </div>
-        </Card>
-        <Card >
-          <Link href={solutionChallengeLink} className='h-fit'>
-            <ChevronArrowButton className="bg-red-500 hover:bg-red-600 transition-all duration-300 text-white-00 border-2 dark:border-black-00 border-white-00 min-w-44 items-center">
-              <span className="font-semibold p-1 px-2 text-lg">Learn More / Register</span>
-            </ChevronArrowButton>
-          </Link>
-        </Card>
-        
-      </div>
-    </SectionCard>
+    <Banner
+      heading={heading}
+      link={link}
+      buttonText={buttonText}
+    />
   );
 }
 
@@ -299,12 +286,11 @@ export default async function Index() {
       <Header />
       <main>
         <HeroSection />
-        <SolutionChallengeBanner />
+        <AnnouncementBanner />
         <AboutUsSection />
         <EventsSection />
         <NewslettersSection />
         <TeamSection />
-        <SolutionChallengeSection />
         <ThankYouSection />
       </main>
     </>
