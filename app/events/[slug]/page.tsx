@@ -32,8 +32,21 @@ interface Event {
     rsvp_only: boolean,
     url: string,
     completed: boolean,
+    agenda: string,
   }
 
+  interface AgendaData {
+    title: string,
+    agenda: Array<AgendaItem>,
+  }
+
+  interface AgendaItem {
+    time: string,
+    activity: string,
+    description: string,
+    audience_type: string,
+  }
+  
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
     const formattedStartDate = formatDate(start_date);
     const formattedEndDate = formatDate(end_date);
@@ -79,19 +92,44 @@ interface Event {
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const { event_data }: { event_data: Event } = await getEvent(slug);
+    const parsedAgenda = JSON.parse(event_data.agenda);
+
+    console.log(parsedAgenda);
+    console.log(parsedAgenda.days[0].agenda);
+
     return (
       <>
         <Header/>
         <main>
           <HeroSection title={event_data.title} start_date={event_data.start_date_iso} end_date={event_data.end_date_iso} rsvpCount={event_data.total_attendees}/>
-          <SectionCard title="" description="" id={"event-details-section"}>
+          <SectionCard title="About This Event" description="" id={"event-details-section"}>
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
               {event_data.rsvp_only && !event_data.completed && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
-              <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
           </SectionCard>
+          {!parsedAgenda.empty && <SectionCard title="Event Agenda" description="" id={"event-details-agenda-section"}>
+            <ul>
+              {parsedAgenda.days.map((agendaDay: AgendaData , index: number) => (
+                <li key={index}>
+                  <h3>{agendaDay.title}</h3>
+                  <ul>
+                    {agendaDay.agenda.map((item: AgendaItem, innerIndex: number) => (
+                      <li key={innerIndex}>
+                        <h4>{item.activity}</h4>
+                        <p>{item.time}</p>
+                        <p>{item.description}</p>
+
+                      </li>
+                    ))}
+                  </ul>
+
+                </li>
+              ))}
+            </ul>
+
+          </SectionCard>}
           <SectionCard title="" description="" id={"event-details-location-section"}>
             {event_data.venue_name  ? (<div className="flex flex-col sm:flex-row max-w-full justify-between items-start gap-4">
                                           <div className="flex-1 flex items-start gap-5 my-auto">
