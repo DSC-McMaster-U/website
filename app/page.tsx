@@ -14,6 +14,7 @@ import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
 import { Metadata } from "next";
+import Banner from "./components/Banner";
 
 export const metadata: Metadata = {
   title: "Google Developer Group on Campus | McMaster University",
@@ -254,6 +255,23 @@ const TeamSection: FC = async () => {
   );
 };
 
+const AnnouncementBanner: FC = async () => {
+  // TO-DO:
+  //   get header, link, button-text from sanity
+  
+  const heading = "🚀 Join the Solution Challenge 2025!"
+  const link = "https://gdg.community.dev/events/details/google-gdg-on-campus-mcmaster-university-hamilton-canada-presents-gdg-on-campus-mcmaster-solutions-challenge-2025-info/";
+  const buttonText = "Learn More"
+
+  return (
+    <Banner
+      heading={heading}
+      link={link}
+      buttonText={buttonText}
+    />
+  );
+}
+
 const ThankYouSection = () => {
   return (
     <SectionCard id="thank-you" title="Our Appreciation" description="Thanks for visiting">
@@ -268,6 +286,7 @@ export default async function Index() {
       <Header />
       <main>
         <HeroSection />
+        <AnnouncementBanner />
         <AboutUsSection />
         <EventsSection />
         <NewslettersSection />
