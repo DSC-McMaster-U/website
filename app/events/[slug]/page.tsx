@@ -32,6 +32,7 @@ interface Event {
     rsvp_only: boolean,
     url: string,
     completed: boolean,
+    tags: [string],
   }
 
   const HeroSection = ({ title, start_date, end_date, rsvpCount }: { title: string, start_date: string, end_date: string, rsvpCount: number }) => {
@@ -88,6 +89,21 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             <div>
               <Image width={2000} height={300} src={event_data.banner ? event_data.banner : event_data.chapter_banner} alt="Banner Image" className="w-auto h-auto rounded-lg mx-auto mb-20"></Image>
               {event_data.rsvp_only && !event_data.completed && <ChevronArrowButton className="dark:bg-white-00 bg-black-00 dark:text-black-00 text-white-00 border-2 dark:border-black-00 border-white-00 mb-10"><Link target="_blank" href={event_data.url}><span className="font-semibold text-2xl">RSVP</span></Link></ChevronArrowButton>}
+              {event_data.tags && 
+                <div className="mb-10">
+                  <h2 className="font-bold mb-6">Key Themes</h2>
+                  <ul className="flex flex-col sm:flex-row gap-4">
+                    {event_data.tags.map((theme, index) => (
+                      <li key={index}>
+                        <Pill>
+                          <span>{theme}</span>
+                        </Pill>
+                      </li>
+                    ))}         
+                  </ul>
+                </div>
+              
+              }
               <h2 className="font-bold mb-10">About This Event</h2>
               <div className="event-description" dangerouslySetInnerHTML={{ __html: event_data.description }} />
             </div>
