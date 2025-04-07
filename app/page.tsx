@@ -14,6 +14,7 @@ import Card from "./components/Card";
 import Heart from "./components/svgs/Heart";
 import AnimatedHero, { AnimatedHeroSvg } from "./components/AnimatedHero";
 import { Metadata } from "next";
+import InfiniteCarousel from "@/app/components/InfiniteCarousel";
 
 export const metadata: Metadata = {
   title: "Google Developer Group on Campus | McMaster University",
@@ -212,33 +213,12 @@ const TeamSection: FC = async () => {
                       <span className="text-black-03 dark:text-white-03">{teamItem.description}</span>
                     </div>
                   }
-                  {isInfiniteCarousel && (
-                    <div className="relative overflow-x-auto ">
-                      <div className="flex flex-row space-x-4">
-                        {teamItem.projects?.map(({ _key, name, image, link }: Project) => (
-                          <div className="flex flex-col gap-y-2" key={_key}>
-                            <Link href={link} target="_blank" rel="noreferrer">
-                              <div className="h-40 w-40 md:w-64 rounded-xl bg-white-03 dark:bg-black-03 flex items-center justify-center">
-                                { image ?
-                                  <Image 
-                                    src={urlFor(image.asset).url()}
-                                    alt={name}
-                                    width={150}
-                                    height={150}
-                                  />
-                                  :
-                                  <Icons.MdCode size={200} className="text-2xl" />
-                                }
-                              </div>
-                            </Link>
-                            <div className="flex flex-col items-center w-40 md:w-64">
-                              <span className="break-words text-center max-w-full">{name}</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+
+                  {isInfiniteCarousel && teamItem.projects && (
+                    <InfiniteCarousel projects={teamItem.projects} />
                   )}
+
+
                 </div>
               </Card>
             </div>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 export default {
   content: [
@@ -38,15 +39,25 @@ export default {
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 25s linear infinite',
+        marquee: "marquee 30s linear infinite",
       },
       keyframes: {
-        'infinite-scroll': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-40%)" }, // assuming you doubled content
         },
       },
       backgroundImage: {
         'newsletter-card-gradient': '',
+      },
+      scrollbarHide: {
+        "scrollbar-hide": {
+          "-ms-overflow-style": "none", // IE and Edge
+          "scrollbar-width": "none", // Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // Chrome, Safari, Edge
+          },
+        },
       },
     },
   },
@@ -56,5 +67,18 @@ export default {
     },
   },
   darkMode: "media",
-  plugins: [],
+  plugins: [
+    plugin(({ addUtilities }) => {
+      const newUtilities = {
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none", // Hide scrollbar in IE & Edge
+          "scrollbar-width": "none", // Hide scrollbar in Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // Hide scrollbar in Chrome, Safari, Edge
+          },
+        },
+      };
+      addUtilities(newUtilities);
+    }),
+  ],
 } satisfies Config;
