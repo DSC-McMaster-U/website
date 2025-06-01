@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { FC } from "react";
-import { About, AboutCard, GeneralInfo, Newsletter, Project, Sponsor, Team, TeamItem } from "@/types/sanity";
+import { About, AboutCard, GeneralInfo, Newsletter, Sponsor, Team, TeamItem } from "@/types/sanity";
 import Link from "next/link";
 import Ticker from "@/app/components/Ticker";
 import { urlFor } from "@/sanity/lib/image";
